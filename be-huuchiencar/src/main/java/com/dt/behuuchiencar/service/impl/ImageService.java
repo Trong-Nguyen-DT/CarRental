@@ -16,6 +16,9 @@ public class ImageService {
     @Value("${imagePath}")
     private String imagePath;
 
+    @Value("${server.domain}")
+    private String serverDomain;
+
     public String uploadImage(MultipartFile multipartFile) {
         String fileName = generateFileName(multipartFile);
         File file = new File(imagePath + fileName);
@@ -36,7 +39,7 @@ public class ImageService {
     }
 
     private String generateUrlFile(String fileName) {
-        return "images/" + fileName;
+        return serverDomain + "images/" + fileName;
     }
     
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dt.behuuchiencar.constant.ErrorConstants;
 import com.dt.behuuchiencar.constant.SuccessConstants;
 import com.dt.behuuchiencar.exception.MessageException;
-import com.dt.behuuchiencar.model.Car;
 import com.dt.behuuchiencar.model.request.CarStatusInput;
 import com.dt.behuuchiencar.model.request.CarUpdateInput;
 import com.dt.behuuchiencar.model.response.Response;
