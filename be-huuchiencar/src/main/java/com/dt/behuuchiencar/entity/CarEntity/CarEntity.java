@@ -28,6 +28,9 @@ public class CarEntity {
     @NotBlank
     private String numberPlate;
 
+    @NotBlank
+    private String name;
+
     @NotNull
     private String status;
 
