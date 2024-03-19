@@ -1,3 +1,3 @@
-const appURL = 'http://192.168.1.29:8080';
+const appURL = 'http://18.212.213.232:80/';
 
 export default appURL;

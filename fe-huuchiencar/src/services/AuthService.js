@@ -9,5 +9,13 @@ const login = async (username, password) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      const response = await axios.post('/api/auth/logout');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
 
-  export { login };
+  export { login, logout };
