@@ -1,11 +1,10 @@
-package com.dt.behuuchiencar.entity.CarEntity;
+package com.dt.behuuchiencar.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -14,38 +13,31 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "cars", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {
-            "numberPlate"
-    })
-})
-public class CarEntity {
+@Table(name = "template_contracts")
+public class TemplateContractEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String numberPlate;
-
-    @NotBlank
     private String name;
-
-    @NotNull
-    private String status;
-
-    @NotNull
-    private Long odo;
-
-    @NotNull
-    private Long rentCost;
+    
+    @NotBlank
+    private String phone;
 
     @NotBlank
-    private String image;
+    private String address;
+
+    @NotBlank
+    private String signatureImage;
 
     @NotNull
-    private Long revenue;
+    private int prepay;
 
     @NotNull
-    private Boolean deleted;
+    private Long maximumDistance;
+
+    @NotNull
+    private int surcharge;
 }

@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dt.behuuchiencar.service.impl.ImageService;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
