@@ -33,9 +33,6 @@ public class TemplateContractEntity {
     private String signatureImage;
 
     @NotNull
-    private int prepay;
-
-    @NotNull
     private Long maximumDistance;
 
     @NotNull

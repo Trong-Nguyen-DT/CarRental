@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dt.behuuchiencar.constant.ErrorConstants;
 import com.dt.behuuchiencar.constant.SuccessConstants;
 import com.dt.behuuchiencar.exception.MessageException;
-import com.dt.behuuchiencar.model.request.CarInput;
+import com.dt.behuuchiencar.model.request.ContractInput;
 import com.dt.behuuchiencar.model.response.Response;
 import com.dt.behuuchiencar.model.response.ResponseBody;
 import com.dt.behuuchiencar.model.response.ResponsesBody;
-import com.dt.behuuchiencar.service.CarService;
+import com.dt.behuuchiencar.service.ContractService;
 
 import jakarta.validation.Valid;
 
@@ -27,23 +27,24 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
 @RestController
-@RequestMapping("api/user/cars")
-public class CarUserController {
+@RequestMapping("api/user/contracts")
+public class ContractUserController {
 
     @Autowired
-    private CarService carService;
+    private ContractService contractService;
     
     @GetMapping()
-    public ResponseEntity<?> getMethodName() {
+    public ResponseEntity<?> getAllContract() {
         try {
             ResponsesBody responseBody = new ResponsesBody();
             responseBody.setCode(SuccessConstants.OK_CODE);
             responseBody.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            responseBody.setData(carService.getAllCar());
+            responseBody.setData(contractService.getAllContract());
             return ResponseEntity.ok().body(responseBody);
         } catch (MessageException e) {
             return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
@@ -51,12 +52,12 @@ public class CarUserController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createNewCar(@Valid CarInput carInput) {
+    public ResponseEntity<?> createContract(@Valid @RequestBody ContractInput input) {
         try {
             ResponseBody body = new ResponseBody();
             body.setCode(SuccessConstants.CREATED_CODE);
             body.setMessage(Arrays.asList(SuccessConstants.CREATED_MESSAGE));
-            body.setData(carService.createCar(carInput));
+            body.setData(contractService.createContract(input));
             return ResponseEntity.status(HttpStatus.CREATED).body(body);
         } catch (MessageException e) {
             return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
