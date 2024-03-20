@@ -6,7 +6,7 @@ const getAllCustomer = async (accessToken) => {
             throw new Error('Missing accessToken');
         }
 
-        const response = await axios.get('/api/user/customers', {
+        const response = await axios.get('user/customers', {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -20,4 +20,26 @@ const getAllCustomer = async (accessToken) => {
     }
 };
 
-export { getAllCustomer };
+
+const createCustomer = async (accessToken, formData) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.post('user/customers', formData, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createCustomer:', error);
+        throw error;
+    }
+};
+
+export { getAllCustomer, createCustomer };

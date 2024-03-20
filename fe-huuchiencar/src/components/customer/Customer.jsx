@@ -4,11 +4,14 @@ import { getAllCustomer } from "../../services/UserService";
 import { toast } from "react-toastify";
 import styles from './Customer.module.css';
 import CreateCustomer from "./CreateCustomer";
+import CustomerDetail from "./CustomerDetail";
 
 function Customer() {
     const [searchText, setSearchText] = useState("");
     const [listItems, setListItems] = useState([]);
     const [originalList, setOriginalList] = useState([]);
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
 
     useEffect(() => {
         getAllCustomers();
@@ -41,6 +44,14 @@ function Customer() {
         }
     };
 
+    const handleShowCreateModal = () => {
+        setShowCreateModal(true);
+    };
+
+    const handleCustomerClick = (customer) => {
+        setSelectedCustomer(customer);
+    };
+
     return (
         <section className={styles.dashboard}>
             <div className={styles.top}>
@@ -54,7 +65,7 @@ function Customer() {
                     />
                 </div>
                 <div className={styles.buttonAdd}>
-                    <button >
+                    <button onClick={handleShowCreateModal}>
                     <i className="uil uil-plus"></i>
                     </button>
                 </div>
@@ -66,12 +77,11 @@ function Customer() {
                             <th>STT</th>
                             <th>Tên</th>
                             <th>SĐT</th>
-                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         {listItems.map((item, index) => (
-                            <tr key={index}>
+                            <tr key={index} onClick={() => handleCustomerClick(item)}>
                                 <td>{index + 1}</td>
                                 <td>{item.name}</td>
                                 <td>{item.phone}</td>
@@ -80,7 +90,12 @@ function Customer() {
                     </tbody>
                 </Table>
             </div>
-            <CreateCustomer/>
+            <div className={styles.createModal}>
+                <CreateCustomer show={showCreateModal} handleClose={() => setShowCreateModal(false)} />
+            </div>
+            {selectedCustomer && (
+                <CustomerDetail customer={selectedCustomer} handleClose={() => setSelectedCustomer(null)} />
+            )}
         </section>
     );
 }
