@@ -11,7 +11,6 @@ public class TemplateContract {
     private String phone;
     private String address;
     private String signatureImage;
-    private int prepay;
     private Long maximumDistance;
     private int surcharge;
 }
