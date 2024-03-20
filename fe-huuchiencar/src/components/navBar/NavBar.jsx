@@ -58,14 +58,14 @@ const NavBar = () => {
                             </li>
 
                             <li className={styles.menu_li}>
-                                <Link to="/user/reviewers" onClick={() => handleNavClick('Reviewer')}>
+                                <Link to="/cars" onClick={() => handleNavClick('Reviewer')}>
                                     <i className="uil uil-car"></i>
                                     <span className={styles.link_name}>Xe</span>
                                 </Link>
                             </li>
 
                             <li className={styles.menu_li}>
-                            <Link Link to="/user/blogs" onClick={() => handleNavClick('Blog')}>
+                            <Link Link to="/customers" onClick={() => handleNavClick('Blog')}>
                                 <i className="uil uil-user"></i>
                                 <span className="styles.link_name">Khách hàng</span>
                             </Link>
