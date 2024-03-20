@@ -1,6 +1,6 @@
 header {
     width: 100%;
-    background-color: black;
+    background-color:black;
     position: relative;
     top: 0;
     left: 0;
@@ -11,17 +11,14 @@ header {
     font-family: "Poppins", sans-serif;
 }
 
-.bar {
+ .bar {
     color: aliceblue;
     position: relative;
     margin: auto 5%;
 }
 
 .bar i {
-    font-size: 24px;
-    height: 24px;
-    color: bisque;
-    background-color: blueviolet;
+    font-size: 24pt;
 }
 
 .logo {
@@ -32,3 +29,18 @@ header {
 .logo img {
     width: 100%;
 }
+/* Header.module.css */
+.showMenu {
+    position: absolute;
+    top: 100%; /* Hiển thị menu ở dưới header */
+    left: 0;
+    width: 100%; /* Menu chiếm toàn bộ chiều rộng */
+    z-index: 1000; /* Đảm bảo menu hiển thị trên các phần tử khác */
+    display: none; /* Mặc định ẩn menu */
+}
+
+.showMenu {
+    display: block; /* Hiển thị menu khi showMenu là true */
+}
+
+

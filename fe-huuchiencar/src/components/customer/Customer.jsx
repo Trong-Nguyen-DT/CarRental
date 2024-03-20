@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { getAllCustomer } from "../../services/UserService";
 import { toast } from "react-toastify";
+import styles from './Customer.module.css';
+import CreateCustomer from "./CreateCustomer";
 
 function Customer() {
     const [searchText, setSearchText] = useState("");
@@ -40,19 +42,24 @@ function Customer() {
     };
 
     return (
-        <section className="dashboard">
-            <div className="top">
-                <div className="search-box">
+        <section className={styles.dashboard}>
+            <div className={styles.top}>
+                <div className={styles.search_box}>
                     <i className="uil uil-search"></i>
                     <input
                         type="text"
-                        placeholder="Search here..."
+                        placeholder="Tìm kiếm"
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
+                <div className={styles.buttonAdd}>
+                    <button >
+                    <i className="uil uil-plus"></i>
+                    </button>
+                </div>
             </div>
-            <div className="dash-content">
+            <div className={styles.dash_content}>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -73,6 +80,7 @@ function Customer() {
                     </tbody>
                 </Table>
             </div>
+            <CreateCustomer/>
         </section>
     );
 }

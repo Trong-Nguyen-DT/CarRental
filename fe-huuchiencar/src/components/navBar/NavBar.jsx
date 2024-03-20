@@ -44,9 +44,9 @@ const NavBar = () => {
                 href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
             ></link>
             <nav>
-                <div className={styles.logo}>
+                {/* <div className={styles.logo}>
                     <img src={require('../../assets/image/logo.jpg')} alt="Logo" />
-                </div>
+                </div> */}
                 <div className={styles.menu_items}>
                     <ul className={styles.menu_links}>
                         <div>

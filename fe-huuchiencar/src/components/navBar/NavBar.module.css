@@ -6,26 +6,43 @@
         font-family: "Poppins", sans-serif;
     }
     nav {
-        width: 20%;
-        background-color: rgb(1, 1, 7);
-    }
-    .logo {
-        width: 100%;
-        justify-content: center;
         align-items: center;
+        width: 45%;
+        background-color: rgb(1, 1, 7);
+        height: 100vh;
     }
-    .logo img {
-        width: 50%;
-        margin-left: 18%;
-        margin-top: 7%;
-    }
+
     .menu_links li {
-        padding-top: 8%;
+        list-style: none;
+        padding-top: 18%;
+        padding-left: 12%;
+    }
+    .menu_links li i{
+        font-size: 20pt;
+        padding-right: 5%;
     }
     .menu_links li a {
+        
+        font-size: 13pt;
        text-decoration: none;
        color: aliceblue;
        font-weight: bolder;
+    }
+    .logout{
+        width: 100%;
+        position: absolute;
+        bottom: 4%;
+        left: 3%;
+    }
+    .logout li i{
+        font-size: 20pt;
+        padding-right: 5%;
+    }
+    .logout li a{
+        font-size: 13pt;
+        text-decoration: none;
+        color: aliceblue;
+        font-weight: bolder;
     }
 }
 
