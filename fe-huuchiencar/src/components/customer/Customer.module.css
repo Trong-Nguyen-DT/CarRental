@@ -47,12 +47,12 @@
         color: white;
     }
     
-    .top .buttonAdd 
+    /* .top .buttonAdd 
     {
          margin: 0 auto;
         width: 10%;
-    }
-    .top .buttonAdd button{
+    } */
+    .top  button{
         margin: 20%;
         color: white;
         font-weight: bolder;
@@ -61,7 +61,7 @@
         height: 30px;
         border: none;
     }
-    .top .buttonAdd button i{
+    .top  button i{
         color: black;
         background-color: aliceblue;
         font-weight: bolder;
@@ -112,6 +112,6 @@
         text-align: center;
         width: 10%;
     }
-
-        
 }
+
+

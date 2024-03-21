@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Modal, Table } from "react-bootstrap";
 import { getAllCustomer } from "../../services/UserService";
 import { toast } from "react-toastify";
 import styles from './Customer.module.css';
@@ -10,9 +10,14 @@ function Customer() {
     const [searchText, setSearchText] = useState("");
     const [listItems, setListItems] = useState([]);
     const [originalList, setOriginalList] = useState([]);
-    const [showCreateModal, setShowCreateModal] = useState(false);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const [showCustomerDetailModal, setShowCustomerDetailModal] = useState(false);
 
+    const handleCloseCustomerDetailModal = () => {
+        setShowCustomerDetailModal(false);
+    };
+
+    
     useEffect(() => {
         getAllCustomers();
     }, []);
@@ -44,12 +49,9 @@ function Customer() {
         }
     };
 
-    const handleShowCreateModal = () => {
-        setShowCreateModal(true);
-    };
-
     const handleCustomerClick = (customer) => {
         setSelectedCustomer(customer);
+        setShowCustomerDetailModal(true);
     };
 
     return (
@@ -64,11 +66,7 @@ function Customer() {
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
-                <div className={styles.buttonAdd}>
-                    <button onClick={handleShowCreateModal}>
-                    <i className="uil uil-plus"></i>
-                    </button>
-                </div>
+                <CreateCustomer />
             </div>
             <div className={styles.dash_content}>
                 <Table striped bordered hover>
@@ -90,12 +88,12 @@ function Customer() {
                     </tbody>
                 </Table>
             </div>
-            <div className={styles.createModal}>
-                <CreateCustomer show={showCreateModal} handleClose={() => setShowCreateModal(false)} />
-            </div>
-            {selectedCustomer && (
-                <CustomerDetail customer={selectedCustomer} handleClose={() => setSelectedCustomer(null)} />
-            )}
+            <Modal show={showCustomerDetailModal} onHide={handleCloseCustomerDetailModal}>
+                <CustomerDetail
+                            customer={selectedCustomer}
+                            handleClose={handleCloseCustomerDetailModal}
+                        />
+            </Modal>
         </section>
     );
 }
