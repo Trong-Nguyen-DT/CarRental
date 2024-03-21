@@ -2,7 +2,7 @@ import axios from "./customize-axios";
 
 const login = async (username, password) => {
     try {
-      const response = await axios.post('/api/auth/login', { username, password });
+      const response = await axios.post('auth/login', { username, password });
       return response.data;
     } catch (error) {
       throw error;
@@ -11,7 +11,7 @@ const login = async (username, password) => {
 
   const logout = async () => {
     try {
-      const response = await axios.post('/api/auth/logout');
+      const response = await axios.post('auth/logout');
       return response.data;
     } catch (error) {
       throw error;

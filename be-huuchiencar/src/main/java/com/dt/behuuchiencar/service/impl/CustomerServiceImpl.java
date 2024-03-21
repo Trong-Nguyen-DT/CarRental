@@ -34,6 +34,9 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public Customer createCustomer(CustomerInput customer) {
+        if (customerRepository.existsByCitizenId(customer.getCitizenId())) {
+            throw new MessageException(ErrorConstants.INVALID_CITIZENID_MESSAGE, ErrorConstants.INVALID_CITIZENID_CODE);
+        }
         CustomerEntity entity = new CustomerEntity();
         entity.setName(customer.getName());
         entity.setPhone(customer.getPhone());

@@ -96,10 +96,25 @@
 }
 .carStatus button{
     width: 100%;
-    background-color: green;
     border-radius: 20px;
-    border: green;
-    color: white;
     font-size: 8pt;
     padding: 3px;
+}
+
+.booked {
+    background-color: red;
+    color: white;
+    border: red;
+  }
+  
+  .inactive {
+    background-color: gray; 
+    color: black;
+    border: gray;
+}
+  
+  .active {
+    background-color: green; 
+    color: white;
+    border: green;
 }
