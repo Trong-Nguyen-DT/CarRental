@@ -42,4 +42,45 @@ const createCustomer = async (accessToken, formData) => {
     }
 };
 
-export { getAllCustomer, createCustomer };
+const getAllCar = async (accessToken) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.get('user/cars', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in getAllCustomer:', error);
+        throw error;
+    }
+};
+
+const createCar = async (accessToken, formData) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.post('user/cars', formData, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createCustomer:', error);
+        throw error;
+    }
+};
+
+export { getAllCustomer, createCustomer, getAllCar, createCar };

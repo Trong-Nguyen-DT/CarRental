@@ -26,5 +26,5 @@ public class CarInput {
     private Long rentCost;
 
     @NotNull
-    private MultipartFile image;
+    private MultipartFile image;    
 }
