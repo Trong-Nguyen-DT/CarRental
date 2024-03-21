@@ -15,7 +15,6 @@ public class ContractConvertor {
         contract.setEndDate(entity.getEndDate());
         contract.setOriginalOdo(entity.getOriginalOdo());
         contract.setPrePay(entity.getPrePay());
-        contract.setLaterPay(entity.getLaterPay());
         contract.setCustomer(CustomerConvertor.toModel(entity.getCustomerEntity()));
         contract.setUser(UserConvertor.toModel(entity.getUserEntity()));
         contract.setCar(CarConvertor.toModel(entity.getCarEntity()));
