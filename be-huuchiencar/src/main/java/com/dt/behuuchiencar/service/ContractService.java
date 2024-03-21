@@ -13,5 +13,7 @@ public interface ContractService {
     List<Object> getAllContract();
 
     Contract createContract(ContractInput input);
+
+    List<Object> getAllContractByCustomer(Long customerId);
     
 }

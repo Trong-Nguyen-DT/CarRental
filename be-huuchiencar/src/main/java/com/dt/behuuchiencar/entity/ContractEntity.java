@@ -45,45 +45,18 @@ public class ContractEntity {
     private Long surcharge;
 
     private Long totalPrice;
-
-    @NotNull
-    private String status;
     
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private CustomerEntity customerEntity;
 
-    private Long idCustomer;
-
-    private String nameCustomer;
-
-    private String phoneCustomer;
-
-    private String citizenId;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
-    private Long idUser;
-
-    private String nameUser;
-
-    private String phoneUser;
-
-    private String addressUser;
-
     @ManyToOne
     @JoinColumn(name = "car_id")
     private CarEntity carEntity;
-
-    private Long idCar;
-
-    private String numberPlateCar;
-
-    private String nameCar;
-
-    private String rentCostCar;
 
     @ManyToOne
     @JoinColumn(name = "template_contract_id")

@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public List<Object> getAllCustomer() {
         return CustomerConvertor.convertToObjects(customerRepository
-                .findByDeletedFalse()
+                .findByDeletedFalseOrderByIdDesc()
                 .stream()
                 .map(CustomerConvertor::toModel)
                 .toList());
