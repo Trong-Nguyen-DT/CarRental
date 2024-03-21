@@ -11,5 +11,5 @@ import com.dt.behuuchiencar.entity.CustomerEntity;
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
     boolean existsByCitizenId(String citizenId);
     
-    List<CustomerEntity> findByDeletedFalse();
+    List<CustomerEntity> findByDeletedFalseOrderByIdDesc();
 }

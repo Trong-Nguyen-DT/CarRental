@@ -13,7 +13,9 @@ public class Contract {
     private LocalDate endDate;
     private Long originalOdo;
     private Long prePay;
-    private Long laterPay;
+    private Long provisional;
+    private Long surcharge;
+    private Long totalPrice;
     private Customer customer;
     private User user;
     private Car car;

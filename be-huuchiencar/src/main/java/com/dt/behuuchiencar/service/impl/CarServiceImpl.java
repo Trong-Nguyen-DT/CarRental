@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.dt.behuuchiencar.constant.ErrorConstants;
 import com.dt.behuuchiencar.convertor.CarConvertor;
+import com.dt.behuuchiencar.convertor.CustomerConvertor;
+import com.dt.behuuchiencar.entity.CustomerEntity;
 import com.dt.behuuchiencar.entity.CarEntity.CarEntity;
 import com.dt.behuuchiencar.entity.CarEntity.CarStatus;
 import com.dt.behuuchiencar.exception.MessageException;
@@ -15,6 +17,7 @@ import com.dt.behuuchiencar.model.request.CarInput;
 import com.dt.behuuchiencar.model.request.CarStatusInput;
 import com.dt.behuuchiencar.model.request.CarUpdateInput;
 import com.dt.behuuchiencar.repository.CarRepository;
+import com.dt.behuuchiencar.repository.CustomerRepository;
 import com.dt.behuuchiencar.service.CarService;
 import com.dt.behuuchiencar.validate.CarStatusValidate;
 
@@ -27,14 +30,25 @@ public class CarServiceImpl implements CarService {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @Override
     public List<Object> getAllCar() {
         return CarConvertor.convertToObjects(
-                    carRepository.findByDeletedFalse()
-                            .stream()
-                            .map(CarConvertor::toModel)
-                            .toList()
-        );
+                carRepository.findAllByDeletedFalseOrderByIdDesc()
+                        .stream()
+                        .map(carEntity -> {
+                            Car car = CarConvertor.toModel(carEntity);
+                            if (carEntity.getCustomerId() != null) {
+                                CustomerEntity customer = customerRepository.findById(carEntity.getCustomerId())
+                                        .orElseThrow(() -> new MessageException(
+                                                ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+                                car.setCustomer(CustomerConvertor.toModel(customer));
+                            }
+                            return car;
+                        })
+                        .toList());
     }
 
     @Override
@@ -75,6 +89,7 @@ public class CarServiceImpl implements CarService {
     }
 
     private CarEntity getCarById(Long id) {
-        return carRepository.findById(id).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+        return carRepository.findById(id).orElseThrow(
+                () -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
     }
 }

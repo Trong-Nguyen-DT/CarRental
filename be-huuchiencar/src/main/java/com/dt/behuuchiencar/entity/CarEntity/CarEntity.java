@@ -52,6 +52,8 @@ public class CarEntity {
     @NotNull
     private Long revenue;
 
+    private Long customerId;
+
     @NotNull
     private Boolean deleted;
 

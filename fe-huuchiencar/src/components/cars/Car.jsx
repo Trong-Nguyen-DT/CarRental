@@ -3,11 +3,14 @@ import styles from './Car.module.css';
 import { toast } from 'react-toastify';
 import { getAllCar } from '../../services/UserService';
 import CreateCar from './CreateCar';
+import CarDetail from './CarDetail';
 
 const Car = () => {
     const [searchText, setSearchText] = useState("");
     const [listItems, setListItems] = useState([]);
     const [originalList, setOriginalList] = useState([]);
+    const [showModalCarDetail, setShowModalCarDetail] = useState(false);
+    const [selectedCar, setSelectedCar] = useState(null);
 
     useEffect(() => {
         getAllCars();
@@ -16,6 +19,11 @@ const Car = () => {
     useEffect(() => {
         handleSearchChange();
     }, [searchText]);
+
+    const handleCarClick = (car) => {
+        setSelectedCar(car);
+        setShowModalCarDetail(true);
+    };
 
     const handleSearchChange = () => {
         if (searchText.trim() === "") {
@@ -44,27 +52,27 @@ const Car = () => {
             case 'BOOKED':
                 return styles.booked;
             case 'INACTIVE':
-                return styles.inactive; 
+                return styles.inactive;
             case 'ACTIVE':
                 return styles.active;
             default:
-                return ''; 
+                return '';
         }
     };
-    
+
     const getStatusText = (status) => {
         switch (status) {
             case 'BOOKED':
                 return 'Đã đặt';
             case 'INACTIVE':
-                return 'Trống'; 
+                return 'Trống';
             case 'ACTIVE':
                 return 'Hoạt động';
             default:
                 return '';
         }
     };
-    
+
 
     return (
         <section className={styles.car}>
@@ -78,10 +86,10 @@ const Car = () => {
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
-                <CreateCar/>
+                <CreateCar />
             </div>
             {listItems.map((car, index) => (
-                <div key={index} className={styles.itemCar}>
+                <div key={index} className={styles.itemCar} onClick={() => handleCarClick(car)}>
                     <div className={styles.imageCar}>
                         <img src={car.image} alt="Car" />
                     </div>
@@ -91,20 +99,21 @@ const Car = () => {
                             <p>Giá: {car.price} VNĐ/ngày</p>
                             <p>Biển số: {car.numberPlate}</p>
                         </div>
-                        <div className={styles.infoCustomer}>
-                            <p>Khách hàng: {car.customerName}</p>
-                            <p>SĐT: {car.customerPhone}</p>
-                        </div>
+                        {car.customer && (
+                            <div className={styles.infoCustomer}>
+                                <p>Khách hàng: {car.customer.name}</p>
+                                <p>SĐT: {car.customer.phone}</p>
+                            </div>
+                        )}
                         <div className={styles.carStatus}>
                             <button className={`${styles.statusButton} ${getStatusColor(car.status)}`}>
                                 {getStatusText(car.status)}
                             </button>
                         </div>
-
                     </div>
                 </div>
             ))}
-
+            <CarDetail car={selectedCar} showModal={showModalCarDetail} onClose={() => setShowModalCarDetail(false)} />
         </section>
     );
 }

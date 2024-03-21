@@ -16,7 +16,7 @@ public class Car {
     private String numberPlate;
 
     @NotBlank
-    private String name;
+    private String name;    
 
     private String status;
 
@@ -28,4 +28,6 @@ public class Car {
     private String image;
 
     private Long revenue;
+
+    private Customer customer;
 }
