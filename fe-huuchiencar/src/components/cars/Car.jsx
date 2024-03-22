@@ -4,17 +4,23 @@ import { toast } from 'react-toastify';
 import { getAllCar } from '../../services/UserService';
 import CreateCar from './CreateCar';
 import CarDetail from './CarDetail';
+import { Modal } from 'react-bootstrap';
 
 const Car = () => {
     const [searchText, setSearchText] = useState("");
     const [listItems, setListItems] = useState([]);
     const [originalList, setOriginalList] = useState([]);
-    const [showModalCarDetail, setShowModalCarDetail] = useState(false);
     const [selectedCar, setSelectedCar] = useState(null);
+    const [changeFlag, setChangeFlag] = useState(false);
+    const [showCarDetailModal, setShowCarDetailModal] = useState(false);
+
+    const handleCloseCarDetailModal = () => {
+        setShowCarDetailModal(false);
+    };
 
     useEffect(() => {
         getAllCars();
-    }, []);
+    }, [changeFlag]);
 
     useEffect(() => {
         handleSearchChange();
@@ -22,7 +28,7 @@ const Car = () => {
 
     const handleCarClick = (car) => {
         setSelectedCar(car);
-        setShowModalCarDetail(true);
+        setShowCarDetailModal(true);
     };
 
     const handleSearchChange = () => {
@@ -88,32 +94,39 @@ const Car = () => {
                 </div>
                 <CreateCar />
             </div>
-            {listItems.map((car, index) => (
-                <div key={index} className={styles.itemCar} onClick={() => handleCarClick(car)}>
-                    <div className={styles.imageCar}>
-                        <img src={car.image} alt="Car" />
-                    </div>
-                    <div className={styles.car_customer}>
-                        <div className={styles.infoCar}>
-                            <p>Tên xe: {car.name}</p>
-                            <p>Giá: {car.price} VNĐ/ngày</p>
-                            <p>Biển số: {car.numberPlate}</p>
+            <div className={styles.itemsCar}>
+                {listItems.map((car, index) => (
+                    <div key={index} className={styles.itemCar} onClick={() => handleCarClick(car)}>
+                        <div className={styles.imageCar}>
+                            <img src={car.image} alt="Car" />
                         </div>
-                        {car.customer && (
-                            <div className={styles.infoCustomer}>
-                                <p>Khách hàng: {car.customer.name}</p>
-                                <p>SĐT: {car.customer.phone}</p>
+                        <div className={styles.car_customer}>
+                            <div className={styles.infoCar}>
+                                <p>Tên xe: {car.name}</p>
+                                <p>Giá: {car.rentCost} VNĐ/ngày</p>
+                                <p>Biển số: {car.numberPlate}</p>
                             </div>
-                        )}
-                        <div className={styles.carStatus}>
-                            <button className={`${styles.statusButton} ${getStatusColor(car.status)}`}>
-                                {getStatusText(car.status)}
-                            </button>
+                            <div className={styles.infoCustomer}>
+                                <p>Khách hàng: {car.customer ? (car.customer.name) : ""}</p>
+                                <p>SĐT: {car.customer ? (car.customer.phone) : ""}</p>
+                                <button className={`${styles.statusButton} ${getStatusColor(car.status)}`}>
+                                    {getStatusText(car.status)}
+                                </button>
+                            </div>
                         </div>
+
                     </div>
-                </div>
-            ))}
-            <CarDetail car={selectedCar} showModal={showModalCarDetail} onClose={() => setShowModalCarDetail(false)} />
+                ))}
+            </div>
+            <Modal show={showCarDetailModal} onHide={handleCloseCarDetailModal}>
+                <CarDetail
+                    car={selectedCar}
+                    handleClose={handleCloseCarDetailModal}
+                    changeFlag={setChangeFlag}
+                />
+            </Modal>
+
+
         </section>
     );
 }
