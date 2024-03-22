@@ -12,6 +12,7 @@ function Customer() {
     const [originalList, setOriginalList] = useState([]);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [showCustomerDetailModal, setShowCustomerDetailModal] = useState(false);
+    const [changeFlag, setChangeFlag] = useState(false);
 
     const handleCloseCustomerDetailModal = () => {
         setShowCustomerDetailModal(false);
@@ -20,7 +21,7 @@ function Customer() {
     
     useEffect(() => {
         getAllCustomers();
-    }, []);
+    }, [changeFlag]);
 
     useEffect(() => {
         handleSearchChange();
@@ -53,6 +54,8 @@ function Customer() {
         setSelectedCustomer(customer);
         setShowCustomerDetailModal(true);
     };
+
+
 
     return (
         <section className={styles.dashboard}>
@@ -92,6 +95,7 @@ function Customer() {
                 <CustomerDetail
                             customer={selectedCustomer}
                             handleClose={handleCloseCustomerDetailModal}
+                            changeFlag={setChangeFlag}
                         />
             </Modal>
         </section>

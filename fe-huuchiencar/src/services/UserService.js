@@ -42,6 +42,46 @@ const createCustomer = async (accessToken, formData) => {
     }
 };
 
+const updateCustomer = async (accessToken, body) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.put('user/customers', body, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createCustomer:', error);
+        throw error;
+    }
+};
+
+const deleteCustomer = async (accessToken, customerId) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.delete(`user/customers/${customerId}`,{
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createCustomer:', error);
+        throw error;
+    }
+};
+
 const getAllCar = async (accessToken) => {
     try {
         if (!accessToken) {
@@ -57,7 +97,7 @@ const getAllCar = async (accessToken) => {
         return response.data;
     } catch (error) {
         // Xử lý lỗi
-        console.error('Error in getAllCustomer:', error);
+        console.error('Error in getAllCar:', error);
         throw error;
     }
 };
@@ -83,4 +123,44 @@ const createCar = async (accessToken, formData) => {
     }
 };
 
-export { getAllCustomer, createCustomer, getAllCar, createCar };
+const updateCar = async (accessToken, body) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.put('admin/cars', body, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createCar:', error);
+        throw error;
+    }
+};
+
+const deleteCar = async (accessToken, carId) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.delete(`admin/cars/${carId}`,{
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createCar:', error);
+        throw error;
+    }
+};
+
+export { getAllCustomer, createCustomer, updateCustomer, deleteCustomer, getAllCar, createCar, deleteCar, updateCar };
