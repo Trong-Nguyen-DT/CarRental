@@ -8,12 +8,10 @@ import com.dt.behuuchiencar.model.request.ContractInput;
 
 public interface ContractService {
 
-    TemplateContractEntity getTemplateContract(Long id);
+    TemplateContractEntity getTemplateContract();
 
     List<Object> getAllContract();
 
     Contract createContract(ContractInput input);
-
-    List<Object> getAllContractByCustomer(Long customerId);
     
 }

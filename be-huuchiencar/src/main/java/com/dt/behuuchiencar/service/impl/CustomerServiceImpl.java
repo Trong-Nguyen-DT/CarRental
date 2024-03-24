@@ -56,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService{
             .orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
         entity.setName(customer.getName());
         entity.setPhone(customer.getPhone());
-        return CustomerConvertor.toModel(entity);
+        return CustomerConvertor.toModel(customerRepository.save(entity));
     }
 
     @Override

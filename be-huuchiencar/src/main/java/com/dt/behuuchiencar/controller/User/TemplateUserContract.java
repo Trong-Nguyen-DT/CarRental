@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dt.behuuchiencar.constant.SuccessConstants;
@@ -23,13 +22,12 @@ public class TemplateUserContract {
     private ContractService contractService;
     
     @GetMapping()
-    public ResponseEntity<?> getTemplateContract(@RequestParam(value = "id", defaultValue = "1") String idStr) {
+    public ResponseEntity<?> getTemplateContract() {
         try {
-            long id = Long.parseLong(idStr);
             ResponseBody body = new ResponseBody();
             body.setCode(SuccessConstants.OK_CODE);
             body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(contractService.getTemplateContract(id));
+            body.setData(contractService.getTemplateContract());
             return ResponseEntity.ok().body(body);
         } catch (MessageException e) {
             return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));

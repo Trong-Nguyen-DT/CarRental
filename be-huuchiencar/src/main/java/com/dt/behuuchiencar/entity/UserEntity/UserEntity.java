@@ -1,15 +1,9 @@
 package com.dt.behuuchiencar.entity.UserEntity;
 
-import java.util.List;
-
-import com.dt.behuuchiencar.entity.ContractEntity;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
@@ -53,8 +47,5 @@ public class UserEntity {
 
     @NotNull
     private Boolean deleted;
-
-    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)      
-    private List<ContractEntity> contracts;
     
 }

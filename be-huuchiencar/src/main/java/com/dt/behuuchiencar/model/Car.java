@@ -20,8 +20,6 @@ public class Car {
 
     private String status;
 
-    private Long odo;
-
     @NotNull
     private Long rentCost;
 
@@ -29,5 +27,5 @@ public class Car {
 
     private Long revenue;
 
-    private Customer customer;
+    private Information information;
 }

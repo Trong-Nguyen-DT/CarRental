@@ -8,6 +8,7 @@ import com.dt.behuuchiencar.constant.ErrorConstants;
 import com.dt.behuuchiencar.constant.SuccessConstants;
 import com.dt.behuuchiencar.exception.MessageException;
 import com.dt.behuuchiencar.model.request.CarInput;
+import com.dt.behuuchiencar.model.request.CarStatusInput;
 import com.dt.behuuchiencar.model.response.Response;
 import com.dt.behuuchiencar.model.response.ResponseBody;
 import com.dt.behuuchiencar.model.response.ResponsesBody;
@@ -26,7 +27,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -58,6 +61,19 @@ public class CarUserController {
             body.setMessage(Arrays.asList(SuccessConstants.CREATED_MESSAGE));
             body.setData(carService.createCar(carInput));
             return ResponseEntity.status(HttpStatus.CREATED).body(body);
+        } catch (MessageException e) {
+            return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
+        }
+    }
+
+    @PatchMapping()
+    public ResponseEntity<?> updateStatusCar(@Valid @RequestBody CarStatusInput input) {
+        try {
+            ResponseBody body = new ResponseBody();
+            body.setCode(SuccessConstants.OK_CODE);
+            body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
+            body.setData(carService.updateStatusCar(input));
+            return ResponseEntity.ok().body(body);
         } catch (MessageException e) {
             return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
         }

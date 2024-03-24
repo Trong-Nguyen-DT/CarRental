@@ -1,7 +1,5 @@
 package com.dt.behuuchiencar.model;
 
-import java.util.List;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -24,5 +22,5 @@ public class Customer {
     private String citizenIdBack;
     private String driverLicenseFront;
     private String driverLicenseBack;
-    private List<Contract> contracts;
+    private Contract contracts;
 }
