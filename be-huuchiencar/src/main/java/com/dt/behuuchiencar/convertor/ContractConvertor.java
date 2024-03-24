@@ -10,14 +10,22 @@ public class ContractConvertor {
     
     public static Contract toModel(ContractEntity entity) {
         Contract contract = new Contract();
+        contract.setId(entity.getId());
         contract.setSignDate(entity.getSignDate());
         contract.setStartDate(entity.getStartDate());
         contract.setEndDate(entity.getEndDate());
-        contract.setOriginalOdo(entity.getOriginalOdo());
         contract.setPrePay(entity.getPrePay());
-        contract.setCustomer(CustomerConvertor.toModel(entity.getCustomerEntity()));
-        contract.setUser(UserConvertor.toModel(entity.getUserEntity()));
-        contract.setCar(CarConvertor.toModel(entity.getCarEntity()));
+        contract.setEndDate(entity.getEndDate());
+        contract.setCustomerId(entity.getCustomerId());
+        contract.setCustomerName(entity.getCustomerName());
+        contract.setCustomerPhone(entity.getCustomerPhone());
+        contract.setCustomerCitizenId(entity.getCustomerCitizenId());
+        contract.setUserId(entity.getUserId());
+        contract.setUserName(entity.getUserName());
+        contract.setCarId(entity.getCarId());
+        contract.setCarNumberPlate(entity.getCarNumberPlate());
+        contract.setCarName(entity.getCarName());
+        contract.setSignatureImageCustomer(entity.getSignatureImageCustomer());
         contract.setTemplateContract(TemplateConvertor.toModel(entity.getTemplateContractEntity()));
         return contract;
     }

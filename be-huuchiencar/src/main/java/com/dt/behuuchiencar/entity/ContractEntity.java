@@ -2,9 +2,6 @@ package com.dt.behuuchiencar.entity;
 
 import java.time.LocalDate;
 
-import com.dt.behuuchiencar.entity.CarEntity.CarEntity;
-import com.dt.behuuchiencar.entity.UserEntity.UserEntity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,38 +26,37 @@ public class ContractEntity {
     @NotNull
     private LocalDate signDate;
 
-    @NotNull
-    private LocalDate startDate;
+    private Long customerId;
+
+    private String customerName;
+
+    private String customerPhone;
+
+    private String customerCitizenId;
+
+    private Long userId;
+
+    private String userName;
+
+    private Long carId;
+
+    private String carNumberPlate;
+
+    private String carName;
+
+    private Long rentCostCar;
+
+    private LocalDate startDate;    
 
     private LocalDate endDate;
 
-    @NotNull
-    private Long originalOdo;
-
-    @NotNull
     private Long prePay;
 
-    private Long provisional;
-
-    private Long surcharge;
-
-    private Long totalPrice;
+    private Long endPay;
     
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customerEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "car_id")
-    private CarEntity carEntity;
+    private String signatureImageCustomer;
 
     @ManyToOne
     @JoinColumn(name = "template_contract_id")
     private TemplateContractEntity templateContractEntity;
-
-    
 }

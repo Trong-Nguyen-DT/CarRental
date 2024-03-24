@@ -6,10 +6,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.dt.behuuchiencar.entity.ContractEntity;
+import com.dt.behuuchiencar.entity.HistoryEntity;
 
 @Repository
-public interface ContractRepository extends JpaRepository<ContractEntity, Long>{
+public interface HistoryRepository extends JpaRepository<HistoryEntity, Long>{
 
-    List<ContractEntity> findBySignDateBetween(LocalDate startDate, LocalDate endDate);
+    List<HistoryEntity> findByDateTimeBetween(LocalDate startDate, LocalDate endDate);
+    
 }

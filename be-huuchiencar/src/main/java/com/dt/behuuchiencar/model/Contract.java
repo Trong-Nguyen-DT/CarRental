@@ -8,16 +8,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Contract {
+    private Long id;
     private LocalDate signDate;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Long originalOdo;
     private Long prePay;
-    private Long provisional;
-    private Long surcharge;
-    private Long totalPrice;
-    private Customer customer;
-    private User user;
-    private Car car;
+    private Long endPay;
+    private Long customerId;
+    private String customerName;
+    private String customerPhone;
+    private String customerCitizenId;
+    private Long userId;
+    private String userName;
+    private Long carId;
+    private String carNumberPlate;
+    private String carName;
+    private String signatureImageCustomer;
     private TemplateContract templateContract;
 }

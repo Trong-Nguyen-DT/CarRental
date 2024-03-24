@@ -26,10 +26,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -54,22 +52,8 @@ public class ContractUserController {
         }
     }
 
-    @GetMapping("{customerId}")
-    public ResponseEntity<?> getAllContractByCustomer(@PathVariable Long customerId) {
-        try {
-            ResponsesBody responseBody = new ResponsesBody();
-            responseBody.setCode(SuccessConstants.OK_CODE);
-            responseBody.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            responseBody.setData(contractService.getAllContractByCustomer(customerId));
-            return ResponseEntity.ok().body(responseBody);
-        } catch (MessageException e) {
-            return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
-        }
-    }
-    
-
     @PostMapping()
-    public ResponseEntity<?> createContract(@Valid @RequestBody ContractInput input) {
+    public ResponseEntity<?> createContract(@Valid ContractInput input) {
         try {
             ResponseBody body = new ResponseBody();
             body.setCode(SuccessConstants.CREATED_CODE);

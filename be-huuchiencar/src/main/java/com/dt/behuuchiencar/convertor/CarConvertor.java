@@ -15,7 +15,6 @@ public class CarConvertor {
         car.setNumberPlate(entity.getNumberPlate());
         car.setName(entity.getName());
         car.setStatus(entity.getStatus());
-        car.setOdo(entity.getOdo());
         car.setRentCost(entity.getRentCost());
         car.setImage(entity.getImage());
         car.setRevenue(entity.getRevenue());
