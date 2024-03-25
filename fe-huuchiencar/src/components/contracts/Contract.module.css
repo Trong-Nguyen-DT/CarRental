@@ -51,4 +51,69 @@
     .top .search_box input::placeholder {
         color: white;
     }
+    .itemsContract {
+        width: 90%;
+        margin: 5% auto;
+        border-radius: 20px ;
+        color: white;
+       
+    }
+    
+    .itemContract{
+        font-size: 11pt;
+        background-color: black;
+        width: 80%;
+        margin: 0 auto;
+        border-radius: 10px;
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+    }
+    .imageCar{
+        width: 85%;
+        padding-top: 5%;
+        margin: 5% auto;
+    }
+    .imageCar img{
+        width: 100%;
+    }
+    .car_customer{
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin:  0 3% ;
+    
+    }
+    .infoCar{
+        width: 100%;
+        margin: auto;
+        font-size: 10pt;
+    }
+  
+    .infoCustomer button{
+        width: 50%;
+        border-radius: 20px;
+        font-size: 8pt;
+        padding: 3px;
+        margin: 0 auto;
+    }
+    
+    .booked {
+        background-color: red;
+        color: white;
+        border: red;
+      }
+      
+      .inactive {
+        background-color: gray; 
+        color: black;
+        border: gray;
+    }
+      
+      .active {
+        background-color: green; 
+        color: white;
+        border: green;
+    }
 }

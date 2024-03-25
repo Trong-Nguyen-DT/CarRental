@@ -36,20 +36,29 @@ const Contract = () => {
                     />
                 </div>
             </div>
-            <div className={styles.contract}>
-                <div className={styles.contract_items}>
-                    <div className={styles.contract_item}>
-                        <div className={styles.info_contract}>
-                            <span>Tên xe: Vin Fast</span>
-                            <span>Giá: Vin Fast VNĐ/ngày</span>
-                            <span>Tên khách hàng: Sương Điên</span>
-                            <span>SĐT: 0999999999</span>
+            <div className={styles.itemsContract}>
+                <div className={styles.itemContract}>
+                    <div className={styles.imageCar}>
+                        <img src={require('../../assets/image/car.jpg')} alt="Logo" />
+                    </div>
+                    <div className={styles.car_customer}>
+                        <div className={styles.infoCar}>
+                            <p style={{ marginBottom: '0px' }}>Tên xe: hjbjhb</p>
+                            <p style={{ marginBottom: '0px' }}>Giá: hhuhuihui VNĐ/ngày</p>
+                            <p style={{ marginBottom: '0px' }}>Biển số: uyihjnkjnkj</p>
+                            <p style={{ marginBottom: '0px' }}>Khách hàng: hjvbghvhj</p>
+                            <p style={{ marginBottom: '0px' }}>SĐT: 0897878678</p>
+
+                            {/* <button className={`${styles.statusButton} ${getStatusColor(car.status)}`}>
+                                    {getStatusText(car.status)}
+                                </button> */}
                         </div>
                     </div>
-                    
                 </div>
+
             </div>
         </section>
+
     );
 }
 
