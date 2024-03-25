@@ -1,0 +1,109 @@
+.dashboard{
+    width: 100%;
+    color: white;
+    height: auto;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.dashboard
+{
+    .top {
+        width: 90%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin: 5% auto;
+        height: 8%;
+        align-items: center;
+    }
+    
+    .top .search_box {
+        width: 70%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid rgb(255, 255, 255);
+    }
+    
+    .top .search_box i {
+        padding-left: 3%;
+        color: white;
+        font-size: 24pt;
+        margin-right: 5px; /* Thêm margin để tạo khoảng cách giữa biểu tượng và input */
+    }
+    
+    .top .search_box input {
+        color: white;
+        font-size: 14pt;
+        border: none;
+        background: transparent; /* Để input có màu trắng */
+
+    }
+    
+    .top .search_box input::placeholder {
+        color: white;
+    }
+    
+    .top  button{
+        margin-left: 15%;
+        color: white;
+        font-weight: bolder;
+        border-radius: 100%;
+        background-color: aliceblue;
+        height: 30px;
+        border: none;
+    }
+    .top  button i{
+        color: black;
+        background-color: aliceblue;
+        font-weight: bolder;
+        font-size: 12pt;
+    }
+    .dash_content{
+        width: 90%;
+        margin: 5% auto;
+        background-color: black ;
+        border-radius: 20px ;
+        color: white;
+    }
+    .dash_content table{
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    .dash_content table th,
+    .dash_content table td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+
+    .dash_content table th {
+        background-color: #5b5858;
+        text-align: center;
+    }
+      
+    .dash_content table th:first-child,
+    .dash_content table td:first-child {
+        text-align: center;
+        width: 10%;
+    }
+
+    .dash_content table td:nth-child(2),
+    .dash_content table td:nth-child(3) {
+        text-align: left;
+        width: 30%;
+    }
+
+    .dash_content table td:nth-child(3) {
+        width: 30%;
+    }
+
+    .dash_content table th:nth-child(4),
+    .dash_content table td:nth-child(4) {
+        text-align: center;
+        width: 30%;
+    }
+}

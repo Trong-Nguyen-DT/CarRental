@@ -160,7 +160,7 @@ public class CarServiceImpl implements CarService {
 
     private Car updateStatusInActive(CarStatusInput input) {
         CarEntity entity = getCarById(input.getId());
-        if (!entity.getStatus().equals("ACTIVE")) {
+        if (entity.getStatus().equals("INACTIVE")) {
             throw new MessageException(ErrorConstants.INVALID_DATA_MESSAGE, ErrorConstants.INVALID_DATA_CODE);
         }
         entity.setStatus(CarStatusValidate.validateStatusCar(input.getStatus()));

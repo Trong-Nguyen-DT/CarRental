@@ -19,7 +19,7 @@ public class HistoryServiceImpl implements HistoryService {
     public List<Object> getAllHistory() {
         return HistoryConvertor
             .convertToObjects(historyRepository
-                                .findAll()
+                                .findByOrderByDateTimeDesc()
                                 .stream()
                                 .map(HistoryConvertor::toModel)
                                 .toList());

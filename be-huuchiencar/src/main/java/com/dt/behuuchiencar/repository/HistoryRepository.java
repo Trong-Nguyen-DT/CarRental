@@ -11,6 +11,10 @@ import com.dt.behuuchiencar.entity.HistoryEntity;
 @Repository
 public interface HistoryRepository extends JpaRepository<HistoryEntity, Long>{
 
-    List<HistoryEntity> findByDateTimeBetween(LocalDate startDate, LocalDate endDate);
+    List<HistoryEntity> findByDateTimeBetweenOrderByDateTimeDesc(LocalDate startDate, LocalDate endDate);
+
+    List<HistoryEntity> findByOrderByDateTimeDesc();
+
+
     
 }

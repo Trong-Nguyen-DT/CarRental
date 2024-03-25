@@ -50,35 +50,35 @@ const NavBar = () => {
                     <ul className={styles.menu_links}>
                         <div>
                             <li className={styles.menu_li}>
-                                <Link to="/user" onClick={() => handleNavClick('Dashboard')}>
+                                <Link to="/" onClick={() => handleNavClick('Dashboard')}>
                                     <i class="uil uil-table"></i>
                                     <span className={styles.link_name}>Tổng quan</span>
                                 </Link>
                             </li>
 
                             <li className={styles.menu_li}>
-                                <Link to="/cars" onClick={() => handleNavClick('Reviewer')}>
+                                <Link to="/cars" onClick={() => handleNavClick('Cars')}>
                                     <i className="uil uil-car"></i>
                                     <span className={styles.link_name}>Xe</span>
                                 </Link>
                             </li>
 
                             <li className={styles.menu_li}>
-                            <Link Link to="/customers" onClick={() => handleNavClick('Blog')}>
+                            <Link Link to="/customers" onClick={() => handleNavClick('Customers')}>
                                 <i className="uil uil-user"></i>
                                 <span className="styles.link_name">Khách hàng</span>
                             </Link>
                         </li>
 
                         <li className={styles.menu_li}>
-                            <Link to="/user/films" onClick={() => handleNavClick('Film')}>
+                            <Link to="/contracts" onClick={() => handleNavClick('Contracts')}>
                                 <i className="uil uil-notes"></i>
                                 <span className="styles.link_name">Hợp đồng</span>
                             </Link>
                         </li>
 
                         <li className={styles.menu_li}>
-                            <Link to="/user/films" onClick={() => handleNavClick('Film')}>
+                            <Link to="/histories" onClick={() => handleNavClick('Histories')}>
                                 <i className="uil uil-clock"></i>
                                 <span className="styles.link_name">Lịch sử</span>
                             </Link>

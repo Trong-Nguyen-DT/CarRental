@@ -56,7 +56,7 @@ public class ContractServiceImpl implements ContractService{
         return ContractConvertor
                     .convertToObjects(
                         contractRepository
-                            .findAll()
+                            .findAllByOrderBySignDateDesc()
                             .stream()
                             .map(ContractConvertor::toModel)
                             .toList());
@@ -65,10 +65,7 @@ public class ContractServiceImpl implements ContractService{
     @Override
     public Contract createContract(ContractInput input) {
         ContractEntity entity = new ContractEntity();
-        CarEntity car = getCarById(input.getCarId());
-        entity.setCarId(car.getId());
-        entity.setCarName(car.getName());
-        entity.setRentCostCar(car.getRentCost());
+        entity.setSignDate(LocalDate.now());
         CustomerEntity customer = getCustomerById(input.getCustomerId());
         entity.setCustomerId(customer.getId());
         entity.setCustomerName(customer.getName());
@@ -77,13 +74,16 @@ public class ContractServiceImpl implements ContractService{
         UserEntity user = getUserEntity();
         entity.setUserId(user.getId());
         entity.setUserName(user.getName());
-        entity.setTemplateContractEntity(getTemplateContract());
-        entity.setSignDate(LocalDate.now());
+        CarEntity car = getCarById(input.getCarId());
+        entity.setCarId(car.getId());
+        entity.setCarName(car.getName());
+        entity.setRentCostCar(car.getRentCost());
         entity.setStartDate(input.getStartDate());
         entity.setEndDate(input.getEndDate());
         entity.setPrePay(input.getPrePay());
-        entity.setEndDate(input.getEndDate());
+        entity.setEndPay(input.getEndPay());
         entity.setSignatureImageCustomer(imageService.uploadImage(input.getSignatureImageCustomer()));
+        entity.setTemplateContractEntity(getTemplateContract());
         return ContractConvertor.toModel(contractRepository.save(entity));
     }
 
