@@ -1,4 +1,4 @@
-import { Button, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import styles from './CarDetail.module.css';
 import { useState } from "react";
 import { deleteCar } from "../../services/UserService";
@@ -8,9 +8,38 @@ import CarUpdate from "./CarUpdate";
 const CarDetail = ({ car, handleClose, changeFlag }) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showOrderModal, setShow] = useState(false);
 
     const handleShowDeleteModal = () => {
         setShowDeleteModal(true);
+    };
+
+    const handleShowOrderModal = () => {
+        setShow(true);
+    };
+
+    const handleOrderClose = () => {
+        setShow(false);
+    }
+
+    const handleOrderSubmit = async () => {
+        const formDataToSend = new FormData();
+        // formDataToSend.append("name", formData.name);
+        // formDataToSend.append("phone", formData.phoneNumber);
+        // formDataToSend.append("origi", formData.idCard);
+        // formDataToSend.append("citizenIdFront", formData.idCardFrontImage);
+        // formDataToSend.append("citizenIdBack", formData.idCardBackImage);
+        // formDataToSend.append("driverLicenseFront", formData.driverLicenseFrontImage);
+        // formDataToSend.append("driverLicenseBack", formData.driverLicenseBackImage);
+
+        // try {
+        //     const response = await createCustomer(localStorage.getItem("jwtToken"), formDataToSend);
+        //     console.log('Response from createCustomer API:', response);
+        // } catch (error) {
+        //     for (let i = 0; i < error.response.data.message.length; i++) {
+        //         toast.error(error.response.data.message[i].defaultMessage + '. Please try again.');
+        //     }
+        // }
     };
 
     const handleCloseDeleteModal = () => {
@@ -31,7 +60,6 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
         changeFlag(true);
     };
 
-    console.log(car)
     return (
         <>
             <Modal.Header closeButton style={{ backgroundColor: 'gray' }}>
@@ -50,7 +78,7 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
                                 <button>
                                     <i className="uil uil-history" style={{ fontSize: '24pt' }}></i>
                                 </button>
-                                <button>
+                                <button onClick={handleShowOrderModal}>
                                     {car.status && (
                                         <>
                                             {car.status === "INACTIVE" && (
@@ -58,41 +86,7 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
                                                     <button>
                                                         <i className="uil uil-user-plus" style={{ fontSize: '24pt' }}></i>
                                                     </button>
-
-                                                    <Modal show={showModal} onHide={handleCloseModal} centered>
-                                                        <Modal.Header closeButton>
-                                                            <Modal.Title>Đặt lịch</Modal.Title>
-                                                        </Modal.Header>
-                                                        <Modal.Body>
-                                                            <Form>
-                                                                <Form.Group controlId="name">
-                                                                    <Form.Label>Tên xe</Form.Label>
-                                                                    <Form.Control type ="text" name="name" placeholder="Nhập tên xe" value={name} onChange={handleNameChange} />
-                                                                </Form.Group>
-
-                                                                <Form.Group controlId="numberPlate">
-                                                                    <Form.Label>Biển số</Form.Label>
-                                                                    <Form.Control type="text" name="phone" placeholder="Nhập biển số" value={numberPlate} onChange={handleNumberPlateChange} />
-                                                                </Form.Group>
-
-                                                                <Form.Group controlId="rentCost">
-                                                                    <Form.Label>Gía xe</Form.Label>
-                                                                    <Form.Control type="text" name="phone" placeholder="Nhập giá xe" value={rentCost} onChange={handleRentCostChange} />
-                                                                </Form.Group>
-                                                            </Form>
-                                                        </Modal.Body>
-                                                        <Modal.Footer>
-                                                            <Button variant="secondary" onClick={handleCloseModal}>
-                                                                Đóng
-                                                            </Button>
-                                                            <Button variant="primary" onClick={handleSubmit}>
-                                                                Lưu
-                                                            </Button>
-                                                        </Modal.Footer>
-                                                    </Modal>
                                                 </>
-
-
                                             )
                                             }
 
@@ -109,8 +103,24 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
                                             )}
                                         </>
                                     )}
-                                </button>
+                                    <Modal show={showOrderModal} onHide={handleOrderClose} centered>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Tạo khách hàng mới</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={handleOrderClose}>
+                                                Đóng
+                                            </Button>
+                                            <Button variant="primary">
+                                                Tạo khách hàng
+                                            </Button>
+                                        </Modal.Footer>
+                                    </Modal>
 
+                                </button>
                             </div>
                         </div>
 
