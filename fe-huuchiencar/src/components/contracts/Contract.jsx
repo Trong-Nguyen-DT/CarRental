@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Contract.module.css";
-import { Document, Page } from 'react-pdf';
 
 const Contract = () => {
     const [searchText, setSearchText] = useState("");

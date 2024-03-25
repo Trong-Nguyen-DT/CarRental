@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes } from"react-router-dom";
 import LoginPage from "./pages/login/Login";
 import CustomerPage from "./pages/customer/CustomerPage";
 import CarPage from "./pages/cars/CarsPage";
+import ContractPage from "./pages/contracts/ContractPage";
+import DashboardPage from "./pages/dashboard/DashboardPage";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,6 +19,8 @@ root.render(
         <Route path="login" element={<LoginPage />} />
         <Route path="customers" element={<CustomerPage />} />
         <Route path="cars" element={<CarPage />} />
+        <Route path="contracts" element={<ContractPage />} />
+        <Route path="" element={<DashboardPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
