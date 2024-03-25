@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import LoginPage from './pages/login/Login';
+import DashboardPage from './pages/dashboard/DashboardPage';
 
 function App() {
   return (
-    <LoginPage/>
+    <DashboardPage/>
   );
 }
 

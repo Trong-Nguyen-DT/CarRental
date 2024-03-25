@@ -1,10 +1,21 @@
 import { ToastContainer } from "react-toastify";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../navBar/NavBar';
 import styles from './Header.module.css';
 import "../../styles/default.css"
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+    
+    const navigate = useNavigate();
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    useEffect(() => {
+        if (!jwtToken) {
+            navigate('/login');
+        }
+    }, []);
+
     const [showMenu, setShowMenu] = useState(false);
 
     const handleBarsClick = () => {
@@ -25,11 +36,11 @@ const Header = () => {
                 <img src={require('../../assets/image/logo.jpg')} alt="Logo" />
             </div>
             <div className={styles.showMenu}>
-            {showMenu && (
-                <NavBar />
-            )}
+                {showMenu && (
+                    <NavBar />
+                )}
             </div>
-          
+
         </header>
     );
 }

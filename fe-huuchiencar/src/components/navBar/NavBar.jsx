@@ -14,7 +14,6 @@ const NavBar = () => {
     const handleLogout = async () => {
         try {
             await logout();
-            localStorage.removeItem("authenticated");
             localStorage.removeItem("jwtToken");
             localStorage.removeItem("user")
             navigate("/login");
@@ -89,7 +88,7 @@ const NavBar = () => {
             </ul>
             <ul className={styles.logout}>
                 <li>
-                    <a href="#" onClick={handleLogout}>
+                    <a onClick={handleLogout}>
                         <i className="uil uil-signout"></i>
                         <span className={styles.link_name}>Đăng Xuất</span>
                     </a>
