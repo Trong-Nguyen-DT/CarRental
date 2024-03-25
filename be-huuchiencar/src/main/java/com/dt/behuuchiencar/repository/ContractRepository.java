@@ -11,5 +11,7 @@ import com.dt.behuuchiencar.entity.ContractEntity;
 @Repository
 public interface ContractRepository extends JpaRepository<ContractEntity, Long>{
 
+    List<ContractEntity> findAllByOrderBySignDateDesc();
+
     List<ContractEntity> findBySignDateBetween(LocalDate startDate, LocalDate endDate);
 }

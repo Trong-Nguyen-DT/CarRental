@@ -34,7 +34,7 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public DashboardResponse getInfoDashboard(LocalDate startDate, LocalDate endDate) {
         DashboardResponse response = new DashboardResponse();
-        List<HistoryEntity> historyEntities = historyRepository.findByDateTimeBetween(startDate, endDate);
+        List<HistoryEntity> historyEntities = historyRepository.findByDateTimeBetweenOrderByDateTimeDesc(startDate, endDate);
 
         List<CarEntity> allCars = carRepository.findAllByDeletedFalseOrderByIdDesc();
 
