@@ -1,46 +1,129 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import styles from './CarDetail.module.css';
-import { useState } from "react";
-import { deleteCar } from "../../services/UserService";
+import { useEffect, useState } from "react";
+import { deleteCar, getAllCustomer, createOrder } from "../../services/UserService";
 import { toast } from "react-toastify";
 import CarUpdate from "./CarUpdate";
+import Select from 'react-select';
 
 const CarDetail = ({ car, handleClose, changeFlag }) => {
 
+    const [customers, setCustomers] = useState([]);
+
+    useEffect(() => {
+        getAllCustomers();
+    }, [changeFlag]);
+
+    const getAllCustomers = async () => {
+        try {
+            const response = await getAllCustomer(localStorage.getItem('jwtToken'));
+            setCustomers(response.data);
+        } catch (error) {
+            toast.error('Error:', error);
+        }
+    };
+
+
+    const [formData, setFormData] = useState({
+        id: "",
+        name: "",
+        phone: "",
+        rentDate: "",
+        originalOdo: "",
+        endedOdo: "",
+        surcharge: "",
+        totalPrice: "",
+    });
+
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showOrderModal, setShow] = useState(false);
+    const [showOrderModal, setShowOderModal] = useState(false);
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+    const handleShowOrderModal = () => {
+        // Nếu status là INACTIVE, mở modal để hiển thị form
+        if (car.status === 'INACTIVE') {
+            setShowOderModal(true);
+        } else {
+            // Nếu status không phải INACTIVE, hiển thị form trực tiếp ở class form
+            setShowOderModal(false);
+        }
+    };
+
+    const handleCustomerChange = (selectedOption) => {
+        if (selectedOption) {
+            // Truy cập giá trị của lựa chọn được chọn
+            const selectedCustomerId = selectedOption.value;
+            // Tiếp tục xử lý dựa trên selectedCustomerId
+            const selectedCustomerInfo = customers.find(customer => customer.id === selectedCustomerId);
+            // Cập nhật giá trị của state selectedCustomer
+            setSelectedCustomer(selectedCustomerInfo);
+            // Kiểm tra xem selectedCustomerInfo có tồn tại không trước khi cập nhật formData
+            if (selectedCustomerInfo) {
+                // Cập nhật giá trị số điện thoại trong state formData nếu selectedCustomerInfo tồn tại
+                setFormData({
+                    ...formData,
+                    phone: selectedCustomerInfo.phone,
+                });
+            } else {
+                // Nếu không có khách hàng nào được chọn, đặt giá trị phone trong formData thành ''
+                setFormData({
+                    ...formData,
+                    phone: '',
+                });
+            }
+        }
+        console.log("a" + formData);
+    };
+
+
+
+    const handleInputChange = (event) => {
+        console.log("yes")
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
     const handleShowDeleteModal = () => {
         setShowDeleteModal(true);
     };
 
-    const handleShowOrderModal = () => {
-        setShow(true);
-    };
+    // const handleShowOrderModal = () => {
+    //     setShowOderModal(true);
+    // };
 
-    const handleOrderClose = () => {
-        setShow(false);
+    const handleCloseOrderModal = () => {
+        setShowOderModal(false);
     }
 
     const handleOrderSubmit = async () => {
-        const formDataToSend = new FormData();
-        // formDataToSend.append("name", formData.name);
-        // formDataToSend.append("phone", formData.phoneNumber);
-        // formDataToSend.append("origi", formData.idCard);
-        // formDataToSend.append("citizenIdFront", formData.idCardFrontImage);
-        // formDataToSend.append("citizenIdBack", formData.idCardBackImage);
-        // formDataToSend.append("driverLicenseFront", formData.driverLicenseFrontImage);
-        // formDataToSend.append("driverLicenseBack", formData.driverLicenseBackImage);
+        const body = {
+            id: car.id,
+            status: car.status === "INACTIVE" ? "BOOKED" : (car.status === "BOOKED" ? "ACTIVE" : "INACTIVE"),
+            customerId: selectedCustomer.id,
+            info: {
+                startDate: formData.startDate,
+                expectedDate: formData.expectedDate,
+                originalOdo: car.status !== "ACTIVE" ? formData.originalOdo || null : formData.originalOdo,
+                endedOdo: car.status !== "ACTIVE" ? formData.endedOdo || null : formData.endedOdo,
+                surcharge: car.status !== "ACTIVE" ? formData.surcharge || null : formData.surcharge,
+                totalPrice: car.status !== "ACTIVE" ? formData.totalPrice || null : formData.totalPrice,
+                endDate: car.status === "ACTIVE" ? formData.endDate || null : formData.endDate
+            }
+        }
 
-        // try {
-        //     const response = await createCustomer(localStorage.getItem("jwtToken"), formDataToSend);
-        //     console.log('Response from createCustomer API:', response);
-        // } catch (error) {
-        //     for (let i = 0; i < error.response.data.message.length; i++) {
-        //         toast.error(error.response.data.message[i].defaultMessage + '. Please try again.');
-        //     }
-        // }
+        try {
+            const response = await createOrder(localStorage.getItem("jwtToken"), body);
+            console.log('Response from createOrder API:', response);
+        } catch (error) {
+            for (let i = 0; i < error.response.data.message.length; i++) {
+                toast.error(error.response.data.message[i].defaultMessage + '. Please try again.');
+            }
+        }
     };
+
 
     const handleCloseDeleteModal = () => {
         setShowDeleteModal(false);
@@ -103,23 +186,77 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
                                             )}
                                         </>
                                     )}
-                                    <Modal show={showOrderModal} onHide={handleOrderClose} centered>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>Tạo khách hàng mới</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button variant="secondary" onClick={handleOrderClose}>
-                                                Đóng
-                                            </Button>
-                                            <Button variant="primary">
-                                                Tạo khách hàng
-                                            </Button>
-                                        </Modal.Footer>
-                                    </Modal>
+                                    {
+                                        showOrderModal && car.status === 'INACTIVE' && (
+                                            <Modal show={showOrderModal} onHide={handleCloseOrderModal} centered>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Đặt lịch</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <Form>
+                                                        <Form.Group controlId="name">
+                                                            <Form.Label>Tên khách hàng</Form.Label>
+                                                            <Select
+                                                                options={customers.map(customer => ({ value: customer.id, label: customer.name }))}
+                                                                onChange={handleCustomerChange}
+                                                                placeholder="Chọn khách hàng"
+                                                            />
+                                                        </Form.Group>
 
+
+                                                        <Form.Group controlId="phone">
+                                                            <Form.Label>Số điện thoại </Form.Label>
+                                                            <Form.Control type="text" name="phone" placeholder="Nhập số điện thoại" value={formData.phone} onChange={handleInputChange} />
+                                                        </Form.Group>
+
+                                                        <Form.Group controlId="startDate">
+                                                            <Form.Label>Ngày nhận xe </Form.Label>
+                                                            <Form.Control type="date" name="startDate" placeholder="Ngày nhận xe" onChange={handleInputChange} />
+                                                        </Form.Group>
+
+                                                        <Form.Group controlId="expectedDate">
+                                                            <Form.Label>Ngày dự kiến trả xe </Form.Label>
+                                                            <Form.Control type="date" name="expectedDate" placeholder="Ngày nhận xe" onChange={handleInputChange} />
+                                                        </Form.Group>
+
+
+                                                        <Form.Group controlId="endDate">
+                                                            <Form.Label>Ngày trả xe </Form.Label>
+                                                            <Form.Control type="date" name="endDate" placeholder="Ngày trả xe" onChange={handleInputChange} />
+                                                        </Form.Group>
+
+                                                        <Form.Group controlId="originalOdo">
+                                                            <Form.Label>Số kilomet bắt đầu (km)</Form.Label>
+                                                            <Form.Control type="text" name="originalOdo" placeholder="0" onChange={handleInputChange} />
+                                                        </Form.Group>
+
+                                                        <Form.Group controlId="endedOdo">
+                                                            <Form.Label>Số kilomet kêt thúc(km)</Form.Label>
+                                                            <Form.Control type="text" name="endedOdo" placeholder="0" onChange={handleInputChange} />
+                                                        </Form.Group>
+
+
+                                                        <Form.Group controlId="surcharge">
+                                                            <Form.Label>Chi phí phát sinh</Form.Label>
+                                                            <Form.Control type="text" name="surcharge" placeholder="0" onChange={handleInputChange} />
+                                                        </Form.Group>
+
+                                                        <Form.Group controlId="totalPrice">
+                                                            <Form.Label>Tổng thanh toán</Form.Label>
+                                                            <Form.Control type="text" name="totalPrice" placeholder="0" onChange={handleInputChange} />
+                                                        </Form.Group>
+                                                    </Form>
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleCloseOrderModal}>
+                                                        Đóng
+                                                    </Button>
+                                                    <Button variant="primary" onClick={handleOrderSubmit}>
+                                                        Lưu
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                        )}
                                 </button>
                             </div>
                         </div>
@@ -157,13 +294,74 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
                                 </div>
                             )}
                         </div>
+                        {car.status === 'INACTIVE' ? (
+                            <button onClick={handleShowOrderModal}>
+                                <i className="uil uil-notes" style={{ fontSize: '24pt' }}></i>
+                            </button>
+                        ) : (
+                            <div className="form">
+                                <Form>
+                                    <Form.Group controlId="name">
+                                        <Form.Label>Tên khách hàng</Form.Label>
+                                        <Select
+                                            options={customers.map(customer => ({ value: customer.id, label: customer.name }))}
+                                            onChange={handleCustomerChange}
+                                            placeholder="Chọn khách hàng"
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="phone">
+                                        <Form.Label>Số điện thoại </Form.Label>
+                                        <Form.Control type="text" name="phone" placeholder="Nhập số điện thoại" value={formData.phone} onChange={handleInputChange} />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="startDate">
+                                        <Form.Label>Ngày nhận xe </Form.Label>
+                                        <Form.Control type="date" name="startDate" placeholder="Ngày nhận xe" onChange={handleInputChange} />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="expectedDate">
+                                        <Form.Label>Ngày dự kiến trả xe </Form.Label>
+                                        <Form.Control type="date" name="expectedDate" placeholder="Ngày nhận xe" onChange={handleInputChange} />
+                                    </Form.Group>
+
+
+                                    <Form.Group controlId="endDate">
+                                        <Form.Label>Ngày trả xe </Form.Label>
+                                        <Form.Control type="date" name="endDate" placeholder="Ngày trả xe" onChange={handleInputChange} />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="originalOdo">
+                                        <Form.Label>Số kilomet bắt đầu (km)</Form.Label>
+                                        <Form.Control type="text" name="originalOdo" placeholder="0" onChange={handleInputChange} />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="endedOdo">
+                                        <Form.Label>Số kilomet kêt thúc(km)</Form.Label>
+                                        <Form.Control type="text" name="endedOdo" placeholder="0" onChange={handleInputChange} />
+                                    </Form.Group>
+
+
+                                    <Form.Group controlId="surcharge">
+                                        <Form.Label>Chi phí phát sinh</Form.Label>
+                                        <Form.Control type="text" name="surcharge" placeholder="0" onChange={handleInputChange} />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="totalPrice">
+                                        <Form.Label>Tổng thanh toán</Form.Label>
+                                        <Form.Control type="text" name="totalPrice" placeholder="0" onChange={handleInputChange} />
+                                    </Form.Group>
+                                </Form>
+                            </div>
+                        )}
+
 
                         <div className={styles.photo}>
                             <img src={car.image} alt="" />
                         </div>
-                    </div>
+                    </div >
                 )}
-            </Modal.Body>
+            </Modal.Body >
         </>
     );
 }
