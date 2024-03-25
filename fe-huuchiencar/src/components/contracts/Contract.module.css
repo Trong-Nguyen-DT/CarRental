@@ -1,0 +1,54 @@
+.contract {
+    width: 90%;
+    margin:  5% auto;
+    height: auto;
+    min-height: 100vh;
+}
+
+.contract {
+
+    .contract_items {
+        width:  100%;
+    }
+
+    .contract_item {
+        background-color: black;
+        color: white;
+    }
+    .top {
+        width: 90%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin: 5% auto;
+        height: 8%;
+        align-items: center;
+    }
+    
+    .top .search_box {
+        width: 70%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid rgb(255, 255, 255);
+    }
+    
+    .top .search_box i {
+        padding-left: 3%;
+        color: white;
+        font-size: 24pt;
+        margin-right: 5px; /* Thêm margin để tạo khoảng cách giữa biểu tượng và input */
+    }
+    
+    .top .search_box input {
+        color: white;
+        font-size: 14pt;
+        border: none;
+        background: transparent; /* Để input có màu trắng */
+    
+    }
+    
+    .top .search_box input::placeholder {
+        color: white;
+    }
+}

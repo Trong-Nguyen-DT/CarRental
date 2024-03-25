@@ -91,6 +91,26 @@ const CreateCustomer = () => {
     };
 
     const handleSubmit = async () => {
+        if (!formData.name || !formData.phoneNumber || !formData.idCard ||
+            !formData.idCardFrontImage || !formData.idCardBackImage || 
+            !formData.driverLicenseFrontImage || !formData.driverLicenseBackImage) {
+                if (!formData.name) {
+                    toast.error("Tên không thể trống. Vui lòng nhập tên.");
+                }
+                if (!formData.phoneNumber) {
+                    toast.error("Số điện thoại không thể trống. Vui lòng nhập số điện thoại.");
+                }
+                if (!formData.idCard) {
+                    toast.error("Căn cước công dân không thể trống. Vui lòng nhập số căn cước công dân.");
+                }
+        
+                // Ensure images are uploaded
+                if (!formData.idCardFrontImage || !formData.idCardBackImage || !formData.driverLicenseFrontImage || !formData.driverLicenseBackImage) {
+                    toast.error("Vui lòng tải lên tất cả các ảnh cần thiết.");
+                }
+            return;
+        }
+        
         const formDataToSend = new FormData();
         formDataToSend.append("name", formData.name);
         formDataToSend.append("phone", formData.phoneNumber);
