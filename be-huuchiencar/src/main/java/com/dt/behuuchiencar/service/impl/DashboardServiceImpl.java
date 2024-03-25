@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,18 +35,27 @@ public class DashboardServiceImpl implements DashboardService {
     public DashboardResponse getInfoDashboard(LocalDate startDate, LocalDate endDate) {
         DashboardResponse response = new DashboardResponse();
         List<HistoryEntity> historyEntities = historyRepository.findByDateTimeBetween(startDate, endDate);
-        Map<Long, Long> revenueByVehicle = new HashMap<>(); 
+
+        List<CarEntity> allCars = carRepository.findAllByDeletedFalseOrderByIdDesc();
+
+        Map<Long, CarEntity> carEntityMap = allCars.stream()
+                .collect(Collectors.toMap(CarEntity::getId, Function.identity()));
+
+        Map<Long, Long> revenueByVehicle = new HashMap<>();
         Long totalRevenue = 0L;
         for (HistoryEntity history : historyEntities) {
             Long vehicleId = history.getCarId();
-            revenueByVehicle.put(vehicleId, revenueByVehicle.getOrDefault(vehicleId, 0L));
+            revenueByVehicle.merge(vehicleId, history.getTotalRevenue(), Long::sum);
+            totalRevenue += history.getTotalRevenue();
         }
 
         List<Car> cars = new ArrayList<>();
-        for (Map.Entry<Long, Long> entry : revenueByVehicle.entrySet()) {
-            CarEntity carEntity = carRepository.findById(entry.getKey()).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+        for (Map.Entry<Long, CarEntity> entry : carEntityMap.entrySet()) {
+            Long carId = entry.getKey();
+            CarEntity carEntity = entry.getValue();
+            Long revenue = revenueByVehicle.getOrDefault(carId, 0L);
             Car car = CarConvertor.toModel(carEntity);
-            car.setRevenue(entry.getValue());
+            car.setRevenue(revenue);
             cars.add(car);
         }
         response.setCars(cars);
@@ -52,5 +63,5 @@ public class DashboardServiceImpl implements DashboardService {
 
         return response;
     }
-    
+
 }

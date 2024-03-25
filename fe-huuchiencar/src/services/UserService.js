@@ -163,4 +163,24 @@ const deleteCar = async (accessToken, carId) => {
     }
 };
 
-export { getAllCustomer, createCustomer, updateCustomer, deleteCustomer, getAllCar, createCar, deleteCar, updateCar };
+const getInfoDashboards = async (accessToken, day, month, year) => {
+    try {
+        const response = await axios.get('admin/dashboard', {
+            params: {
+                year: year,
+                month: month,
+                day: day
+            },
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error calling getInfoDashboard API:', error);
+        throw error;
+    }
+};
+
+export { getAllCustomer, createCustomer, updateCustomer, deleteCustomer, getAllCar, createCar, deleteCar, updateCar, getInfoDashboards };
