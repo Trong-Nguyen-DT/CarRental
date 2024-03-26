@@ -53,7 +53,7 @@
     }
     .itemsContract {
         width: 90%;
-        margin: 5% auto;
+        margin: 0 auto;
         border-radius: 20px ;
         color: white;
        
@@ -62,20 +62,19 @@
     .itemContract{
         font-size: 11pt;
         background-color: black;
-        width: 80%;
-        margin: 0 auto;
+        width: 100%;
+        margin: 5% auto;
         border-radius: 10px;
-        position: absolute;
         display: flex;
         flex-direction: row;
     }
     .imageCar{
         width: 85%;
-        padding-top: 5%;
-        margin: 5% auto;
+        margin: 5% 3%;
     }
     .imageCar img{
         width: 100%;
+        border-radius: 10px;
     }
     .car_customer{
         width: 100%;
@@ -95,7 +94,7 @@
         width: 50%;
         border-radius: 20px;
         font-size: 8pt;
-        padding: 3px;
+        /* padding: 3px; */
         margin: 0 auto;
     }
     

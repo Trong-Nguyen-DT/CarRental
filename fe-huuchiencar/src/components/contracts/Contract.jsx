@@ -1,11 +1,31 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Contract.module.css";
+import { getAllContract } from "../../services/UserService";
+import { toast } from "react-toastify";
+import ContractDetail from "./ContractDetail";
+import CreateContract from "./CreateContract";
+import { Modal } from "react-bootstrap";
 
 const Contract = () => {
     const [searchText, setSearchText] = useState("");
     const [listItems, setListItems] = useState([]);
     const [originalList, setOriginalList] = useState([]);
+    const [contractSelected, setContractSelected] = useState(null);
+    const [showContractDetail, setShowContractDetail] = useState(false);
 
+    
+
+    useEffect(() => {
+        handleContractChange(contractSelected);
+        if (!contractSelected) {
+            setShowContractDetail(false);
+        }
+        console.log(contractSelected)
+    }, [contractSelected]);
+
+    useEffect(() => {
+        getAllContracts();
+    }, []);
 
     useEffect(() => {
         handleSearchChange();
@@ -23,6 +43,29 @@ const Contract = () => {
         }
     };
 
+    const handleContractChange = (item) => {
+        setContractSelected(item);
+        if (contractSelected) {
+            setShowContractDetail(true);
+        }
+        
+    };
+
+    const getAllContracts = async () => {
+        try {
+            const response = await getAllContract(localStorage.getItem('jwtToken'));
+            setListItems(response.data);
+            setOriginalList(response.data);
+            console.log(response.data);
+        } catch (error) {
+            toast.error('Error:', error);
+        }
+    };
+
+    const handleCloseContractDetail = () => {
+        setShowContractDetail(false);
+    };
+
     return (
         <section className={styles.contract}>
             <div className={styles.top}>
@@ -35,28 +78,35 @@ const Contract = () => {
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
+                <CreateContract />
             </div>
             <div className={styles.itemsContract}>
-                <div className={styles.itemContract}>
-                    <div className={styles.imageCar}>
-                        <img src={require('../../assets/image/car.jpg')} alt="Logo" />
-                    </div>
-                    <div className={styles.car_customer}>
-                        <div className={styles.infoCar}>
-                            <p style={{ marginBottom: '0px' }}>Tên xe: hjbjhb</p>
-                            <p style={{ marginBottom: '0px' }}>Giá: hhuhuihui VNĐ/ngày</p>
-                            <p style={{ marginBottom: '0px' }}>Biển số: uyihjnkjnkj</p>
-                            <p style={{ marginBottom: '0px' }}>Khách hàng: hjvbghvhj</p>
-                            <p style={{ marginBottom: '0px' }}>SĐT: 0897878678</p>
-
-                            {/* <button className={`${styles.statusButton} ${getStatusColor(car.status)}`}>
-                                    {getStatusText(car.status)}
-                                </button> */}
+                {listItems.map((item, index) => (
+                    <div className={styles.itemContract} key={index} onClick={() => setContractSelected(item)}>
+                        <div className={styles.imageCar}>
+                            <img src={item.carImage} alt="Logo" />
                         </div>
+                        <div className={styles.car_customer}>
+                            <div className={styles.infoCar}>
+                                <p style={{ marginBottom: '5px' }}>Tên xe: {item.carName}</p>
+                                <p style={{ marginBottom: '5px' }}>Biển số: {item.carNumberPlate}</p>
+                                <p style={{ marginBottom: '5px' }}>Khách hàng: {item.customerName}</p>
+                                <p style={{ marginBottom: '5px' }}>SĐT: {item.customerPhone}</p>
+                            </div>
+                        </div>
+                        
                     </div>
-                </div>
-
+                ))}
             </div>
+            <Modal show={showContractDetail} onHide={handleCloseContractDetail}>
+                <Modal.Header closeButton style={{ backgroundColor: 'gray' }}>
+                    <Modal.Title style={{ fontSize: '20pt', color: 'white' }}>Thông tin hợp đồng</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ContractDetail contract={contractSelected}/>
+                </Modal.Body>
+                
+            </Modal>
         </section>
 
     );

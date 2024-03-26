@@ -15,7 +15,6 @@ public class ContractConvertor {
         contract.setStartDate(entity.getStartDate());
         contract.setEndDate(entity.getEndDate());
         contract.setPrePay(entity.getPrePay());
-        contract.setEndDate(entity.getEndDate());
         contract.setCustomerId(entity.getCustomerId());
         contract.setCustomerName(entity.getCustomerName());
         contract.setCustomerPhone(entity.getCustomerPhone());
@@ -25,7 +24,9 @@ public class ContractConvertor {
         contract.setCarId(entity.getCarId());
         contract.setCarNumberPlate(entity.getCarNumberPlate());
         contract.setCarName(entity.getCarName());
+        contract.setRentCostCar(entity.getRentCostCar());
         contract.setSignatureImageCustomer(entity.getSignatureImageCustomer());
+        contract.setCarImage(entity.getCarImage());
         contract.setTemplateContract(TemplateConvertor.toModel(entity.getTemplateContractEntity()));
         return contract;
     }
