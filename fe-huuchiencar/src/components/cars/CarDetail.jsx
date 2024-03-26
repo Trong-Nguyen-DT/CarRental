@@ -6,13 +6,18 @@ import { toast } from "react-toastify";
 import CarUpdate from "./CarUpdate";
 import Select from 'react-select';
 
-const CarDetail = ({ car, handleClose, changeFlag }) => {
+const CarDetail = ({ car, handleClose, changeFlag, setSelectedCar }) => {
 
     const [customers, setCustomers] = useState([]);
+    const [orderResponse, setOrderResponse] = useState(car);
 
     useEffect(() => {
         getAllCustomers();
     }, [changeFlag]);
+
+    useEffect(() => {
+        setSelectedCar(orderResponse);
+    }, [orderResponse]);
 
     const getAllCustomers = async () => {
         try {
@@ -25,19 +30,20 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
 
 
     const [formData, setFormData] = useState({
-        id: "",
-        name: "",
-        phone: "",
-        rentDate: "",
-        originalOdo: "",
-        endedOdo: "",
-        surcharge: "",
-        totalPrice: "",
+        name: '',
+        startDate: '',
+        expectedDate: '',
+        endDate: '',
+        originalOdo: '',
+        endedOdo: '',
+        surcharge: '',
+        totalPrice: ''
     });
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showOrderModal, setShowOderModal] = useState(false);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const [customerId, setCustomerId] = useState(null);
 
     const handleShowOrderModal = () => {
         // Nếu status là INACTIVE, mở modal để hiển thị form
@@ -72,58 +78,77 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
                 });
             }
         }
-        console.log("a" + formData);
     };
 
-
-
     const handleInputChange = (event) => {
-        console.log("yes")
         const { name, value } = event.target;
         setFormData({
             ...formData,
             [name]: value,
         });
     };
-
+   
     const handleShowDeleteModal = () => {
         setShowDeleteModal(true);
     };
 
-    // const handleShowOrderModal = () => {
-    //     setShowOderModal(true);
-    // };
 
     const handleCloseOrderModal = () => {
         setShowOderModal(false);
     }
 
     const handleOrderSubmit = async () => {
+        let newStatus;
+    
+        if (car.status === "INACTIVE" && selectedCustomer) {
+            newStatus = "BOOKED";
+        } else if (car.status === "BOOKED") {
+            newStatus = "ACTIVE";
+        } else if (car.status === "ACTIVE") {
+            newStatus = "INACTIVE";
+        } else {
+            newStatus = car.status;
+        }
+    
+        const idCustomer = selectedCustomer ? selectedCustomer.id : customerId;
         const body = {
             id: car.id,
-            status: car.status === "INACTIVE" ? "BOOKED" : (car.status === "BOOKED" ? "ACTIVE" : "INACTIVE"),
-            customerId: selectedCustomer.id,
+            status: newStatus,
+            customerId: idCustomer,
             info: {
                 startDate: formData.startDate,
                 expectedDate: formData.expectedDate,
-                originalOdo: car.status !== "ACTIVE" ? formData.originalOdo || null : formData.originalOdo,
-                endedOdo: car.status !== "ACTIVE" ? formData.endedOdo || null : formData.endedOdo,
-                surcharge: car.status !== "ACTIVE" ? formData.surcharge || null : formData.surcharge,
-                totalPrice: car.status !== "ACTIVE" ? formData.totalPrice || null : formData.totalPrice,
-                endDate: car.status === "ACTIVE" ? formData.endDate || null : formData.endDate
+                originalOdo: newStatus !== "ACTIVE" ? formData.originalOdo || null : formData.originalOdo,
+                endedOdo: newStatus !== "ACTIVE" ? formData.endedOdo || null : formData.endedOdo,
+                surcharge: newStatus !== "ACTIVE" ? formData.surcharge || null : formData.surcharge,
+                totalPrice: newStatus !== "ACTIVE" ? formData.totalPrice || null : formData.totalPrice,
+                endDate: newStatus === "ACTIVE" ? formData.endDate || null : formData.endDate
             }
-        }
+        };
+        console.log("Thông tin gửi lên:", body);
+        console.log("or:", orderResponse);
 
         try {
             const response = await createOrder(localStorage.getItem("jwtToken"), body);
+            // Kiểm tra response.data trước khi cập nhật orderResponse
+            if (response.data) {
+                console.log("re: " + response.data)
+                setOrderResponse(response.data);
+                setCustomerId(response.data.information.customer.id);
+            } else {
+                console.error('Response data is invalid:', response);
+                toast.error('Không có dữ liệu trả về từ API. Vui lòng thử lại.');
+            }
             console.log('Response from createOrder API:', response);
         } catch (error) {
+            console.error('Error:', error);
             for (let i = 0; i < error.response.data.message.length; i++) {
-                toast.error(error.response.data.message[i].defaultMessage + '. Please try again.');
+                toast.error(error.response.data.message[i].defaultMessage + '. Vui lòng thử lại.');
             }
         }
+        setShowOderModal(false);
+        changeFlag(true);
     };
-
 
     const handleCloseDeleteModal = () => {
         setShowDeleteModal(false);
@@ -180,7 +205,7 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
                                             )}
 
                                             {car.status === "BOOKED" && (
-                                                <button>
+                                                <button onClick={handleOrderSubmit}>
                                                     <i className="uil uil-notes" style={{ fontSize: '24pt' }}></i>
                                                 </button>
                                             )}
@@ -206,12 +231,12 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
 
                                                         <Form.Group controlId="phone">
                                                             <Form.Label>Số điện thoại </Form.Label>
-                                                            <Form.Control type="text" name="phone" placeholder="Nhập số điện thoại" value={formData.phone} onChange={handleInputChange} />
+                                                            <Form.Control type="text" name="phone" placeholder="Nhập số điện thoại" value={formData.phone} onChange={handleCustomerChange} />
                                                         </Form.Group>
 
                                                         <Form.Group controlId="startDate">
                                                             <Form.Label>Ngày nhận xe </Form.Label>
-                                                            <Form.Control type="date" name="startDate" placeholder="Ngày nhận xe" onChange={handleInputChange} />
+                                                            <Form.Control type="date" name="startDate" value={formData} onChange={handleInputChange} />
                                                         </Form.Group>
 
                                                         <Form.Group controlId="expectedDate">
@@ -299,61 +324,75 @@ const CarDetail = ({ car, handleClose, changeFlag }) => {
                                 <i className="uil uil-notes" style={{ fontSize: '24pt' }}></i>
                             </button>
                         ) : (
-                            <div className="form">
-                                <Form>
-                                    <Form.Group controlId="name">
-                                        <Form.Label>Tên khách hàng</Form.Label>
-                                        <Select
-                                            options={customers.map(customer => ({ value: customer.id, label: customer.name }))}
-                                            onChange={handleCustomerChange}
-                                            placeholder="Chọn khách hàng"
-                                        />
-                                    </Form.Group>
-
-                                    <Form.Group controlId="phone">
-                                        <Form.Label>Số điện thoại </Form.Label>
-                                        <Form.Control type="text" name="phone" placeholder="Nhập số điện thoại" value={formData.phone} onChange={handleInputChange} />
-                                    </Form.Group>
-
-                                    <Form.Group controlId="startDate">
-                                        <Form.Label>Ngày nhận xe </Form.Label>
-                                        <Form.Control type="date" name="startDate" placeholder="Ngày nhận xe" onChange={handleInputChange} />
-                                    </Form.Group>
-
-                                    <Form.Group controlId="expectedDate">
-                                        <Form.Label>Ngày dự kiến trả xe </Form.Label>
-                                        <Form.Control type="date" name="expectedDate" placeholder="Ngày nhận xe" onChange={handleInputChange} />
-                                    </Form.Group>
+                            orderResponse && (
+                                <div className="form">
+                                    <Form>
+                                        <Form.Group controlId="customerId" style={{ display: 'none' }}>
+                                            <Form.Control type="text" name="customerId" value={orderResponse.information.customer.id} />
+                                        </Form.Group>
+                                        <Form.Group controlId="name">
+                                            <Form.Label>Tên khách hàng</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                value={orderResponse.information.customer.name}
+                                                placeholder="Tên khách hàng"
+                                                readOnly
+                                            />
+                                        </Form.Group>
 
 
-                                    <Form.Group controlId="endDate">
-                                        <Form.Label>Ngày trả xe </Form.Label>
-                                        <Form.Control type="date" name="endDate" placeholder="Ngày trả xe" onChange={handleInputChange} />
-                                    </Form.Group>
-
-                                    <Form.Group controlId="originalOdo">
-                                        <Form.Label>Số kilomet bắt đầu (km)</Form.Label>
-                                        <Form.Control type="text" name="originalOdo" placeholder="0" onChange={handleInputChange} />
-                                    </Form.Group>
-
-                                    <Form.Group controlId="endedOdo">
-                                        <Form.Label>Số kilomet kêt thúc(km)</Form.Label>
-                                        <Form.Control type="text" name="endedOdo" placeholder="0" onChange={handleInputChange} />
-                                    </Form.Group>
+                                        <Form.Group controlId="phone">
+                                            <Form.Label>Số điện thoại </Form.Label>
+                                            <Form.Control type="text" name="phone" placeholder="Nhập số điện thoại" value={orderResponse.information.customer.phone} />
+                                        </Form.Group>
 
 
-                                    <Form.Group controlId="surcharge">
-                                        <Form.Label>Chi phí phát sinh</Form.Label>
-                                        <Form.Control type="text" name="surcharge" placeholder="0" onChange={handleInputChange} />
-                                    </Form.Group>
+                                        <Form.Group controlId="startDate">
+                                            <Form.Label>Ngày nhận xe </Form.Label>
+                                            <Form.Control type="date" name="startDate" placeholder="Ngày nhận xe" value={orderResponse.information.startDate} />
+                                        </Form.Group>
 
-                                    <Form.Group controlId="totalPrice">
-                                        <Form.Label>Tổng thanh toán</Form.Label>
-                                        <Form.Control type="text" name="totalPrice" placeholder="0" onChange={handleInputChange} />
-                                    </Form.Group>
-                                </Form>
-                            </div>
-                        )}
+                                        <Form.Group controlId="expectedDate">
+                                            <Form.Label>Ngày dự kiến trả xe </Form.Label>
+                                            <Form.Control type="date" name="expectedDate" placeholder="Ngày dự kiến trả xe" value={orderResponse.information.expectedDate} />
+                                        </Form.Group>
+
+
+                                        <Form.Group controlId="endDate">
+                                            <Form.Label>Ngày trả xe </Form.Label>
+                                            <Form.Control type="date" name="endDate" placeholder="Ngày trả xe" value={orderResponse.information.endDate} onChange={handleInputChange} />
+                                        </Form.Group>
+
+                                        <Form.Group controlId="originalOdo">
+                                            <Form.Label>Số kilomet bắt đầu (km)</Form.Label>
+                                            <Form.Control type="text" name="originalOdo" placeholder="0" value={orderResponse.information.originalOdo} onChange={handleInputChange} />
+                                        </Form.Group>
+
+                                        <Form.Group controlId="endedOdo">
+                                            <Form.Label>Số kilomet kêt thúc(km)</Form.Label>
+                                            <Form.Control type="text" name="endedOdo" placeholder="0" value={orderResponse.information.endedOdo} onChange={handleInputChange} />
+                                        </Form.Group>
+
+
+                                        <Form.Group controlId="surcharge">
+                                            <Form.Label>Chi phí phát sinh</Form.Label>
+                                            <Form.Control type="text" name="surcharge" placeholder="0" value={orderResponse.information.surcharge} onChange={handleInputChange} />
+                                        </Form.Group>
+
+                                        <Form.Group controlId="totalPrice">
+                                            <Form.Label>Tổng thanh toán</Form.Label>
+                                            <Form.Control type="text" name="totalPrice" placeholder="0" value={orderResponse.information.totalPrice} onChange={handleInputChange} />
+                                        </Form.Group>
+                                        <Button variant="secondary" onClick={handleCloseOrderModal}>
+                                            Đóng
+                                        </Button>
+                                        <Button variant="primary" onClick={handleOrderSubmit}>
+                                            Lưu
+                                        </Button>
+
+                                    </Form>
+                                </div>
+                            ))}
 
 
                         <div className={styles.photo}>
