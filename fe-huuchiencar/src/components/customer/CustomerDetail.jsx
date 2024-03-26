@@ -4,6 +4,7 @@ import styles from './CustomerDetail.module.css';
 import CustomerUpdate from "./CustomerUpdate";
 import { deleteCustomer } from "../../services/UserService";
 import { toast } from "react-toastify";
+import HistoryCustomer from "./HistoryCustomer";
 
 const CustomerDetail = ({ customer, handleClose, changeFlag }) => {
 
@@ -45,10 +46,7 @@ const CustomerDetail = ({ customer, handleClose, changeFlag }) => {
                             <p><strong>CCCD:</strong> {customer.citizenId}</p>
                         </div>
                         <div className={styles.history}>
-                            <button>
-                                <i className="uil uil-history" style={{ fontSize: '24pt' }}></i>
-                            </button>
-
+                           <HistoryCustomer customer={customer}/>
                         </div>
                     </div>
 

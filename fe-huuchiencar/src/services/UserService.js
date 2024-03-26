@@ -233,6 +233,36 @@ const getAllContract = async (accessToken) => {
     }
 };
 
+const getAllHistoryByCar = async (accessToken, carId) => {
+    try {
+        const response = await axios.get(`admin/history/car/${carId}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error calling getInfoDashboard API:', error);
+        throw error;
+    }
+};
+
+const getAllHistoryByCustomer = async (accessToken, customerId) => {
+    try {
+        const response = await axios.get(`admin/history/customer/${customerId}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error calling getInfoDashboard API:', error);
+        throw error;
+    }
+};
+
 export { getAllCustomer,
     createCustomer,
     updateCustomer,
@@ -244,4 +274,6 @@ export { getAllCustomer,
     getInfoDashboards,
     getAllHistory,
     createOrder,
-    getAllContract };
+    getAllContract,
+    getAllHistoryByCar,
+    getAllHistoryByCustomer };

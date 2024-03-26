@@ -133,7 +133,7 @@ public class CarServiceImpl implements CarService {
 
     private Car updateStatusBooked(CarStatusInput input) {
         CarEntity entity = getCarById(input.getId());
-        if (input.getCustomerId() == null || !entity.getStatus().equals("INACTIVE")) {
+        if (input.getCustomerId() == null) {
             throw new MessageException(ErrorConstants.INVALID_DATA_MESSAGE, ErrorConstants.INVALID_DATA_CODE);
         }
         entity.setStatus(CarStatusValidate.validateStatusCar(input.getStatus()));
@@ -151,7 +151,7 @@ public class CarServiceImpl implements CarService {
 
     private Car updateStatusActive(CarStatusInput input) {
         CarEntity entity = getCarById(input.getId());
-        if (input.getCustomerId() == null || input.getInfo() == null || !entity.getStatus().equals("BOOKED")) {
+        if (input.getCustomerId() == null || input.getInfo() == null) {
             throw new MessageException(ErrorConstants.INVALID_DATA_MESSAGE, ErrorConstants.INVALID_DATA_CODE);
         }
         entity.setStatus(CarStatusValidate.validateStatusCar(input.getStatus()));
@@ -172,10 +172,12 @@ public class CarServiceImpl implements CarService {
             throw new MessageException(ErrorConstants.INVALID_DATA_MESSAGE, ErrorConstants.INVALID_DATA_CODE);
         }
         entity.setStatus(CarStatusValidate.validateStatusCar(input.getStatus()));
-        InformationEntity infoEntity = informationRepository.findById(entity.getInformationId()).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
-        updateInformationEntity(infoEntity, input);
-        infoEntity = informationRepository.save(infoEntity);
-        createHistory(input, infoEntity, entity);
+        if (input.getInfo() != null) {
+            InformationEntity infoEntity = informationRepository.findById(entity.getInformationId()).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+            updateInformationEntity(infoEntity, input);
+            infoEntity = informationRepository.save(infoEntity);
+            createHistory(input, infoEntity, entity);
+        }
         entity.setInformationId(null);
         return CarConvertor.toModel(carRepository.save(entity));
     }
