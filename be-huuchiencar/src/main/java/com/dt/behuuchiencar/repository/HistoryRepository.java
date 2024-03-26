@@ -15,6 +15,10 @@ public interface HistoryRepository extends JpaRepository<HistoryEntity, Long>{
 
     List<HistoryEntity> findByOrderByDateTimeDesc();
 
+    List<HistoryEntity> findByCarId(Long carId);
+
+    List<HistoryEntity> findByCustomerId(Long customerId);
+
 
     
 }

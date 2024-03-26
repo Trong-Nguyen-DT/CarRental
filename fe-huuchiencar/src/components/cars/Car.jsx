@@ -124,7 +124,8 @@ const Car = () => {
                 <CarDetail
                     car={selectedCar}
                     handleClose={handleCloseCarDetailModal}
-                    changeFlag={setChangeFlag}
+                    setChangeFlag={setChangeFlag}
+                    changeFlag={changeFlag}
                     setSelectedCar={setSelectedCar}
                 />
             </Modal>

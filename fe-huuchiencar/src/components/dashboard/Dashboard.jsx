@@ -32,7 +32,6 @@ const Dashboard = () => {
                 break;
             default:
                 break;
-                
         }
     }, [selectedOption, selectedDay, selectedMonth, selectedYear]);
 
@@ -94,6 +93,29 @@ const Dashboard = () => {
             toast.error('Error:', error);
         }
     };
+
+    const getRandomColor = () => {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    const getRandomColors = (numColors) => {
+        const colors = [];
+        for (let i = 0; i < numColors; i++) {
+            let newColor;
+            do {
+                newColor = getRandomColor();
+            } while (colors.includes(newColor)); // Đảm bảo màu không trùng nhau
+            colors.push(newColor);
+        }
+        return colors;
+    }
+
+    const randomColors = getRandomColors(listItems.length);
     
 
     const labels = listItems.map(car => car.name);
@@ -102,16 +124,9 @@ const Dashboard = () => {
         labels: labels,
         datasets: [{
             data: data,
-            backgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#FFCE56'
-            ],
-            hoverBackgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#FFCE56'
-            ]
+            backgroundColor: randomColors,
+            hoverBackgroundColor: randomColors,
+            color: 'rgba(255, 255, 255, 1)'
         }]
     };
     
