@@ -14,6 +14,8 @@ const Car = () => {
     const [changeFlag, setChangeFlag] = useState(false);
     const [showCarDetailModal, setShowCarDetailModal] = useState(false);
 
+    
+
     const handleCloseCarDetailModal = () => {
         setShowCarDetailModal(false);
     };
@@ -123,6 +125,7 @@ const Car = () => {
                     car={selectedCar}
                     handleClose={handleCloseCarDetailModal}
                     changeFlag={setChangeFlag}
+                    setSelectedCar={setSelectedCar}
                 />
             </Modal>
 
