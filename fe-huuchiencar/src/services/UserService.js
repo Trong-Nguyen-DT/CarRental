@@ -218,4 +218,30 @@ const getAllHistory = async (accessToken) => {
     }
 };
 
-export { getAllCustomer, createCustomer, updateCustomer, deleteCustomer, getAllCar, createCar, deleteCar, updateCar, getInfoDashboards, getAllHistory, createOrder };
+const getAllContract = async (accessToken) => {
+    try {
+        const response = await axios.get('user/contracts', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error calling getInfoDashboard API:', error);
+        throw error;
+    }
+};
+
+export { getAllCustomer,
+    createCustomer,
+    updateCustomer,
+    deleteCustomer,
+    getAllCar,
+    createCar,
+    deleteCar,
+    updateCar,
+    getInfoDashboards,
+    getAllHistory,
+    createOrder,
+    getAllContract };

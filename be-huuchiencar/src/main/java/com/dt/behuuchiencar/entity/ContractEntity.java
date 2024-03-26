@@ -46,6 +46,8 @@ public class ContractEntity {
 
     private Long rentCostCar;
 
+    private String carImage;
+
     private LocalDate startDate;    
 
     private LocalDate endDate;

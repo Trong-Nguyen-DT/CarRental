@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.dt.behuuchiencar.constant.ErrorConstants;
 import com.dt.behuuchiencar.convertor.CarConvertor;
+import com.dt.behuuchiencar.convertor.CustomerConvertor;
 import com.dt.behuuchiencar.convertor.InformationConvertor;
 import com.dt.behuuchiencar.entity.CustomerEntity;
 import com.dt.behuuchiencar.entity.HistoryEntity;
@@ -19,6 +20,7 @@ import com.dt.behuuchiencar.entity.CarEntity.InformationEntity;
 import com.dt.behuuchiencar.entity.UserEntity.UserEntity;
 import com.dt.behuuchiencar.exception.MessageException;
 import com.dt.behuuchiencar.model.Car;
+import com.dt.behuuchiencar.model.Customer;
 import com.dt.behuuchiencar.model.Information;
 import com.dt.behuuchiencar.model.request.CarInput;
 import com.dt.behuuchiencar.model.request.CarStatusInput;
@@ -63,7 +65,9 @@ public class CarServiceImpl implements CarService {
                                 InformationEntity informationEntity = informationRepository.findById(carEntity.getInformationId())
                                         .orElseThrow(() -> new MessageException(
                                                 ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
-                                car.setInformation(InformationConvertor.toModel(informationEntity));
+                                Information information = InformationConvertor.toModel(informationEntity);
+                                information.setCustomer(getCustomer(informationEntity.getCustomerId()));
+                                car.setInformation(information);
                             }
                             return car;
                         })
@@ -139,8 +143,10 @@ public class CarServiceImpl implements CarService {
         entity.setInformationId(infoEntity.getId());
         entity = carRepository.save(entity);
         Car car = CarConvertor.toModel(entity);
-        car.setInformation(InformationConvertor.toModel(infoEntity));
-        return car;  
+        Information information = InformationConvertor.toModel(infoEntity);
+        information.setCustomer(getCustomer(infoEntity.getCustomerId()));
+        car.setInformation(information);
+        return car;   
     }
 
     private Car updateStatusActive(CarStatusInput input) {
@@ -154,7 +160,9 @@ public class CarServiceImpl implements CarService {
         infoEntity = informationRepository.save(infoEntity);
         entity = carRepository.save(entity);
         Car car = CarConvertor.toModel(entity);
-        car.setInformation(InformationConvertor.toModel(infoEntity));
+        Information information = InformationConvertor.toModel(infoEntity);
+        information.setCustomer(getCustomer(infoEntity.getCustomerId()));
+        car.setInformation(information);
         return car;
     }
 
@@ -221,5 +229,9 @@ public class CarServiceImpl implements CarService {
             throw new MessageException(ErrorConstants.UNAUTHORIZED_MESSAGE, ErrorConstants.UNAUTHORIZED_CODE);
         }
         return userRepository.findUserByUsernameAndDeletedFalse(authentication.getName()).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+    }
+
+    private Customer getCustomer(Long customerId) {
+        return CustomerConvertor.toModel(customerRepository.findById(customerId).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE)));
     }
 }

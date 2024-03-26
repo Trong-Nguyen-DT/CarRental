@@ -1,3 +1,16 @@
-.contract {
-    background-color: aliceblue;
+.pageContainer {
+    width: 210mm; /* Chiều rộng của một tờ giấy A4 */
+    margin: 0 auto; /* Căn giữa phần tử */
+    padding: 20mm; /* Khoảng cách lề */
+    font-size: 12pt; /* Cỡ chữ */
+    font-family: Arial, sans-serif; /* Font chữ */
+    background-color: white; /* Màu nền */
+    box-sizing: border-box; /* Box model */
+    border: 1px solid black; /* Viền */
 }
+
+.pageContainer img {
+    width: 100%;
+}
+
+

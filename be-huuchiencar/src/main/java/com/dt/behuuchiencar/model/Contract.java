@@ -13,7 +13,6 @@ public class Contract {
     private LocalDate startDate;
     private LocalDate endDate;
     private Long prePay;
-    private Long endPay;
     private Long customerId;
     private String customerName;
     private String customerPhone;
@@ -23,6 +22,8 @@ public class Contract {
     private Long carId;
     private String carNumberPlate;
     private String carName;
+    private String carImage;
+    private Long rentCostCar;
     private String signatureImageCustomer;
     private TemplateContract templateContract;
 }

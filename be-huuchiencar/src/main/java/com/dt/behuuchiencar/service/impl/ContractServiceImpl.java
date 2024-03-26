@@ -76,8 +76,10 @@ public class ContractServiceImpl implements ContractService{
         entity.setUserName(user.getName());
         CarEntity car = getCarById(input.getCarId());
         entity.setCarId(car.getId());
+        entity.setCarNumberPlate(car.getNumberPlate());
         entity.setCarName(car.getName());
         entity.setRentCostCar(car.getRentCost());
+        entity.setCarImage(car.getImage());
         entity.setStartDate(input.getStartDate());
         entity.setEndDate(input.getEndDate());
         entity.setPrePay(input.getPrePay());
