@@ -275,7 +275,7 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                         <div className={styles.infoCar}>
                             <div className={styles.info}>
                                 <p><strong>Tên xe:</strong> {car.name}</p>
-                                <p><strong>Giá:</strong> {car.rentCost} VNĐ/ngày</p>
+                                <p><strong>Giá:</strong> {car.rentCost.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} /ngày</p>
                                 <p><strong>Biển số:</strong> {car.numberPlate}</p>
                             </div>
                             <div className={styles.history}>

@@ -16,6 +16,8 @@ public class History {
     private Long carId;
     private String carName;
     private Long contractId;
+    private Long surcharge;
+    private Long carCost;
     private Long totalRevenue;
     private LocalDate dateTime;
 }

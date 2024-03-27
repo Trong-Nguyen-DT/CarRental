@@ -17,6 +17,8 @@ public class HistoryConvertor {
         history.setUserName(entity.getUserName());
         history.setCarId(entity.getCarId());
         history.setCarName(entity.getCarName());
+        history.setCarCost(entity.getCarCost());
+        history.setSurcharge(entity.getSurcharge());
         history.setTotalRevenue(entity.getTotalRevenue());
         history.setDateTime(entity.getDateTime());
         if (entity.getContractId() != null) {

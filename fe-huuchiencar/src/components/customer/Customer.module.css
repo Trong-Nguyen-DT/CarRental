@@ -88,6 +88,7 @@
     .dash_content table th {
         background-color: #5b5858;
         text-align: center;
+        color: #fff;
     }
       
     .dash_content table th:first-child,

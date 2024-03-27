@@ -83,6 +83,7 @@
     .dash_content table th {
         background-color: #5b5858;
         text-align: center;
+        color: #fff;
     }
       
     .dash_content table th:first-child,
@@ -105,5 +106,17 @@
     .dash_content table td:nth-child(4) {
         text-align: center;
         width: 30%;
+    }
+
+    .search_time {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        margin: 0 auto;
+        justify-content: space-between;
+    }
+
+    .search_date label {
+        margin-right: 10px;
     }
 }

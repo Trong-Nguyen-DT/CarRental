@@ -17,7 +17,8 @@ const Dashboard = () => {
     const [selectedDay, setSelectedDay] = useState('');
     const [selectedMonth, setSelectedMonth] = useState('');
     const [selectedYear, setSelectedYear] = useState('');
-    const [revenueData, setRevenueData] = useState(null);
+    const [revenueData, setRevenueData] = useState(0);
+    const [payoutData, setPayoutData] = useState(0);
 
     useEffect(() => {
         switch (selectedOption) {
@@ -83,11 +84,12 @@ const Dashboard = () => {
                 break;
             default:
                 break;
-                
+
         }
         try {
             const response = await getInfoDashboards(localStorage.getItem('jwtToken'), day, month, year);
             setRevenueData(response.data.revenue);
+            setPayoutData(response.data.payOut);
             setListItems(response.data.cars);
         } catch (error) {
             toast.error('Error:', error);
@@ -116,7 +118,7 @@ const Dashboard = () => {
     }
 
     const randomColors = getRandomColors(listItems.length);
-    
+
 
     const labels = listItems.map(car => car.name);
     const data = listItems.map(car => ((car.revenue / revenueData) * 100).toFixed(2));
@@ -129,8 +131,8 @@ const Dashboard = () => {
             color: 'rgba(255, 255, 255, 1)'
         }]
     };
-    
-    
+
+
 
     const years = [];
     const currentYear = new Date().getFullYear();
@@ -156,19 +158,16 @@ const Dashboard = () => {
             </div>
             {selectedOption === 'day' && (
                 <div className={styles.datePicker}>
-                    <label htmlFor="date">Chọn ngày:</label>
                     <input type="date" id="date" name="date" value={selectedDay} onChange={handleDateChange} />
                 </div>
             )}
             {selectedOption === 'month' && (
                 <div className={styles.datePicker}>
-                    <label htmlFor="month">Chọn tháng:</label>
                     <input type="month" id="month" name="month" value={selectedMonth} onChange={handleMonthChange} />
                 </div>
             )}
             {selectedOption === 'year' && (
                 <div className={styles.datePicker}>
-                    <label htmlFor="year">Chọn năm:</label>
                     <select id="year" name="year" value={selectedYear} onChange={handleYearChange}>
                         {years.map((year, index) => (
                             <option key={index} value={year}>{year}</option>
@@ -176,10 +175,21 @@ const Dashboard = () => {
                     </select>
                 </div>
             )}
-            <div className={styles.dash_content}>
-                <i className="uil uil-document-layout-left"></i>
-                <span className="text">Doanh thu ...</span>
-                <span className="number">{revenueData}</span>
+            <div className={styles.total}>
+                <div className={styles.revenue}>
+                    <div className={styles.label}>
+                        <i className="uil uil-document-layout-left"></i>
+                        <span className="text">Tổng thu ... </span>
+                    </div>
+                    <span className="number">{revenueData.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                </div>
+                <div className={styles.payout}>
+                    <div className={styles.label}>
+                        <i className="uil uil-document-layout-left"></i>
+                        <span className="text">Tổng chi ... </span>
+                    </div>
+                    <span className="number">{payoutData.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                </div>
             </div>
             <div className={`${styles.revenue_car_chart} ${styles.dash_content}`}>
                 <Pie data={carRevenueData} />
@@ -191,14 +201,16 @@ const Dashboard = () => {
                             <th>STT</th>
                             <th>Tên</th>
                             <th>Doanh thu</th>
+                            <th>Chi phí</th>
                         </tr>
                     </thead>
                     <tbody>
                         {listItems.map((item, index) => (
                             <tr key={index}>
                                 <td>{index + 1}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.revenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                <td>{item.name}</td>
+                                <td>{item.revenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                <td>{item.payOut.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                             </tr>
                         ))}
                     </tbody>

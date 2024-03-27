@@ -8,6 +8,7 @@ import CarPage from "./pages/cars/CarsPage";
 import ContractPage from "./pages/contracts/ContractPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import HistoryPage from "./pages/history/HistoryPage";
+import PayoutPage from "./pages/payouts/Payoypage";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -23,6 +24,7 @@ root.render(
         <Route path="contracts" element={<ContractPage />} />
         <Route path="" element={<DashboardPage />} />
         <Route path="histories" element={<HistoryPage />} />
+        <Route path="payouts" element={<PayoutPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

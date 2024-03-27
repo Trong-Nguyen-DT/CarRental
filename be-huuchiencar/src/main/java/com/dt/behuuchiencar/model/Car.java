@@ -27,5 +27,7 @@ public class Car {
 
     private Long revenue;
 
+    private Long payOut;
+
     private Information information;
 }

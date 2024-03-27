@@ -1,4 +1,4 @@
-.dashboard{
+.dashboard {
     width: 100%;
     color: white;
     height: auto;
@@ -11,8 +11,46 @@
     .dash_content {
         width: 90%;
         margin: 5% auto;
-        background-color: black ;
-        border-radius: 20px ;
+        background-color: black;
+        border-radius: 20px;
         color: white;
+    }
+
+    .options {
+        font-size: 15pt;
+        width: 60%;
+        margin: 3% auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .options label {
+        padding-left: 10px;
+    }
+
+    .datePicker {
+        width: 60%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .total {
+        width: 90%;
+        margin: 5% auto;
+        justify-content: space-between;
+        color: white;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .total .revenue,
+    .total .payout {
+        width: 40%;
+        margin: 0 5%;
+        background-color: black;
+        border-radius: 20px;
+        text-align: center;
+        flex-direction: column;
     }
 }

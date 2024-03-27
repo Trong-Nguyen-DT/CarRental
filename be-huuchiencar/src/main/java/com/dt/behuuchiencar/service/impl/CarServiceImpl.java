@@ -225,7 +225,8 @@ public class CarServiceImpl implements CarService {
         entity.setCarId(carEntity.getId());
         entity.setCarName(carEntity.getName());
         entity.setCarCost(info.getCarCost());
-        entity.setTotalRevenue(info.getTotalPrice());
+        entity.setSurcharge(info.getSurcharge());
+        entity.setTotalRevenue(info.getCarCost() + info.getSurcharge());
         entity.setDateTime(LocalDate.now());
         historyRepository.save(entity);
     }
