@@ -4,7 +4,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { updateCar } from "../../services/UserService";
 
-const CarUpdate = ({car , changeFlag}) => {
+const CarUpdate = ({car , changeFlag, setChangeFlag}) => {
 
     const [showModal, setShowModal] = useState(false);
     const [name, setName] = useState(car.name);
@@ -48,7 +48,11 @@ const CarUpdate = ({car , changeFlag}) => {
             }
         }
         setShowModal(false);
-        changeFlag(true);
+        if (changeFlag) {
+            setChangeFlag(false);
+        } else {
+            setChangeFlag(true);
+        }
     };
 
     return (

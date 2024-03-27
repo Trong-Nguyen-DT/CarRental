@@ -286,6 +286,7 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                         <div className={styles.buttonUpdate_Delete}>
                             <CarUpdate car={car}
                                 changeFlag={changeFlag}
+                                setChangeFlag={setChangeFlag}
                             />
                             <Button className={styles.btnDelete} onClick={handleShowDeleteModal}>
                                 <i className="uil uil-trash" style={{ fontSize: '24pt' }}></i>

@@ -5,7 +5,7 @@ import { updateCustomer } from "../../services/UserService";
 import { toast } from "react-toastify";
 
 
-const CustomerUpdate = ({ customer, changeFlag }) => {
+const CustomerUpdate = ({ customer, changeFlag, setChangeFlag }) => {
     const [showModal, setShowModal] = useState(false);
     const [name, setName] = useState(customer.name);
     const [phone, setPhone] = useState(customer.phone);
@@ -42,7 +42,11 @@ const CustomerUpdate = ({ customer, changeFlag }) => {
             }
         }
         setShowModal(false);
-        changeFlag(true);
+        if (changeFlag) {
+            setChangeFlag(false);
+        } else {
+            setChangeFlag(true);
+        }
     };
 
 

@@ -51,6 +51,22 @@
     .top .search_box input::placeholder {
         color: white;
     }
+
+    .top  button{
+        margin-left: 15%;
+        color: white;
+        font-weight: bolder;
+        border-radius: 100%;
+        background-color: aliceblue;
+        height: 30px;
+        border: none;
+    }
+    .top  button i{
+        color: black;
+        background-color: aliceblue;
+        font-weight: bolder;
+        font-size: 12pt;
+    }
     .itemsContract {
         width: 90%;
         margin: 0 auto;

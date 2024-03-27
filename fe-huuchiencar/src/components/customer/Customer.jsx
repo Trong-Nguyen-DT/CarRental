@@ -96,6 +96,7 @@ function Customer() {
                             customer={selectedCustomer}
                             handleClose={handleCloseCustomerDetailModal}
                             changeFlag={setChangeFlag}
+                            setChangeFlag={setChangeFlag}
                         />
             </Modal>
         </section>

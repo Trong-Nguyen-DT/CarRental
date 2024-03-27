@@ -68,7 +68,7 @@ const updateCustomer = async (accessToken, body) => {
             throw new Error('Missing accessToken');
         }
 
-        const response = await axios.put('user/customers', body, {
+        const response = await axios.put('admin/customers', body, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             },
@@ -88,7 +88,7 @@ const deleteCustomer = async (accessToken, customerId) => {
             throw new Error('Missing accessToken');
         }
 
-        const response = await axios.delete(`user/customers/${customerId}`,{
+        const response = await axios.delete(`admin/customers/${customerId}`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`
             },
@@ -274,9 +274,50 @@ const getAllPayouts = async (accessToken) => {
     } catch (error) {
         // Xử lý lỗi
         console.error('Error calling getInfoDashboard API:', error);
+    }
+};
+const createContract = async (accessToken, formData) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.post('user/contracts', formData, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createContract:', error);
         throw error;
     }
 };
+
+const updateContract= async (accessToken, body) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.put('admin/contracts', body, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createCar:', error);
+        throw error;
+    }
+};
+
+
 
 export { getAllCustomer,
     createCustomer,
@@ -292,4 +333,6 @@ export { getAllCustomer,
     getAllContract,
     getAllHistoryByCar,
     getAllHistoryByCustomer,
-    getAllPayouts };
+    getAllPayouts,
+    createContract,
+    updateContract };
