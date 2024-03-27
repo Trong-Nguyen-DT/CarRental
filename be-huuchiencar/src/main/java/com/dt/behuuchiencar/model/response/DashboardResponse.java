@@ -12,4 +12,5 @@ import lombok.Setter;
 public class DashboardResponse {
     private List<Car> cars;
     private Long revenue;
+    private Long payOut;
 }

@@ -13,9 +13,9 @@ public class Information {
     private Customer customer;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalDate expectedDate;
     private Long originalOdo;
     private Long endedOdo;
+    private Long carCost;
     private Long surcharge;
     private Long totalPrice;
 }

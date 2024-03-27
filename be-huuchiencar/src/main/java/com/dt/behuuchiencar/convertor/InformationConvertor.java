@@ -10,9 +10,9 @@ public class InformationConvertor {
         info.setId(entity.getId());
         info.setStartDate(entity.getStartDate());
         info.setEndDate(entity.getEndDate());
-        info.setExpectedDate(entity.getExpectedDate());
         info.setOriginalOdo(entity.getOriginalOdo());
         info.setEndedOdo(entity.getEndedOdo());
+        info.setCarCost(entity.getCarCost());
         info.setSurcharge(entity.getSurcharge());
         info.setTotalPrice(entity.getTotalPrice());
         return info;

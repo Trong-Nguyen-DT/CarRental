@@ -75,21 +75,23 @@ function History() {
                     />
                 </div>
             </div>
-            <div className={styles.search_box}>
-                <label>Từ ngày:</label>
-                <input
-                    type="date"
-                    value={startDate ? startDate.toISOString().split('T')[0] : ''}
-                    onChange={(e) => setStartDate(new Date(e.target.value))}
-                />
-            </div>
-            <div className={styles.search_box}>
-                <label>Đến ngày:</label>
-                <input
-                    type="date"
-                    value={endDate ? endDate.toISOString().split('T')[0] : ''}
-                    onChange={(e) => setEndDate(new Date(e.target.value))}
-                />
+            <div className={styles.search_time}>
+                <div className={styles.search_date}>
+                    <label>Từ:</label>
+                    <input
+                        type="date"
+                        value={startDate ? startDate.toISOString().split('T')[0] : ''}
+                        onChange={(e) => setStartDate(new Date(e.target.value))}
+                    />
+                </div>
+                <div className={styles.search_date}>
+                    <label>Đến:</label>
+                    <input
+                        type="date"
+                        value={endDate ? endDate.toISOString().split('T')[0] : ''}
+                        onChange={(e) => setEndDate(new Date(e.target.value))}
+                    />
+                </div>
             </div>
 
             <div className={styles.dash_content}>
@@ -98,7 +100,7 @@ function History() {
                         <tr>
                             <th>STT</th>
                             <th>Tên Xe</th>
-                            <th>Tên khách hàng</th>
+                            <th>Tên khách</th>
                             <th>Tổng tiền</th>
                         </tr>
                     </thead>

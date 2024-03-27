@@ -51,8 +51,8 @@ const NavBar = () => {
                         <div>
                             <li className={styles.menu_li}>
                                 <Link to="/" onClick={() => handleNavClick('Dashboard')}>
-                                    <i class="uil uil-table"></i>
-                                    <span className={styles.link_name}>Tổng quan</span>
+                                    <i class="uil uil-tachometer-fast-alt"></i>
+                                    <span className={styles.link_name}>Doanh thu</span>
                                 </Link>
                             </li>
 
@@ -81,6 +81,13 @@ const NavBar = () => {
                             <Link to="/histories" onClick={() => handleNavClick('Histories')}>
                                 <i className="uil uil-clock"></i>
                                 <span className="styles.link_name">Lịch sử</span>
+                            </Link>
+                        </li>
+
+                        <li className={styles.menu_li}>
+                            <Link to="/payouts" onClick={() => handleNavClick('PayOuts')}>
+                                <i className="uil uil-money-bill"></i>
+                                <span className="styles.link_name">Chi phí</span>
                             </Link>
                         </li>
 

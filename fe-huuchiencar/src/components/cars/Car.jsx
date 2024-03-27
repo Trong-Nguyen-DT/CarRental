@@ -14,7 +14,7 @@ const Car = () => {
     const [changeFlag, setChangeFlag] = useState(false);
     const [showCarDetailModal, setShowCarDetailModal] = useState(false);
 
-    
+
 
     const handleCloseCarDetailModal = () => {
         setShowCarDetailModal(false);
@@ -105,12 +105,12 @@ const Car = () => {
                         <div className={styles.car_customer}>
                             <div className={styles.infoCar}>
                                 <p>Tên xe: {car.name}</p>
-                                <p>Giá: {car.rentCost} VNĐ/ngày</p>
+                                <p>Giá: {car.rentCost.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} /ngày</p>
                                 <p>Biển số: {car.numberPlate}</p>
                             </div>
                             <div className={styles.infoCustomer}>
-                                <p>Khách hàng: {car.customer ? (car.customer.name) : ""}</p>
-                                <p>SĐT: {car.customer ? (car.customer.phone) : ""}</p>
+                                <p>Khách: {car.information && car.information.customer ? (car.information.customer.name) : ""}</p>
+                                <p>SĐT: {car.information && car.information.customer ? (car.information.customer.phone) : ""}</p>
                                 <button className={`${styles.statusButton} ${getStatusColor(car.status)}`}>
                                     {getStatusText(car.status)}
                                 </button>

@@ -13,33 +13,18 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "histories")
-public class HistoryEntity {
+@Table(name = "payouts")
+public class PayOutEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long customerId;
-
-    private String customerName;
-
-    private Long userId;
-
-    private String userName;
-
     private Long carId;
 
     private String carName;
 
-    private Long contractId;
+    private LocalDate payDate;
 
-    private Long surcharge;
-
-    private Long carCost;
-
-    private Long totalRevenue;
-
-    private LocalDate dateTime;
-    
+    private Long totalPay;
 }

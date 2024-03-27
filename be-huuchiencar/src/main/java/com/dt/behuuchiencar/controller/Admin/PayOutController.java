@@ -5,34 +5,36 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dt.behuuchiencar.constant.SuccessConstants;
 import com.dt.behuuchiencar.exception.MessageException;
+import com.dt.behuuchiencar.model.request.PayoutInput;
 import com.dt.behuuchiencar.model.response.Response;
 import com.dt.behuuchiencar.model.response.ResponseBody;
 import com.dt.behuuchiencar.model.response.ResponsesBody;
-import com.dt.behuuchiencar.service.HistoryService;
+import com.dt.behuuchiencar.service.PayOutService;
 
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
 @RestController
-@RequestMapping("api/admin/history")
-public class HistoryAdminController {
+@RequestMapping("api/admin/payouts")
+public class PayOutController {
 
     @Autowired
-    private HistoryService historyService;
+    private PayOutService payOutService;
     
     @GetMapping()
-    public ResponseEntity<?> getAllHistory() {
+    public ResponseEntity<?> getAllPayOut() {
         try {
             ResponsesBody body = new ResponsesBody();
             body.setCode(SuccessConstants.OK_CODE);
             body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(historyService.getAllHistory());
+            body.setData(payOutService.getAllPayOut());
             return ResponseEntity.ok().body(body);
         } catch (MessageException e) {
             Response response = new Response();
@@ -42,31 +44,13 @@ public class HistoryAdminController {
         }
     }
 
-    @GetMapping("car/{carId}")
-    public ResponseEntity<?> getAllHistoryByCar(@PathVariable Long carId) {
-
+    @PostMapping()
+    public ResponseEntity<?> createPayout(@RequestBody PayoutInput input) {
         try {
             ResponseBody body = new ResponseBody();
             body.setCode(SuccessConstants.OK_CODE);
             body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(historyService.getAllHistoryByCar(carId));
-            return ResponseEntity.ok().body(body);
-        } catch (MessageException e) {
-            Response response = new Response();
-            response.setCode(e.getErrorCode());
-            response.setMessage(Arrays.asList(e));
-            return ResponseEntity.status(e.getErrorCode()).body(response);
-        }
-    }
-
-    @GetMapping("customer/{customerId}")
-    public ResponseEntity<?> getAllHistoryByCustomer(@PathVariable Long customerId) {
-
-        try {
-            ResponseBody body = new ResponseBody();
-            body.setCode(SuccessConstants.OK_CODE);
-            body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(historyService.getAllHistoryByCustomer(customerId));
+            body.setData(payOutService.createPayout(input));
             return ResponseEntity.ok().body(body);
         } catch (MessageException e) {
             Response response = new Response();

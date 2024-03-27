@@ -9,6 +9,7 @@ const CustomerUpdate = ({ customer, changeFlag }) => {
     const [showModal, setShowModal] = useState(false);
     const [name, setName] = useState(customer.name);
     const [phone, setPhone] = useState(customer.phone);
+    
 
     const handleShowModal = () => {
         setShowModal(true);
