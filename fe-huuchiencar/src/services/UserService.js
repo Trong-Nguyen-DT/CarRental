@@ -276,6 +276,27 @@ const getAllPayouts = async (accessToken) => {
         console.error('Error calling getInfoDashboard API:', error);
     }
 };
+
+const createPayout= async (accessToken, body) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.post('admin/payouts', body, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in createCar:', error);
+        throw error;
+    }
+};
+
 const createContract = async (accessToken, formData) => {
     try {
         if (!accessToken) {
@@ -335,4 +356,5 @@ export { getAllCustomer,
     getAllHistoryByCustomer,
     getAllPayouts,
     createContract,
-    updateContract };
+    updateContract,
+    createPayout };

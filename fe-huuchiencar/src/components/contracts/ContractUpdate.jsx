@@ -5,7 +5,6 @@ import styles from "./ContractDetail.module.css";
 import { updateContract } from "../../services/UserService";
 
 const ContractUpdate = ({contract, changeFlag, setChangeFlag}) => {
-    console.log(contract)
 
     const [showModal, setShowModal] = useState(false);
     const [startDate, setStartDate] = useState(contract.startDate);
@@ -21,7 +20,6 @@ const ContractUpdate = ({contract, changeFlag, setChangeFlag}) => {
 
     const handleStartDateChange = (e) => {
         setStartDate(e.target.value);
-        console.log(e.target.value)
     };
 
     const handleEndDateChange = (e) => {
@@ -34,10 +32,8 @@ const ContractUpdate = ({contract, changeFlag, setChangeFlag}) => {
            startDate : startDate,
            endDate : endDate
         }
-        console.log("a: " ,body)
         try {
-            const response = await updateContract
-            (localStorage.getItem("jwtToken"), body);
+            const response = await updateContract(localStorage.getItem("jwtToken"), body);
             console.log('Response from createCustomer API:', response);
         } catch (error) {
             for (let i = 0; i < error.response.data.message.length; i++) {

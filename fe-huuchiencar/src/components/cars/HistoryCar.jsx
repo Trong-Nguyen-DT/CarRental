@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getAllHistoryByCar } from "../../services/UserService";
 import { toast } from "react-toastify";
 import { Button, Modal, Table } from "react-bootstrap";
+import styles from './HistoryCar.module.css'
 
 const HistoryCar = ({ car }) => {
 
@@ -37,7 +38,7 @@ const HistoryCar = ({ car }) => {
 
 
     return (
-        <>
+        <div className={styles.historyCar}>
             <button onClick={showModalHistoryByCar}>
                 <i className="uil uil-history" style={{ fontSize: '24pt' }}></i>
             </button>
@@ -68,7 +69,7 @@ const HistoryCar = ({ car }) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </>
+        </div>
     );
 }
 
