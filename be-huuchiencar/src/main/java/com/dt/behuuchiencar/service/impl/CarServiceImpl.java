@@ -155,9 +155,13 @@ public class CarServiceImpl implements CarService {
             throw new MessageException(ErrorConstants.INVALID_DATA_MESSAGE, ErrorConstants.INVALID_DATA_CODE);
         }
         entity.setStatus(CarStatusValidate.validateStatusCar(input.getStatus()));
-        InformationEntity infoEntity = informationRepository.findById(entity.getInformationId()).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+        InformationEntity infoEntity = new InformationEntity();
+        if (entity.getInformationId() != null) {
+            infoEntity = informationRepository.findById(entity.getInformationId()).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+        } 
         updateInformationEntity(infoEntity, input);
         infoEntity = informationRepository.save(infoEntity);
+        entity.setInformationId(infoEntity.getId());
         entity = carRepository.save(entity);
         Car car = CarConvertor.toModel(entity);
         Information information = InformationConvertor.toModel(infoEntity);
@@ -192,8 +196,8 @@ public class CarServiceImpl implements CarService {
             if (info.getEndDate() != null) {
                 infoEntity.setEndDate(info.getEndDate());
             }
-            if (info.getExpectedDate() != null) {
-                infoEntity.setExpectedDate(info.getExpectedDate());
+            if (info.getCarCost() != null) {
+                infoEntity.setCarCost(info.getCarCost());
             }
             if (info.getOriginalOdo() != null) {
                 infoEntity.setOriginalOdo(info.getOriginalOdo());
@@ -220,6 +224,7 @@ public class CarServiceImpl implements CarService {
         entity.setCustomerName(customer.getName());
         entity.setCarId(carEntity.getId());
         entity.setCarName(carEntity.getName());
+        entity.setCarCost(info.getCarCost());
         entity.setTotalRevenue(info.getTotalPrice());
         entity.setDateTime(LocalDate.now());
         historyRepository.save(entity);

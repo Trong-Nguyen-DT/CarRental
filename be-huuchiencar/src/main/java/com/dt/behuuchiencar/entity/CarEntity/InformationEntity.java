@@ -28,11 +28,11 @@ public class InformationEntity {
 
     private LocalDate endDate;
 
-    private LocalDate expectedDate;
-
     private Long originalOdo;
 
     private Long endedOdo;
+
+    private Long carCost;
 
     private Long surcharge;
 

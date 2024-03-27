@@ -52,7 +52,7 @@ const NavBar = () => {
                             <li className={styles.menu_li}>
                                 <Link to="/" onClick={() => handleNavClick('Dashboard')}>
                                     <i class="uil uil-table"></i>
-                                    <span className={styles.link_name}>Tổng quan</span>
+                                    <span className={styles.link_name}>Doanh thu</span>
                                 </Link>
                             </li>
 

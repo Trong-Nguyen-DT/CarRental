@@ -34,6 +34,10 @@ public class HistoryEntity {
 
     private Long contractId;
 
+    private Long surcharge;
+
+    private Long carCost;
+
     private Long totalRevenue;
 
     private LocalDate dateTime;
