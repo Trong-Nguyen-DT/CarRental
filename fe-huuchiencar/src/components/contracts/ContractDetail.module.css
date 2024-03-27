@@ -1,16 +1,20 @@
-.pageContainer {
-    width: 210mm; /* Chiều rộng của một tờ giấy A4 */
-    margin: 0 auto; /* Căn giữa phần tử */
-    padding: 20mm; /* Khoảng cách lề */
-    font-size: 12pt; /* Cỡ chữ */
-    font-family: Arial, sans-serif; /* Font chữ */
-    background-color: white; /* Màu nền */
-    box-sizing: border-box; /* Box model */
-    border: 1px solid black; /* Viền */
+.text_content{
+    text-align: center; /* Căn giữa theo chiều ngang */
+    width: 100%; /* Chiều rộng tối đa */
 }
-
-.pageContainer img {
-    width: 100%;
+p {
+    margin: 0; /* Loại bỏ khoảng cách trống giữa các dòng */
 }
-
-
+.image img{
+    width: 20%;
+}
+.bottom{
+    display: flex;
+    margin-top: 10px;
+}
+.image h4{
+    text-align: center;
+}
+.button{
+    margin-left: 75%;
+}

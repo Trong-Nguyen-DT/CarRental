@@ -5,7 +5,7 @@ import CustomerUpdate from "./CustomerUpdate";
 import { deleteCustomer, getAllHistoryByCustomer } from "../../services/UserService";
 import { toast } from "react-toastify";
 
-const CustomerDetail = ({ customer, handleClose, changeFlag }) => {
+const CustomerDetail = ({ customer, handleClose, changeFlag, setChangeFlag }) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [historyByCustomer, setHistoryByCustomer] = useState([]);
@@ -91,6 +91,7 @@ const CustomerDetail = ({ customer, handleClose, changeFlag }) => {
                     <div className={styles.buttonUpdate_Delete}>
                         <CustomerUpdate customer={customer}
                             changeFlag={changeFlag}
+                            setChangeFlag={setChangeFlag}
                         />
                         <Button className={styles.btnDelete} onClick={handleShowDeleteModal}>
                             Xóa

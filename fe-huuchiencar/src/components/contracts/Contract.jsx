@@ -12,6 +12,7 @@ const Contract = () => {
     const [originalList, setOriginalList] = useState([]);
     const [contractSelected, setContractSelected] = useState(null);
     const [showContractDetail, setShowContractDetail] = useState(false);
+    const [changeFlag, setChangeFlag] = useState(false);
 
     
 
@@ -25,7 +26,7 @@ const Contract = () => {
 
     useEffect(() => {
         getAllContracts();
-    }, []);
+    }, [changeFlag]);
 
     useEffect(() => {
         handleSearchChange();
@@ -103,7 +104,10 @@ const Contract = () => {
                     <Modal.Title style={{ fontSize: '20pt', color: 'white' }}>Thông tin hợp đồng</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ContractDetail contract={contractSelected}/>
+                    <ContractDetail contract={contractSelected}
+                            setChangeFlag={setChangeFlag}
+                            changeFlag={changeFlag}
+                    />
                 </Modal.Body>
                 
             </Modal>
