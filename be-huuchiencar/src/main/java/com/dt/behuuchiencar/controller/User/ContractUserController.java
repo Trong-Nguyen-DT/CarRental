@@ -68,7 +68,7 @@ public class ContractUserController {
     private Response createErrorResponse(MessageException e) {
         Response response = new Response();
         response.setCode(e.getErrorCode());
-        response.setMessage(Arrays.asList(e));
+        response.setMessage(Arrays.asList(e));  
         return response;
     }
 

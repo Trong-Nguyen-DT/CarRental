@@ -12,6 +12,7 @@ public class PayOutConvertor {
         payOut.setId(entity.getId());
         payOut.setCarId(entity.getCarId());
         payOut.setCarName(entity.getCarName());
+        payOut.setNameService(entity.getNameService());
         payOut.setPayDate(entity.getPayDate());
         payOut.setTotalPay(entity.getTotalPay());
         return payOut;

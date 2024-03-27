@@ -263,6 +263,19 @@ const getAllHistoryByCustomer = async (accessToken, customerId) => {
     }
 };
 
+const getAllPayouts = async (accessToken) => {
+    try {
+        const response = await axios.get('admin/payouts', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error calling getInfoDashboard API:', error);
+    }
+};
 const createContract = async (accessToken, formData) => {
     try {
         if (!accessToken) {
@@ -320,5 +333,6 @@ export { getAllCustomer,
     getAllContract,
     getAllHistoryByCar,
     getAllHistoryByCustomer,
+    getAllPayouts,
     createContract,
     updateContract };

@@ -12,7 +12,6 @@ public class Contract {
     private LocalDate signDate;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Long prePay;
     private Long customerId;
     private String customerName;
     private String customerPhone;

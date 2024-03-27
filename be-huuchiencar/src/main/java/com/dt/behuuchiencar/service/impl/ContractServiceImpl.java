@@ -65,7 +65,7 @@ public class ContractServiceImpl implements ContractService{
     @Override
     public Contract createContract(ContractInput input) {
         ContractEntity entity = new ContractEntity();
-        entity.setSignDate(LocalDate.now());
+        entity.setSignDate(input.getStartDate());
         CustomerEntity customer = getCustomerById(input.getCustomerId());
         entity.setCustomerId(customer.getId());
         entity.setCustomerName(customer.getName());
@@ -82,10 +82,16 @@ public class ContractServiceImpl implements ContractService{
         entity.setCarImage(car.getImage());
         entity.setStartDate(input.getStartDate());
         entity.setEndDate(input.getEndDate());
-        entity.setPrePay(input.getPrePay());
-        entity.setEndPay(input.getEndPay());
         entity.setSignatureImageCustomer(imageService.uploadImage(input.getSignatureImageCustomer()));
         entity.setTemplateContractEntity(getTemplateContract());
+        return ContractConvertor.toModel(contractRepository.save(entity));
+    }
+
+    @Override
+    public Contract updateContract(Contract input) {
+        ContractEntity entity = contractRepository.findById(input.getId()).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+        entity.setStartDate(input.getStartDate());
+        entity.setEndDate(input.getEndDate());
         return ContractConvertor.toModel(contractRepository.save(entity));
     }
 
@@ -108,4 +114,6 @@ public class ContractServiceImpl implements ContractService{
     private TemplateContractEntity getTemplateContractEntity() {
         return templateContractRepository.findById(1L).orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
     }
+
+    
 }

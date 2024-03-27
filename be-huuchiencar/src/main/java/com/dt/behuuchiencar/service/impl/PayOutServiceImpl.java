@@ -43,6 +43,7 @@ public class PayOutServiceImpl implements PayOutService{
         entity.setCarId(car.getId());
         entity.setCarName(car.getName());
         entity.setTotalPay(input.getPrice());
+        entity.setNameService(input.getNameService());
         if (input.getDate() != null) {
             entity.setPayDate(input.getDate());
         } else {
