@@ -38,7 +38,6 @@ const CarUpdate = ({car , changeFlag, setChangeFlag}) => {
             numberPlate : numberPlate,
             rentCost : rentCost
         }
-        console.log("a: " ,body)
         try {
             const response = await updateCar(localStorage.getItem("jwtToken"), body);
             console.log('Response from createCustomer API:', response);

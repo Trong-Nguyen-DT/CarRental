@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from './Payout.module.css'
-import { Table } from "react-bootstrap";
+import { Modal, Table } from "react-bootstrap";
 import { getAllPayouts } from "../../services/UserService";
 import { toast } from "react-toastify";
+import CreatePayout from "./CreatePayout";
+import PayoutDetail from "./PayoutDetail";
 
 const Payout = () => {
 
@@ -11,10 +13,14 @@ const Payout = () => {
     const [originalList, setOriginalList] = useState([]);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [changeFlag, setChangeFlag] = useState(false);
+    const [selectedPayout, setSelectedPayout] = useState(null);
+    const [showPayoutDetailModal, setShowPayoutDetailModal] = useState(false);
+
 
     useEffect(() => {
         getAllPayout(); 
-    }, []);
+    }, [changeFlag]);
 
     useEffect(() => {
         handleSearchChange();
@@ -26,8 +32,7 @@ const Payout = () => {
         if (searchText.trim() !== "") {
             filterPayouts = filterPayouts.filter((payout) =>
                 payout.carName.toLowerCase().includes(searchText.toLowerCase()) ||
-                payout.customerName.toLowerCase().includes(searchText.toLowerCase()) ||
-                payout.userName.toLowerCase().includes(searchText.toLowerCase())
+                payout.nameService.toLowerCase().includes(searchText.toLowerCase())
             );
         }
 
@@ -46,11 +51,20 @@ const Payout = () => {
             const response = await getAllPayouts(localStorage.getItem('jwtToken'));
             setListItems(response.data);
             setOriginalList(response.data);
-            console.log(response.data);
         } catch (error) {
             toast.error('Error:', error);
         }
     };
+
+    const handlePayoutClick = (payout) => {
+        setSelectedPayout(payout);
+        setShowPayoutDetailModal(true);
+    };
+
+    const handleClosePayoutDetailModal = () => {
+        setShowPayoutDetailModal(false);
+    };
+
     return (
         <section className={styles.dashboard}>
             <div className={styles.top}>
@@ -63,7 +77,12 @@ const Payout = () => {
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
+                <CreatePayout
+                    changeFlags={changeFlag}
+                    setChangeFlag={setChangeFlag}
+                />
             </div>
+            
             <div className={styles.search_time}>
                 <div className={styles.search_date}>
                     <label>Từ:</label>
@@ -95,7 +114,7 @@ const Payout = () => {
                     </thead>
                     <tbody>
                         {listItems.map((item, index) => (
-                            <tr key={index}>
+                            <tr key={index} onClick={() => handlePayoutClick(item)}>
                                 <td>{index + 1}</td>
                                 <td>{item.carName}</td>
                                 <td>{item.nameService}</td>
@@ -105,6 +124,12 @@ const Payout = () => {
                     </tbody>
                 </Table>
             </div>
+            <Modal show={showPayoutDetailModal} onHide={handleClosePayoutDetailModal}>
+                <PayoutDetail
+                            payout={selectedPayout}
+                            handleClose={handleClosePayoutDetailModal}
+                        />
+            </Modal>
         </section>
     );
 }

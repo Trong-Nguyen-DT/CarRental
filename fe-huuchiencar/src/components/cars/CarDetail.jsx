@@ -14,7 +14,6 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [customerId, setCustomerId] = useState(null);
 
-    console.log(car);
 
     useEffect(() => {
         setSelectedStatus(car.status);
@@ -40,7 +39,7 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
         endDate: '',
         originalOdo: '',
         endedOdo: '',
-        surcharge: '',
+        surcharge: 0,
         totalPrice: ''
     });
 
@@ -73,7 +72,7 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                 originalOdo: originalOdo || null,
                 endedOdo: endedOdo || null,
                 carCost: carCost || null,
-                surcharge: surcharge || null,
+                surcharge: surcharge || 0,
                 totalPrice: totalPrice || null
             });
         }
@@ -134,7 +133,6 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                 totalPrice: convertEmptyToNull(formData.totalPrice)
             } : null 
         };
-        console.log(body);
         try {
             const response = await createOrder(localStorage.getItem("jwtToken"), body);
             toast.success("Cập nhật thành công");
@@ -212,9 +210,6 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
         
         if (!formData.carCost) {
             errors.push("Chi phí xe không được để trống");
-        }
-        if (!formData.surcharge) {
-            errors.push("Chi phí phát sinh không được để trống");
         }
     
         if (!formData.endDate) {
@@ -342,7 +337,7 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                         </div>
 
                         {selectedStatus === 'BOOKED' || selectedStatus === 'ACTIVE' ? (
-                            <Form>
+                            <Form className={styles.formData}>
                                 <Form.Group controlId="name">
                                         <Form.Label>Tên khách hàng</Form.Label>
                                         <Select
@@ -422,7 +417,7 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                 </Button>
             </Modal.Footer>
             {selectedStatus === "ACTIVE" ? (
-                <button onClick={handlePayment}>Thanh toán</button>
+                <button className={styles.payment} onClick={handlePayment}>Thanh toán</button>
             ) : null}
         </>
     );

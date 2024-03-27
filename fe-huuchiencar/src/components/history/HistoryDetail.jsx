@@ -11,8 +11,6 @@ const HistoryDetail = ({ history, handleClose }) => {
         return `${day}-${month}-${year}`;
     }
 
-
-    console.log("HistoryDetail", history);
     return (
         <>
             <Modal.Header closeButton style={{ backgroundColor: 'gray' }}>
@@ -35,7 +33,14 @@ const HistoryDetail = ({ history, handleClose }) => {
                     <label>Ngày thanh toán: </label>
                     <span>{formatDate(history.dateTime)}</span>
                 </div>
-
+                <div className={styles.content}>
+                    <label>Chi phí xe: </label>
+                    <span>{history.carCost.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                </div>
+                <div className={styles.content}>
+                    <label>Chi phí phụ: </label>
+                    <span>{history.surcharge.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                </div>
                 <div className={styles.content}>
                     <label>Tổng tiền: </label>
                     <span>{history.totalRevenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>

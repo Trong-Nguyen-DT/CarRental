@@ -16,7 +16,7 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    margin-left: 5%;
+    margin: 0 5% 5% 5%;
 }
 .history{
     padding-left: 5%;
@@ -67,4 +67,34 @@
     background-color: red;
     border: none;
     font-weight: bolder;
+}
+
+.payment {
+    width: 90%;
+    padding: 15px;
+    margin: 5%;
+    border: none;
+    border-radius: 15px;
+    background-color: blueviolet;
+    color: #fff;
+    font-weight: bold;
+}
+
+.radio_status {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+.radio_status input {
+    margin: 5px 15px  0 0;
+}
+
+.radio_status label {
+    margin: 0;
+}
+
+.formData {
+    margin: 5% auto;
 }
