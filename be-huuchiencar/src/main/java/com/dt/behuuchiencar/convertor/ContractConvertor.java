@@ -14,7 +14,6 @@ public class ContractConvertor {
         contract.setSignDate(entity.getSignDate());
         contract.setStartDate(entity.getStartDate());
         contract.setEndDate(entity.getEndDate());
-        contract.setPrePay(entity.getPrePay());
         contract.setCustomerId(entity.getCustomerId());
         contract.setCustomerName(entity.getCustomerName());
         contract.setCustomerPhone(entity.getCustomerPhone());

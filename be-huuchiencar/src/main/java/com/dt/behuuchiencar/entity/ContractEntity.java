@@ -51,10 +51,6 @@ public class ContractEntity {
     private LocalDate startDate;    
 
     private LocalDate endDate;
-
-    private Long prePay;
-
-    private Long endPay;
     
     private String signatureImageCustomer;
 

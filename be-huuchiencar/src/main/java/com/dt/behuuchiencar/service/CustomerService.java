@@ -3,6 +3,7 @@ package com.dt.behuuchiencar.service;
 import java.util.List;
 
 import com.dt.behuuchiencar.model.Customer;
+import com.dt.behuuchiencar.model.request.CustomerImageInput;
 import com.dt.behuuchiencar.model.request.CustomerInput;
 
 public interface CustomerService {
@@ -14,5 +15,7 @@ public interface CustomerService {
     Customer updateCustomer(Customer customer);
 
     Customer deleteCustomer(Long customerId);
+
+    Customer updateImageCustomer(CustomerImageInput input);
     
 }

@@ -263,6 +263,21 @@ const getAllHistoryByCustomer = async (accessToken, customerId) => {
     }
 };
 
+const getAllPayouts = async (accessToken) => {
+    try {
+        const response = await axios.get('admin/payouts', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error calling getInfoDashboard API:', error);
+        throw error;
+    }
+};
+
 export { getAllCustomer,
     createCustomer,
     updateCustomer,
@@ -276,4 +291,5 @@ export { getAllCustomer,
     createOrder,
     getAllContract,
     getAllHistoryByCar,
-    getAllHistoryByCustomer };
+    getAllHistoryByCustomer,
+    getAllPayouts };

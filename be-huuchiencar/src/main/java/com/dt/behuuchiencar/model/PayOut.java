@@ -11,6 +11,7 @@ public class PayOut {
     private Long id;
     private Long carId;
     private String carName;
+    private String nameService;
     private LocalDate payDate;
     private Long totalPay;
 }

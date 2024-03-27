@@ -24,6 +24,8 @@ public class PayOutEntity {
 
     private String carName;
 
+    private String nameService;
+
     private LocalDate payDate;
 
     private Long totalPay;

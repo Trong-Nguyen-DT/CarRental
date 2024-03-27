@@ -23,11 +23,5 @@ public class ContractInput {
 
     private LocalDate endDate;
 
-    private Long prePay;
-
-    private Long endPay;
-
-    private Long surcharge;
-
     private MultipartFile signatureImageCustomer;
 }

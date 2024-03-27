@@ -69,32 +69,6 @@ public class CustomerUserController {
             return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
         }
     }
-
-    @PutMapping()
-    public ResponseEntity<?> updateCustomer(@Valid @RequestBody Customer customer) {
-        try {
-            ResponseBody body = new ResponseBody();
-            body.setCode(SuccessConstants.OK_CODE);
-            body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(customerService.updateCustomer(customer));
-            return ResponseEntity.ok().body(body);
-        } catch (MessageException e) {
-            return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
-        }
-    }
-
-    @DeleteMapping("{customerId}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable Long customerId) {
-        try {
-            ResponseBody body = new ResponseBody();
-            body.setCode(SuccessConstants.OK_CODE);
-            body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(customerService.deleteCustomer(customerId));
-            return ResponseEntity.ok().body(body);
-        } catch (MessageException e) {
-            return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
-        }
-    }
     
     private Response createErrorResponse(MessageException e) {
         Response response = new Response();

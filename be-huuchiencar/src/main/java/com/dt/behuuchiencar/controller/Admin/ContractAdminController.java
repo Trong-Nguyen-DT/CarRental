@@ -9,12 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,60 +17,35 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dt.behuuchiencar.constant.ErrorConstants;
 import com.dt.behuuchiencar.constant.SuccessConstants;
 import com.dt.behuuchiencar.exception.MessageException;
-import com.dt.behuuchiencar.model.Customer;
-import com.dt.behuuchiencar.model.request.CustomerImageInput;
+import com.dt.behuuchiencar.model.Contract;
 import com.dt.behuuchiencar.model.response.Response;
 import com.dt.behuuchiencar.model.response.ResponseBody;
-import com.dt.behuuchiencar.service.CustomerService;
+import com.dt.behuuchiencar.service.ContractService;
 
-import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
-@RequestMapping("api/admin/customers")
-public class CustomerAdminController {
-    
+@RequestMapping("api/admin/contracts")
+public class ContractAdminController {
+
     @Autowired
-    private CustomerService customerService;
+    private ContractService contractService;
 
     @PutMapping()
-    public ResponseEntity<?> updateCustomer(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<?> updateContract(@RequestBody Contract input) {
         try {
             ResponseBody body = new ResponseBody();
             body.setCode(SuccessConstants.OK_CODE);
             body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(customerService.updateCustomer(customer));
+            body.setData(contractService.updateContract(input));
             return ResponseEntity.ok().body(body);
         } catch (MessageException e) {
             return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
         }
     }
-
-    @PatchMapping()
-    public ResponseEntity<?> updateImageCustomer(@Valid CustomerImageInput input) {
-        try {
-            ResponseBody body = new ResponseBody();
-            body.setCode(SuccessConstants.OK_CODE);
-            body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(customerService.updateImageCustomer(input));
-            return ResponseEntity.ok(body);
-        } catch (MessageException e) {
-            return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
-        }
-    }
-
-    @DeleteMapping("{customerId}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable Long customerId) {
-        try {
-            ResponseBody body = new ResponseBody();
-            body.setCode(SuccessConstants.OK_CODE);
-            body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
-            body.setData(customerService.deleteCustomer(customerId));
-            return ResponseEntity.ok().body(body);
-        } catch (MessageException e) {
-            return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
-        }
-    }
-
+    
     private Response createErrorResponse(MessageException e) {
         Response response = new Response();
         response.setCode(e.getErrorCode());
