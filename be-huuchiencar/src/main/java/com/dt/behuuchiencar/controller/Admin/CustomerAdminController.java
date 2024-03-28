@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import com.dt.behuuchiencar.constant.ErrorConstants;
 import com.dt.behuuchiencar.constant.SuccessConstants;
 import com.dt.behuuchiencar.exception.MessageException;
 import com.dt.behuuchiencar.model.Customer;
+import com.dt.behuuchiencar.model.request.CustomerImageInput;
 import com.dt.behuuchiencar.model.response.Response;
 import com.dt.behuuchiencar.model.response.ResponseBody;
 import com.dt.behuuchiencar.service.CustomerService;
@@ -43,6 +45,19 @@ public class CustomerAdminController {
             body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
             body.setData(customerService.updateCustomer(customer));
             return ResponseEntity.ok().body(body);
+        } catch (MessageException e) {
+            return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
+        }
+    }
+
+    @PatchMapping()
+    public ResponseEntity<?> updateImageCustomer(@Valid CustomerImageInput input) {
+        try {
+            ResponseBody body = new ResponseBody();
+            body.setCode(SuccessConstants.OK_CODE);
+            body.setMessage(Arrays.asList(SuccessConstants.OK_MESSAGE));
+            body.setData(customerService.updateImageCustomer(input));
+            return ResponseEntity.ok(body);
         } catch (MessageException e) {
             return ResponseEntity.status(e.getErrorCode()).body(createErrorResponse(e));
         }

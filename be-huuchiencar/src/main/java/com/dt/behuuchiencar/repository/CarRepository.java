@@ -10,6 +10,6 @@ import com.dt.behuuchiencar.entity.CarEntity.CarEntity;
 @Repository
 public interface CarRepository extends JpaRepository<CarEntity, Long>{
 
-    List<CarEntity> findByDeletedFalse();
+    List<CarEntity> findAllByDeletedFalseOrderByIdDesc();
     
 }

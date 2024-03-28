@@ -10,6 +10,7 @@ import com.dt.behuuchiencar.convertor.CustomerConvertor;
 import com.dt.behuuchiencar.entity.CustomerEntity;
 import com.dt.behuuchiencar.exception.MessageException;
 import com.dt.behuuchiencar.model.Customer;
+import com.dt.behuuchiencar.model.request.CustomerImageInput;
 import com.dt.behuuchiencar.model.request.CustomerInput;
 import com.dt.behuuchiencar.repository.CustomerRepository;
 import com.dt.behuuchiencar.service.CustomerService;
@@ -26,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public List<Object> getAllCustomer() {
         return CustomerConvertor.convertToObjects(customerRepository
-                .findByDeletedFalse()
+                .findByDeletedFalseOrderByIdDesc()
                 .stream()
                 .map(CustomerConvertor::toModel)
                 .toList());
@@ -34,6 +35,9 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public Customer createCustomer(CustomerInput customer) {
+        if (customerRepository.existsByCitizenId(customer.getCitizenId())) {
+            throw new MessageException(ErrorConstants.INVALID_CITIZENID_MESSAGE, ErrorConstants.INVALID_CITIZENID_CODE);
+        }
         CustomerEntity entity = new CustomerEntity();
         entity.setName(customer.getName());
         entity.setPhone(customer.getPhone());
@@ -53,7 +57,31 @@ public class CustomerServiceImpl implements CustomerService{
             .orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
         entity.setName(customer.getName());
         entity.setPhone(customer.getPhone());
-        return CustomerConvertor.toModel(entity);
+        if (customer.getCitizenId() != null) {
+            entity.setCitizenId(customer.getCitizenId());
+        }
+        return CustomerConvertor.toModel(customerRepository.save(entity));
+    }
+
+    @Override
+    public Customer updateImageCustomer(CustomerImageInput input) {
+        CustomerEntity entity = customerRepository
+            .findById(input.getId())
+            .orElseThrow(() -> new MessageException(ErrorConstants.NOT_FOUND_MESSAGE, ErrorConstants.NOT_FOUND_CODE));
+        
+        if (input.getCitizenIdFront() != null) {
+            entity.setCitizenIdFront(imageService.uploadImage(input.getCitizenIdFront()));
+        }
+        if (input.getCitizenIdBack() != null) {
+            entity.setCitizenIdBack(imageService.uploadImage(input.getCitizenIdBack()));
+        }
+        if (input.getDriverLicenseFront() != null) {
+            entity.setDriverLicenseFront(imageService.uploadImage(input.getDriverLicenseFront()));
+        }
+        if (input.getDriverLicenseBack() != null) {
+            entity.setDriverLicenseBack(imageService.uploadImage(input.getDriverLicenseBack()));
+        }
+        return CustomerConvertor.toModel(customerRepository.save(entity));
     }
 
     @Override
@@ -64,4 +92,5 @@ public class CustomerServiceImpl implements CustomerService{
         entity.setDeleted(true);
         return CustomerConvertor.toModel(customerRepository.save(entity));
     }
+
 }

@@ -7,7 +7,7 @@ import com.dt.behuuchiencar.entity.CustomerEntity;
 import com.dt.behuuchiencar.model.Customer;
 
 public class CustomerConvertor {
-    
+
     public static Customer toModel(CustomerEntity entity) {
         Customer customer = new Customer();
         customer.setId(entity.getId());

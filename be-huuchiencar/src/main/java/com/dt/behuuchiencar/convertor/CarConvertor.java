@@ -3,6 +3,7 @@ package com.dt.behuuchiencar.convertor;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.dt.behuuchiencar.entity.CarEntity.CarEntity;
 import com.dt.behuuchiencar.model.Car;
 
@@ -14,7 +15,6 @@ public class CarConvertor {
         car.setNumberPlate(entity.getNumberPlate());
         car.setName(entity.getName());
         car.setStatus(entity.getStatus());
-        car.setOdo(entity.getOdo());
         car.setRentCost(entity.getRentCost());
         car.setImage(entity.getImage());
         car.setRevenue(entity.getRevenue());

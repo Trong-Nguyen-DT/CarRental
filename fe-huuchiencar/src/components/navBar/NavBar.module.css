@@ -1,0 +1,48 @@
+.nav_1 {
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+    nav {
+        align-items: center;
+        width: 45%;
+        background-color: rgb(1, 1, 7);
+        height: 95vh;
+    }
+
+    .menu_links li {
+        list-style: none;
+        padding-top: 18%;
+        padding-left: 12%;
+    }
+    .menu_links li i{
+        font-size: 20pt;
+        padding-right: 5%;
+    }
+    .menu_links li a {
+        
+        font-size: 13pt;
+       text-decoration: none;
+       color: aliceblue;
+       font-weight: bolder;
+    }
+    .logout{
+        width: 100%;
+        position: absolute;
+        bottom: 4%;
+        left: 3%;
+    }
+    .logout li i{
+        font-size: 20pt;
+        padding-right: 5%;
+    }
+    .logout li a{
+        font-size: 13pt;
+        text-decoration: none;
+        color: aliceblue;
+        font-weight: bolder;
+    }
+}
+

@@ -22,5 +22,8 @@ public class ErrorConstants {
 
     public static final int EMAIL_ALREADY_EXISTS_CODE = 409;
     public static final String EMAIL_ALREADY_EXISTS_MESSAGE = "Tên người dùng đã tồn tại trong hệ thống";
+
+    public static final int INVALID_CITIZENID_CODE = 401;
+    public static final String INVALID_CITIZENID_MESSAGE = "Người dùng đã tồn tại trong hệ thống";
     
 }

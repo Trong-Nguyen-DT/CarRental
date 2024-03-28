@@ -1,0 +1,134 @@
+.contract {
+    width: 90%;
+    margin:  5% auto;
+    height: auto;
+    min-height: 100vh;
+}
+
+.contract {
+
+    .contract_items {
+        width:  100%;
+    }
+
+    .contract_item {
+        background-color: black;
+        color: white;
+    }
+    .top {
+        width: 90%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin: 5% auto;
+        height: 8%;
+        align-items: center;
+    }
+    
+    .top .search_box {
+        width: 70%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid rgb(255, 255, 255);
+    }
+    
+    .top .search_box i {
+        padding-left: 3%;
+        color: white;
+        font-size: 24pt;
+        margin-right: 5px; /* Thêm margin để tạo khoảng cách giữa biểu tượng và input */
+    }
+    
+    .top .search_box input {
+        color: white;
+        font-size: 14pt;
+        border: none;
+        background: transparent; /* Để input có màu trắng */
+    
+    }
+    
+    .top .search_box input::placeholder {
+        color: white;
+    }
+
+    .top  button{
+        margin-left: 15%;
+        color: white;
+        font-weight: bolder;
+        border-radius: 100%;
+        background-color: aliceblue;
+        height: 30px;
+        border: none;
+    }
+    .top  button i{
+        color: black;
+        background-color: aliceblue;
+        font-weight: bolder;
+        font-size: 12pt;
+    }
+    .itemsContract {
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 20px ;
+        color: white;
+       
+    }
+    
+    .itemContract{
+        font-size: 11pt;
+        background-color: black;
+        width: 100%;
+        margin: 5% auto;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+    }
+    .imageCar{
+        width: 85%;
+        margin: 5% 3%;
+    }
+    .imageCar img{
+        width: 100%;
+        border-radius: 10px;
+    }
+    .car_customer{
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin:  0 3% ;
+    
+    }
+    .infoCar{
+        width: 100%;
+        margin: auto;
+        font-size: 10pt;
+    }
+  
+    .infoCustomer button{
+        width: 50%;
+        border-radius: 20px;
+        font-size: 8pt;
+        /* padding: 3px; */
+        margin: 0 auto;
+    }
+    
+    .booked {
+        background-color: red;
+        color: white;
+        border: red;
+      }
+      
+      .inactive {
+        background-color: gray; 
+        color: black;
+        border: gray;
+    }
+      
+      .active {
+        background-color: green; 
+        color: white;
+        border: green;
+    }
+}

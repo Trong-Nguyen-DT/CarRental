@@ -22,4 +22,5 @@ public class Customer {
     private String citizenIdBack;
     private String driverLicenseFront;
     private String driverLicenseBack;
+    private Contract contracts;
 }

@@ -9,5 +9,7 @@ import com.dt.behuuchiencar.entity.CustomerEntity;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
-    List<CustomerEntity> findByDeletedFalse();
+    boolean existsByCitizenId(String citizenId);
+    
+    List<CustomerEntity> findByDeletedFalseOrderByIdDesc();
 }

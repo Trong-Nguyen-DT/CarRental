@@ -1,0 +1,100 @@
+
+.modal-title {
+    font-size: 45px; /* Thay đổi kích thước font theo nhu cầu */
+    /* Thêm các thuộc tính CSS khác nếu cần */
+}
+.car label{
+    font-size: 16pt;
+    margin: 0  15%;
+    font-weight: bolder;
+}
+.car img{
+    width: 90%;
+    margin: 5%;
+}
+.car .infoCar{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin: 0 5% 5% 5%;
+}
+.history{
+    padding-left: 5%;
+}
+.history button{
+    border: none;
+    border-radius: 50%;
+    height: 25%;
+    background-color: aliceblue;
+}
+.car .infoCar strong
+{
+    font-size: 18pt;
+}
+.car .infoCar p{
+    font-size: 16pt;
+    font-weight: 500;
+}
+.infoCustomer{
+    margin-top: 15%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+}
+.car .infoCustomer strong
+{
+    font-size: 18pt;
+}
+.car .infoCustomer p{
+    font-size: 16pt;
+    font-weight: 500;
+}
+.car .photo{
+    margin-top: 2%;
+}
+.buttonUpdate_Delete{
+    position: absolute;
+    right: 2%;
+    color: white;
+}
+.btnUpdate{
+    margin-right: 10px;
+    border: none;
+    font-weight: bolder;
+}
+.btnDelete{
+    background-color: red;
+    border: none;
+    font-weight: bolder;
+}
+
+.payment {
+    width: 90%;
+    padding: 15px;
+    margin: 5%;
+    border: none;
+    border-radius: 15px;
+    background-color: blueviolet;
+    color: #fff;
+    font-weight: bold;
+}
+
+.radio_status {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+.radio_status input {
+    margin: 5px 15px  0 0;
+}
+
+.radio_status label {
+    margin: 0;
+}
+
+.formData {
+    margin: 5% auto;
+}
