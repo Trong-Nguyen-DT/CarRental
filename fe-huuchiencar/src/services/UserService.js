@@ -82,6 +82,28 @@ const updateCustomer = async (accessToken, body) => {
     }
 };
 
+const updateImage = async (accessToken, formData) => {
+    try {
+        if (!accessToken) {
+            throw new Error('Missing accessToken');
+        }
+
+        const response = await axios.patch('admin/customers', formData, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'multipart/form-data'
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Error in updateImage:', error);
+        throw error;
+    }
+};
+
+
 const deleteCustomer = async (accessToken, customerId) => {
     try {
         if (!accessToken) {
@@ -357,4 +379,5 @@ export { getAllCustomer,
     getAllPayouts,
     createContract,
     updateContract,
-    createPayout };
+    createPayout,
+    updateImage};

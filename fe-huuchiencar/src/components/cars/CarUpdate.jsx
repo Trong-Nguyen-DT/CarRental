@@ -4,7 +4,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { updateCar } from "../../services/UserService";
 
-const CarUpdate = ({car , changeFlag, setChangeFlag}) => {
+const CarUpdate = ({car , changeFlag, setChangeFlag, setSelectedCar}) => {
 
     const [showModal, setShowModal] = useState(false);
     const [name, setName] = useState(car.name);
@@ -41,6 +41,7 @@ const CarUpdate = ({car , changeFlag, setChangeFlag}) => {
         try {
             const response = await updateCar(localStorage.getItem("jwtToken"), body);
             console.log('Response from createCustomer API:', response);
+            setSelectedCar(response.data);
         } catch (error) {
             for (let i = 0; i < error.response.data.message.length; i++) {
                 toast.error(error.response.data.message[i].defaultMessage + '. Vui lòng nhập lại.');
@@ -59,8 +60,8 @@ const CarUpdate = ({car , changeFlag, setChangeFlag}) => {
             <Button variant="secondary" onClick={handleShowModal} className={styles.btnUpdate}>
             <i className="uil uil-pen" style={{ fontSize: '24pt' }}></i>
             </Button>
-            <Modal show={showModal} onHide={handleCloseModal} centered>
-                <Modal.Header closeButton>
+            <Modal show={showModal} onHide={handleCloseModal} centered style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
+                <Modal.Header closeButton style={{ backgroundColor: 'gray' }}>
                     <Modal.Title>Cập nhật xe</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -83,10 +84,10 @@ const CarUpdate = ({car , changeFlag, setChangeFlag}) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
-                        Đóng
+                    <i className="uil uil-lock" style={{ fontSize: '24pt' }}></i>
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>
-                        Lưu
+                    <i className="uil uil-bookmark" style={{ fontSize: '24pt' }}></i>
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -4,8 +4,9 @@ import styles from './CustomerDetail.module.css';
 import CustomerUpdate from "./CustomerUpdate";
 import { deleteCustomer, getAllHistoryByCustomer } from "../../services/UserService";
 import { toast } from "react-toastify";
+import ImageCustomerUpdate from "./ImageCustomerUpdate";
 
-const CustomerDetail = ({ customer, handleClose, changeFlag, setChangeFlag }) => {
+const CustomerDetail = ({ customer, handleClose, changeFlag, setChangeFlag, setSelectedCustomer }) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [historyByCustomer, setHistoryByCustomer] = useState([]);
@@ -92,12 +93,13 @@ const CustomerDetail = ({ customer, handleClose, changeFlag, setChangeFlag }) =>
                         <CustomerUpdate customer={customer}
                             changeFlag={changeFlag}
                             setChangeFlag={setChangeFlag}
+                            setSelectedCustomer={setSelectedCustomer}
                         />
                         <Button className={styles.btnDelete} onClick={handleShowDeleteModal}>
-                            Xóa
+                        <i className="uil uil-trash" style={{ fontSize: '24pt' }}></i>
                         </Button>
-                        <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} centered>
-                            <Modal.Header closeButton>
+                        <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} centered style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+                            <Modal.Header closeButton style={{backgroundColor: 'gray'}}>
                                 <Modal.Title>Xác nhận xóa</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
@@ -105,10 +107,10 @@ const CustomerDetail = ({ customer, handleClose, changeFlag, setChangeFlag }) =>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleCloseDeleteModal}>
-                                    Hủy
+                                <i className="uil uil-lock" style={{ fontSize: '24pt' }}></i>
                                 </Button>
                                 <Button variant="danger" onClick={handleConfirmDelete}>
-                                    Xóa
+                                <i className="uil uil-trash" style={{ fontSize: '24pt' }}></i>
                                 </Button>
                             </Modal.Footer>
                         </Modal>
@@ -119,9 +121,9 @@ const CustomerDetail = ({ customer, handleClose, changeFlag, setChangeFlag }) =>
 
             <br />
             <br />
-            <Table striped bordered hover>
+            <Table striped bordered hover style={{backgroundColor: 'gray'}}>
                 <thead>
-                    <tr>
+                    <tr >
                         <th>STT</th>
                         <th>Tên Xe</th>
                         <th>Tên khách hàng</th>
@@ -141,10 +143,14 @@ const CustomerDetail = ({ customer, handleClose, changeFlag, setChangeFlag }) =>
             </Table>
 
             <Modal show={showImageModal} onHide={handleCloseImageModal} centered>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={{backgroundColor: 'gray'}}>
                     <Modal.Title>Hình ảnh khách hàng</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <ImageCustomerUpdate customer={customer}
+                        changeFlag={changeFlag}
+                        setChangeFlag={setChangeFlag}
+                    />
                     <div className={styles.photo}>
                         <label> Ảnh mặt trước CCCD</label>
                         <img src={customer.citizenIdFront} alt="" />
@@ -161,7 +167,7 @@ const CustomerDetail = ({ customer, handleClose, changeFlag, setChangeFlag }) =>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={handleCloseImageModal}>
-                        Đóng
+                    <i className="uil uil-lock" style={{ fontSize: '24pt' }}></i>
                     </Button>
                 </Modal.Footer>
             </Modal>

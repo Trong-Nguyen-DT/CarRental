@@ -48,8 +48,12 @@
     border: none;
     font-weight: bolder;
 }
+.btnUpdateImage{
+    margin-left: 80%;
+}
 .btnDelete{
     background-color: red;
     border: none;
     font-weight: bolder;
 }
+

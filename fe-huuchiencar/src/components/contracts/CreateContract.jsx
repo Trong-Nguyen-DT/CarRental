@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Select from 'react-select';
 import ReactSignatureCanvas from "react-signature-canvas";
 
-function CreateContract() {
+function CreateContract({onCreateSuccess}) {
     const [show, setShow] = useState(false);
     const [cars, setCars] = useState([]);
     const [customers, setCustomers] = useState([]);
@@ -132,12 +132,14 @@ function CreateContract() {
         try {
             const response = await createContract(localStorage.getItem("jwtToken"), formDataToSend);
             console.log('Response from createCustomer API:', response);
+            onCreateSuccess();
         } catch (error) {
             for (let i = 0; i < error.response.data.message.length; i++) {
                 toast.error(error.response.data.message[i].defaultMessage + '. Please try again.');
                 console.log("lỗi")
             }
         }
+        handleClose();
     };
 
     const handleSaveSignature = () => {
@@ -170,7 +172,7 @@ function CreateContract() {
                 <i className="uil uil-plus"></i>
             </button>
             <Modal show={show} onHide={handleClose} centered>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={{backgroundColor: 'gray', color:'white', fontSize: '14pt'}}>
                     <Modal.Title>Tạo hợp đồng mới</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -220,18 +222,22 @@ function CreateContract() {
                                 canvasProps={{ width: 500, height: 200, className: 'signature-canvas' }}
                                 ref={signatureRef}
                             />
-                            <Button onClick={handleSaveSignature}>Lưu chữ ký</Button>
-                            <Button onClick={handleClearSignature}>Xóa chữ ký</Button>
+                            <Button onClick={handleSaveSignature}>
+                            <i className="uil uil-check" style={{ fontSize: '24pt' }}></i>
+                            </Button>
+                            <Button style={{backgroundColor:'red'}} onClick={handleClearSignature}>
+                            <i className="uil uil-trash" style={{ fontSize: '24pt' }}></i>
+                            </Button>
                             {formData.signatureImageCustomer && (
                                 <div>
-                                    <p>Chữ ký đã ký:</p>
-                                    <img src={formData.showSignatureImageCustomer} alt="Chữ ký khách hàng" />
+                                    <p>Đã lưu chữ ký</p>
+                                    {/* <img src={formData.showSignatureImageCustomer} alt="Chữ ký khách hàng" /> */}
                                 </div>
                             )}
                         </Form.Group>
                     </Form>
-                    <Button variant="primary" onClick={handleSubmit}>
-                        Lưu
+                    <Button style={{margin: '0 80%'}} variant="primary" onClick={handleSubmit}>
+                    <i className="uil uil-bookmark" style={{ fontSize: '24pt' }}></i>
                     </Button>
                 </Modal.Body>
             </Modal>

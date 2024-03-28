@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { createCar } from '../../services/UserService';
 import { toast } from 'react-toastify';
 
-const CreateCar = () => {
+const CreateCar = ({onCreateSuccess}) => {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -46,39 +46,39 @@ const CreateCar = () => {
 
     const validateForm = () => {
         const errors = {};
-    
+
         // Validate name
         if (!formData.name.trim()) {
             errors.name = 'Tên xe không được để trống';
         }
-    
+
         // Validate numberPlate
         if (!formData.numberPlate.trim()) {
             errors.numberPlate = 'Biển số xe không được để trống';
         }
-    
+
         // Validate odo
         if (!String(formData.odo).trim()) {
             errors.odo = 'Odo không được để trống';
         }
-    
+
         // Validate rentCost
         if (!formData.rentCost.trim()) {
             errors.rentCost = 'Giá thuê không được để trống';
         }
-    
+
         // Validate image
         if (!formData.image) {
             errors.image = 'Ảnh xe không được để trống';
         }
-    
+
         return errors;
     };
-    
+
 
     const handleSubmit = async () => {
         const errors = validateForm();
-        
+
         if (Object.keys(errors).length === 0) {
             // Không có lỗi, tiếp tục gửi dữ liệu
             const rentCostLong = formData.rentCost.replace(/\./g, '');
@@ -86,11 +86,12 @@ const CreateCar = () => {
             formDataToSend.append("name", formData.name);
             formDataToSend.append("numberPlate", formData.numberPlate);
             formDataToSend.append("odo", formData.odo);
-            formDataToSend.append("rentCost", rentCostLong);   
+            formDataToSend.append("rentCost", rentCostLong);
             formDataToSend.append("image", formData.image);
-    
+
             try {
                 const response = await createCar(localStorage.getItem("jwtToken"), formDataToSend);
+                onCreateSuccess();
                 console.log('Response from createCustomer API:', response);
             } catch (error) {
                 for (let i = 0; i < error.response.data.message.length; i++) {
@@ -105,16 +106,16 @@ const CreateCar = () => {
             });
         }
     };
-    
 
-    return (    
+
+    return (
         <>
             <button onClick={handleShow}>
-                    <i className="uil uil-plus"></i>
+                <i className="uil uil-plus"></i>
             </button>
 
             <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={{backgroundColor: 'gray'}}>
                     <Modal.Title>Tạo xe mới</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -176,10 +177,10 @@ const CreateCar = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Hủy
+                        <i className="uil uil-lock" style={{ fontSize: '24pt' }}></i>
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>
-                        Tạo
+                        <i className="uil uil-bookmark" style={{ fontSize: '24pt' }}></i>
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -13,6 +13,7 @@ const Car = () => {
     const [selectedCar, setSelectedCar] = useState(null);
     const [changeFlag, setChangeFlag] = useState(false);
     const [showCarDetailModal, setShowCarDetailModal] = useState(false);
+    const [createSuccess, setCreateSuccess] = useState(false);
 
 
 
@@ -20,9 +21,13 @@ const Car = () => {
         setShowCarDetailModal(false);
     };
 
+    const handleCreateSuccess = () => {
+        setCreateSuccess(!createSuccess); // Đảo ngược giá trị để trigger useEffect
+    };
+
     useEffect(() => {
         getAllCars();
-    }, [changeFlag]);
+    }, [changeFlag, createSuccess]);
 
     useEffect(() => {
         handleSearchChange();
@@ -94,7 +99,7 @@ const Car = () => {
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
-                <CreateCar />
+                <CreateCar onCreateSuccess={handleCreateSuccess}/>
             </div>
             <div className={styles.itemsCar}>
                 {listItems.map((car, index) => (

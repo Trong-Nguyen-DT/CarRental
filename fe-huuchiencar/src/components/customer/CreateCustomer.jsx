@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { createCustomer } from "../../services/UserService";
+import { createCustomer, getAllCustomer } from "../../services/UserService";
 import { toast } from "react-toastify";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-const CreateCustomer = () => {
+const CreateCustomer = ({onCreateSuccess}) => {
     const [formData, setFormData] = useState({
         name: "",
         phoneNumber: "",
@@ -92,25 +92,25 @@ const CreateCustomer = () => {
 
     const handleSubmit = async () => {
         if (!formData.name || !formData.phoneNumber || !formData.idCard ||
-            !formData.idCardFrontImage || !formData.idCardBackImage || 
+            !formData.idCardFrontImage || !formData.idCardBackImage ||
             !formData.driverLicenseFrontImage || !formData.driverLicenseBackImage) {
-                if (!formData.name) {
-                    toast.error("Tên không thể trống. Vui lòng nhập tên.");
-                }
-                if (!formData.phoneNumber) {
-                    toast.error("Số điện thoại không thể trống. Vui lòng nhập số điện thoại.");
-                }
-                if (!formData.idCard) {
-                    toast.error("Căn cước công dân không thể trống. Vui lòng nhập số căn cước công dân.");
-                }
-        
-                // Ensure images are uploaded
-                if (!formData.idCardFrontImage || !formData.idCardBackImage || !formData.driverLicenseFrontImage || !formData.driverLicenseBackImage) {
-                    toast.error("Vui lòng tải lên tất cả các ảnh cần thiết.");
-                }
+            if (!formData.name) {
+                toast.error("Tên không thể trống. Vui lòng nhập tên.");
+            }
+            if (!formData.phoneNumber) {
+                toast.error("Số điện thoại không thể trống. Vui lòng nhập số điện thoại.");
+            }
+            if (!formData.idCard) {
+                toast.error("Căn cước công dân không thể trống. Vui lòng nhập số căn cước công dân.");
+            }
+
+            // Ensure images are uploaded
+            if (!formData.idCardFrontImage || !formData.idCardBackImage || !formData.driverLicenseFrontImage || !formData.driverLicenseBackImage) {
+                toast.error("Vui lòng tải lên tất cả các ảnh cần thiết.");
+            }
             return;
         }
-        
+
         const formDataToSend = new FormData();
         formDataToSend.append("name", formData.name);
         formDataToSend.append("phone", formData.phoneNumber);
@@ -123,11 +123,14 @@ const CreateCustomer = () => {
         try {
             const response = await createCustomer(localStorage.getItem("jwtToken"), formDataToSend);
             console.log('Response from createCustomer API:', response);
+            handleClose();
+            onCreateSuccess();
         } catch (error) {
             for (let i = 0; i < error.response.data.message.length; i++) {
                 toast.error(error.response.data.message[i].defaultMessage + '. Please try again.');
             }
         }
+
     };
 
     const handleShowCreateModal = () => {
@@ -141,10 +144,10 @@ const CreateCustomer = () => {
     return (
         <>
             <button onClick={handleShowCreateModal}>
-                    <i className="uil uil-plus"></i>
+                <i className="uil uil-plus"></i>
             </button>
             <Modal show={show} onHide={handleClose} centered>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={{backgroundColor: 'gray'}}>
                     <Modal.Title>Tạo khách hàng mới</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -200,10 +203,10 @@ const CreateCustomer = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Đóng
+                    <i className="uil uil-lock" style={{ fontSize: '24pt' }}></i>
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>
-                        Tạo khách hàng
+                    <i className="uil uil-bookmark" style={{ fontSize: '24pt' }}></i>
                     </Button>
                 </Modal.Footer>
             </Modal>

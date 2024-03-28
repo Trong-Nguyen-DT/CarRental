@@ -141,6 +141,7 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                 toast.error(error.response.data.message[i].defaultMessage + '. Vui lòng nhập lại.');
             }
         }
+        handleClose();
         if (changeFlag) {
             setChangeFlag(false);
         } else {
@@ -282,11 +283,12 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                             <CarUpdate car={car}
                                 changeFlag={changeFlag}
                                 setChangeFlag={setChangeFlag}
+                                setSelectedCar={setSelectedCar}
                             />
                             <Button className={styles.btnDelete} onClick={handleShowDeleteModal}>
                                 <i className="uil uil-trash" style={{ fontSize: '24pt' }}></i>
                             </Button>
-                            <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} centered>
+                            <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}} centered>
                                 <Modal.Header closeButton>
                                     <Modal.Title>Xác nhận xóa</Modal.Title>
                                 </Modal.Header>
@@ -410,10 +412,10 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
             </Modal.Body >
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Đóng
+                <i className="uil uil-lock" style={{ fontSize: '24pt' }}></i>
                 </Button>
                 <Button variant="primary" onClick={handleSubmit}>
-                    Lưu
+                <i className="uil uil-bookmark" style={{ fontSize: '24pt' }}></i>
                 </Button>
             </Modal.Footer>
             {selectedStatus === "ACTIVE" ? (

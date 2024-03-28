@@ -1,12 +1,10 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { logout } from "../../services/AuthService";
 import React, { useEffect, useState } from 'react';
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const isAdmin = user.role === 'ROLE_ADMIN';
     const navigate = useNavigate();
     const location = useLocation();
     const [selectedNav, setSelectedNav] = useState('Dashboard');
@@ -15,11 +13,10 @@ const NavBar = () => {
         try {
             await logout();
             localStorage.removeItem("jwtToken");
-            localStorage.removeItem("user")
+            localStorage.removeItem("user");
             navigate("/login");
         } catch (error) {
-            console.error('Error logging out:', error);
-            // Xử lý lỗi nếu có
+            toast.error('Error logging out:', error);
         }
     };
 
@@ -28,8 +25,7 @@ const NavBar = () => {
     };
 
     useEffect(() => {
-        // Lấy path từ location và cập nhật selectedNav nếu path khác với selectedNav
-        const currentPath = location.pathname.split('/')[2]; // Tách path để lấy phần cần so sánh
+        const currentPath = location.pathname.split('/')[2];
         if (currentPath && currentPath !== selectedNav) {
             setSelectedNav(currentPath);
         }

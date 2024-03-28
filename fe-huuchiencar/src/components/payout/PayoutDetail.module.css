@@ -1,0 +1,22 @@
+.payout{
+    .content
+    {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+    }
+    color: black;
+    .content label{
+        width: 50%;
+        font-size:18pt;
+        font-weight: bolder;
+       
+    }
+    .content span{
+        margin-top: 5px;
+        font-size: 14pt;
+        font-weight: bold;
+        width: 50%;
+        font-style: italic;
+    }
+}
