@@ -26,7 +26,6 @@ const Header = () => {
         <>
             <div className={styles.top}></div>
             <header>
-                <ToastContainer />
                 <link
                     rel="stylesheet"
                     href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
@@ -44,6 +43,7 @@ const Header = () => {
                 </div>
 
             </header>
+            <ToastContainer />
         </>
     );
 }
