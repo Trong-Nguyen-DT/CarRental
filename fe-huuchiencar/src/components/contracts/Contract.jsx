@@ -13,19 +13,17 @@ const Contract = () => {
     const [contractSelected, setContractSelected] = useState(null);
     const [showContractDetail, setShowContractDetail] = useState(false);
     const [changeFlag, setChangeFlag] = useState(false);
+    const [createSuccess, setCreateSuccess] = useState(false);
 
     
 
     useEffect(() => {
-        handleContractChange(contractSelected);
-        if (!contractSelected) {
-            setShowContractDetail(false);
-        }
-    }, [contractSelected]);
-
-    useEffect(() => {
         getAllContracts();
-    }, [changeFlag]);
+    }, [changeFlag,createSuccess]);
+
+    const handleCreateSuccess = () => {
+        setCreateSuccess(!createSuccess); // Đảo ngược giá trị để trigger useEffect
+    };
 
     useEffect(() => {
         handleSearchChange();
@@ -35,9 +33,10 @@ const Contract = () => {
         if (searchText.trim() === "") {
             setListItems(originalList);
         } else {
-            const filteredCustomers = originalList.filter((car) =>
-                car.name.toLowerCase().includes(searchText.toLowerCase()) ||
-                car.numberPlate.toLowerCase().includes(searchText.toLowerCase())
+            const filteredCustomers = originalList.filter((contract) =>
+                contract.carName.toLowerCase().includes(searchText.toLowerCase()) ||
+                contract.carNumberPlate.toLowerCase().includes(searchText.toLowerCase()) ||
+                contract.customerName.toLowerCase().includes(searchText.toLowerCase())
             );
             setListItems(filteredCustomers);
         }
@@ -77,11 +76,11 @@ const Contract = () => {
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
-                <CreateContract />
+                <CreateContract onCreateSuccess={handleCreateSuccess} />
             </div>
             <div className={styles.itemsContract}>
                 {listItems.map((item, index) => (
-                    <div className={styles.itemContract} key={index} onClick={() => setContractSelected(item)}>
+                    <div className={styles.itemContract} key={index} onClick={() => handleContractChange(item)}>
                         <div className={styles.imageCar}>
                             <img src={item.carImage} alt="Logo" />
                         </div>
@@ -105,6 +104,7 @@ const Contract = () => {
                     <ContractDetail contract={contractSelected}
                             setChangeFlag={setChangeFlag}
                             changeFlag={changeFlag}
+                            setContractSelected={setContractSelected}
                     />
                 </Modal.Body>
                 

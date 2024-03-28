@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import styles from "./ContractDetail.module.css";
 import { updateContract } from "../../services/UserService";
 
-const ContractUpdate = ({contract, changeFlag, setChangeFlag}) => {
+const ContractUpdate = ({contract, changeFlag, setChangeFlag, setContractSelected}) => {
 
     const [showModal, setShowModal] = useState(false);
     const [startDate, setStartDate] = useState(contract.startDate);
@@ -35,6 +35,7 @@ const ContractUpdate = ({contract, changeFlag, setChangeFlag}) => {
         try {
             const response = await updateContract(localStorage.getItem("jwtToken"), body);
             console.log('Response from createCustomer API:', response);
+            setContractSelected(response.data);
         } catch (error) {
             for (let i = 0; i < error.response.data.message.length; i++) {
                 toast.error(error.response.data.message[i].defaultMessage + '. Vui lòng nhập lại.');

@@ -6,7 +6,7 @@ p {
     margin: 0; /* Loại bỏ khoảng cách trống giữa các dòng */
 }
 .image img{
-    width: 20%;
+    width: 10%;
 }
 .bottom{
     display: flex;
@@ -18,3 +18,7 @@ p {
 .button{
     margin-left: 75%;
 }
+.btnUpdate{
+    margin-right: 60%;
+}
+

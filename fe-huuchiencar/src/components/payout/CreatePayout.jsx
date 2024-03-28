@@ -63,12 +63,31 @@ const CreatePayout = ({ changeFlag, setChangeFlag }) => {
         }
     };
 
-    const handleSubmit = async () => {
+    function validateInfo(formData) {
+        const errors = [];
+    
         if (!carId) {
-            toast.error("Xe không được để trống");
+            errors.push("Xe không được để trống");
+        }
+    
+        if (!formData.price) {
+            errors.push("Số tiền không được để trống");
+        }
+    
+        if (!formData.nameService) {
+            errors.push("Tên dịch vụ không được để trống");
+        }
+    
+        return errors;
+    }
+
+    const handleSubmit = async () => {
+        const infoErrors = validateInfo(formData);
+        if (infoErrors.length > 0) {
+            infoErrors.forEach(error => toast.error(error));
             return;
         }
-
+        
         const body = {
             carId: carId,
             nameService: formData.nameService,

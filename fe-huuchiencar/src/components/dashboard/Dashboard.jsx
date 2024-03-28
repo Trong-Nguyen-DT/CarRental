@@ -178,15 +178,15 @@ const Dashboard = () => {
             <div className={styles.total}>
                 <div className={styles.revenue}>
                     <div className={styles.label}>
-                        <i className="uil uil-document-layout-left"></i>
-                        <span className="text">Tổng thu ... </span>
+                    <i className="uil uil-dollar-sign" style={{ fontSize: '15pt' }}></i>
+                        <span className="text">Tổng thu</span>
                     </div>
                     <span className="number">{revenueData.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                 </div>
                 <div className={styles.payout}>
                     <div className={styles.label}>
-                        <i className="uil uil-document-layout-left"></i>
-                        <span className="text">Tổng chi ... </span>
+                    <i className="uil uil-money-bill" style={{ fontSize: '15pt' }}></i>
+                        <span className="text">Tổng chi</span>
                     </div>
                     <span className="number">{payoutData.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                 </div>
@@ -195,7 +195,7 @@ const Dashboard = () => {
                 <Pie data={carRevenueData} />
             </div>
             <div className={styles.dash_content}>
-                <Table striped bordered hover>
+                <Table className={styles.table_content} striped bordered hover>
                     <thead>
                         <tr>
                             <th>STT</th>

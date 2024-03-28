@@ -13,6 +13,7 @@ function Customer() {
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [showCustomerDetailModal, setShowCustomerDetailModal] = useState(false);
     const [changeFlag, setChangeFlag] = useState(false);
+    const [createSuccess, setCreateSuccess] = useState(false);
 
     const handleCloseCustomerDetailModal = () => {
         setShowCustomerDetailModal(false);
@@ -21,7 +22,7 @@ function Customer() {
     
     useEffect(() => {
         getAllCustomers();
-    }, [changeFlag]);
+    }, [changeFlag, createSuccess]);
 
     useEffect(() => {
         handleSearchChange();
@@ -38,6 +39,11 @@ function Customer() {
             );
             setListItems(filteredCustomers);
         }
+    };
+
+    const handleCreateSuccess = () => {
+        setCreateSuccess(!createSuccess); // Đảo ngược giá trị để trigger useEffect
+        handleCloseCustomerDetailModal(); // Đóng modal khi tạo thành công
     };
 
     const getAllCustomers = async () => {
@@ -69,7 +75,7 @@ function Customer() {
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
-                <CreateCustomer />
+                 <CreateCustomer onCreateSuccess={handleCreateSuccess} /> 
             </div>
             <div className={styles.dash_content}>
                 <Table striped bordered hover>
@@ -97,6 +103,7 @@ function Customer() {
                             handleClose={handleCloseCustomerDetailModal}
                             changeFlag={setChangeFlag}
                             setChangeFlag={setChangeFlag}
+                            setSelectedCustomer={setSelectedCustomer}
                         />
             </Modal>
         </section>

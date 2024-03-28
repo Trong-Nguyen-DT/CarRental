@@ -1,46 +1,93 @@
 header {
     width: 100%;
     background-color:black;
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1;
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
 
- .bar {
-    color: aliceblue;
-    position: relative;
-    margin: auto 5%;
+.top {
+    height: 60px;
 }
 
-.bar i {
-    font-size: 24pt;
-}
-
-.logo {
-    width: 20%;
-    margin: 2% 0;
-}
-
-.logo img {
-    width: 100%;
-}
-/* Header.module.css */
-.showMenu {
-    position: absolute;
-    top: 100%; /* Hiển thị menu ở dưới header */
-    left: 0;
-    width: 100%; /* Menu chiếm toàn bộ chiều rộng */
-    z-index: 1000; /* Đảm bảo menu hiển thị trên các phần tử khác */
-    display: none; /* Mặc định ẩn menu */
-}
-
-.showMenu {
-    display: block; /* Hiển thị menu khi showMenu là true */
+header {
+    .bar {
+        color: aliceblue;
+        position: relative;
+        margin: auto 5%;
+    }
+    
+    .bar i {
+        font-size: 24pt;
+    }
+    
+    .logo {
+        width: 20%;
+        margin: 2% 0;
+    }
+    
+    .logo img {
+        width: 100%;
+    }
+    /* Header.module.css */
+    .showMenu {
+        position: absolute;
+        top: 100%; /* Hiển thị menu ở dưới header */
+        left: 0;
+        width: 100%; /* Menu chiếm toàn bộ chiều rộng */
+        z-index: 1000; /* Đảm bảo menu hiển thị trên các phần tử khác */
+        display: none; /* Mặc định ẩn menu */
+    }
+    
+    .showMenu {
+        display: block; /* Hiển thị menu khi showMenu là true */
+    }
+    
+    .dash_content table{
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+    
+    .dash_content table th,
+    .dash_content table td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    
+    .dash_content table th {
+        background-color: #5b5858;
+        text-align: center;
+        color: #fff;
+    }
+      
+    .dash_content table th:first-child,
+    .dash_content table td:first-child {
+        text-align: center;
+        width: 10%;
+    }
+    
+    .dash_content table td:nth-child(2) {
+        text-align: left;
+        width: 50%;
+    }
+    
+    .dash_content table td:nth-child(3) {
+        text-align: right;
+        width: 30%;
+    }
+    
+    .dash_content table th:nth-child(4),
+    .dash_content table td:nth-child(4) {
+        text-align: center;
+        width: 10%;
+    }
 }
 
 

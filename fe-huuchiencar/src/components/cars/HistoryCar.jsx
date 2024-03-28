@@ -42,7 +42,7 @@ const HistoryCar = ({ car }) => {
             <button onClick={showModalHistoryByCar}>
                 <i className="uil uil-history" style={{ fontSize: '24pt' }}></i>
             </button>
-            <Modal show={showModalHistory} onHide={handleCloseOrderModal} centered>
+            <Modal className={styles.modalHistory} show={showModalHistory} onHide={handleCloseOrderModal} centered style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -65,7 +65,7 @@ const HistoryCar = ({ car }) => {
                 </Table>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseOrderModal}>
-                        Đóng
+                    <i className="uil uil-lock" style={{ fontSize: '24pt' }}></i>
                     </Button>
                 </Modal.Footer>
             </Modal>

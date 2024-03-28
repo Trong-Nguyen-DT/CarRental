@@ -17,38 +17,41 @@ const HistoryDetail = ({ history, handleClose }) => {
                 <Modal.Title style={{ fontSize: '20pt', color: 'white' }}>Thông tin đơn hàng</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className={styles.content}>
-                    <label>Xe: </label>
-                    <span>{history.carName}</span>
+                <div className={styles.history}>
+                    <div className={styles.content}>
+                        <label>Xe: </label>
+                        <span>{history.carName}</span>
+                    </div>
+                    <div className={styles.content}>
+                        <label>Khách hàng: </label>
+                        <span>{history.customerName}</span>
+                    </div>
+                    <div className={styles.content}>
+                        <label>Nhân viên: </label>
+                        <span>{history.userName}</span>
+                    </div>
+                    <div className={styles.content}>
+                        <label>Ngày thanh toán: </label>
+                        <span>{formatDate(history.dateTime)}</span>
+                    </div>
+                    <div className={styles.content}>
+                        <label>Chi phí xe: </label>
+                        <span>{history.carCost.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                    </div>
+                    <div className={styles.content}>
+                        <label>Chi phí phụ: </label>
+                        <span>{history.surcharge.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                    </div>
+                    <div className={styles.content}>
+                        <label>Tổng tiền: </label>
+                        <span>{history.totalRevenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                    </div>
                 </div>
-                <div className={styles.content}>
-                    <label>Khách hàng: </label>
-                    <span>{history.customerName}</span>
-                </div>
-                <div className={styles.content}>
-                    <label>Nhân viên: </label>
-                    <span>{history.userName}</span>
-                </div>
-                <div className={styles.content}>
-                    <label>Ngày thanh toán: </label>
-                    <span>{formatDate(history.dateTime)}</span>
-                </div>
-                <div className={styles.content}>
-                    <label>Chi phí xe: </label>
-                    <span>{history.carCost.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
-                </div>
-                <div className={styles.content}>
-                    <label>Chi phí phụ: </label>
-                    <span>{history.surcharge.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
-                </div>
-                <div className={styles.content}>
-                    <label>Tổng tiền: </label>
-                    <span>{history.totalRevenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
-                </div>
+
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Đóng
+                <i className="uil uil-lock" style={{ fontSize: '24pt' }}></i>
                 </Button>
             </Modal.Footer>
         </>
