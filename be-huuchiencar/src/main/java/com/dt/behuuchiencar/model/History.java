@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +19,5 @@ public class History {
     private Long surcharge;
     private Long carCost;
     private Long totalRevenue;
-    private LocalDate dateTime;
+    private LocalDateTime dateTime;
 }

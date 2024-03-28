@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +13,5 @@ public interface ContractRepository extends JpaRepository<ContractEntity, Long>{
 
     List<ContractEntity> findAllByOrderBySignDateDesc();
 
-    List<ContractEntity> findBySignDateBetween(LocalDate startDate, LocalDate endDate);
+    List<ContractEntity> findBySignDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 }

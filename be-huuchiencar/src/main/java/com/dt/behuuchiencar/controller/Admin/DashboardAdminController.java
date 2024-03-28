@@ -1,6 +1,9 @@
 package com.dt.behuuchiencar.controller.Admin;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +29,14 @@ public class DashboardAdminController {
 
     @GetMapping()
     public ResponseEntity<?> getInfoDashboard(@RequestParam(required = false) Integer year,
-                                               @RequestParam(required = false) Integer month,
-                                               @RequestParam(required = false) Integer day) {
-        LocalDate startDate;
-        LocalDate endDate;
+                                                @RequestParam(required = false) Integer month,
+                                                @RequestParam(required = false) Integer day) {
+        LocalDateTime startDate;
+        LocalDateTime endDate;
         if (year == null && month == null && day == null) {
-            LocalDate now = LocalDate.now();
-            startDate = LocalDate.of(now.getYear(), now.getMonth(), 1);
-            endDate = now.withDayOfMonth(now.getMonth().length(now.isLeapYear()));
+            LocalDateTime now = LocalDateTime.now();
+            startDate = now.withDayOfMonth(1).with(LocalTime.MIN);
+            endDate = now.with(TemporalAdjusters.lastDayOfMonth()).with(LocalTime.MAX);
         } else {
             if (year == null) {
                 year = LocalDate.now().getYear();
@@ -43,15 +46,16 @@ public class DashboardAdminController {
                     throw new MessageException("Month parameter is required if day parameter is provided",
                             ErrorConstants.INVALID_DATA_CODE);
                 }
-                startDate = LocalDate.of(year, 1, 1);
-                endDate = LocalDate.of(year, 12, 31);
+                startDate = LocalDateTime.of(year, 1, 1, 0, 0);
+                endDate = LocalDateTime.of(year, 12, 31, 23, 59, 59, 999999999);
             } else {
                 if (day == null) {
-                    startDate = LocalDate.of(year, month, 1);
-                    endDate = startDate.plusMonths(1).minusDays(1);
+                    startDate = LocalDateTime.of(year, month, 1, 0, 0);
+                    endDate = LocalDateTime.of(year, month, 1, 23, 59, 59, 999999999)
+                            .with(TemporalAdjusters.lastDayOfMonth());
                 } else {
-                    startDate = LocalDate.of(year, month, day);
-                    endDate = startDate;
+                    startDate = LocalDateTime.of(year, month, day, 0, 0);
+                    endDate = LocalDateTime.of(year, month, day, 23, 59, 59, 999999999);
                 }
             }
         }

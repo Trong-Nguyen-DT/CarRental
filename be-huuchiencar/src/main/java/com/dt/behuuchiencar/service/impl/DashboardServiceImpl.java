@@ -1,6 +1,7 @@
 package com.dt.behuuchiencar.service.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +36,7 @@ public class DashboardServiceImpl implements DashboardService {
     private PayOutRepository payOutRepository;
 
     @Override
-    public DashboardResponse getInfoDashboard(LocalDate startDate, LocalDate endDate) {
+    public DashboardResponse getInfoDashboard(LocalDateTime startDate, LocalDateTime endDate) {
         DashboardResponse response = new DashboardResponse();
         List<HistoryEntity> historyEntities = historyRepository.findByDateTimeBetweenOrderByDateTimeDesc(startDate, endDate);
         List<PayOutEntity> payOutEntities = payOutRepository.findByPayDateBetweenOrderByPayDateDesc(startDate, endDate);

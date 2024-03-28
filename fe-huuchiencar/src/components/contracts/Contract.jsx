@@ -22,7 +22,7 @@ const Contract = () => {
     }, [changeFlag,createSuccess]);
 
     const handleCreateSuccess = () => {
-        setCreateSuccess(!createSuccess); // Đảo ngược giá trị để trigger useEffect
+        setCreateSuccess(!createSuccess);
     };
 
     useEffect(() => {

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dt.behuuchiencar.constant.ErrorConstants;
 import com.dt.behuuchiencar.constant.SuccessConstants;
 import com.dt.behuuchiencar.exception.MessageException;
-import com.dt.behuuchiencar.model.Customer;
 import com.dt.behuuchiencar.model.request.CustomerInput;
 import com.dt.behuuchiencar.model.response.Response;
 import com.dt.behuuchiencar.model.response.ResponseBody;
@@ -25,13 +24,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 

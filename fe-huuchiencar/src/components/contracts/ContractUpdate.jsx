@@ -27,6 +27,12 @@ const ContractUpdate = ({contract, changeFlag, setChangeFlag, setContractSelecte
     };
 
     const handleSubmit = async () => {
+
+        console.log('Submit', startDate)
+        if (startDate === '') {
+            toast.error("Ngày bắt đầu không được trống");
+            return;
+        }
         const body = {
             id : contract.id,
            startDate : startDate,
@@ -34,8 +40,8 @@ const ContractUpdate = ({contract, changeFlag, setChangeFlag, setContractSelecte
         }
         try {
             const response = await updateContract(localStorage.getItem("jwtToken"), body);
-            console.log('Response from createCustomer API:', response);
             setContractSelected(response.data);
+            toast.success('Cập nhật thành công');
         } catch (error) {
             for (let i = 0; i < error.response.data.message.length; i++) {
                 toast.error(error.response.data.message[i].defaultMessage + '. Vui lòng nhập lại.');
@@ -63,12 +69,12 @@ const ContractUpdate = ({contract, changeFlag, setChangeFlag, setContractSelecte
                     <Form>
                         <Form.Group controlId="startDate">
                             <Form.Label>Ngày thuê</Form.Label>
-                            <Form.Control type="date" name="startDate" placeholder="Nhập tên xe" value={startDate} onChange={handleStartDateChange} />
+                            <Form.Control type="datetime-local" name="startDate" value={startDate} onChange={handleStartDateChange} />
                         </Form.Group>
 
                         <Form.Group controlId="endDate">
                             <Form.Label>Ngày trả xe</Form.Label>
-                            <Form.Control type="date" name="endDate" placeholder="Nhập biển số" value={endDate} onChange={handleEndDateChange} />
+                            <Form.Control type="datetime-local" name="endDate" value={endDate} onChange={handleEndDateChange} />
                         </Form.Group>
 
                     </Form>

@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +26,7 @@ public class PayOutEntity {
 
     private String nameService;
 
-    private LocalDate payDate;
+    private LocalDateTime payDate;
 
     private Long totalPay;
 }

@@ -11,17 +11,23 @@ const ContractDetail = ({ contract, setChangeFlag, changeFlag, setContractSelect
     const dayStart = startDate.getDate();
     const monthStart = startDate.getMonth() + 1;
     const yearStart = startDate.getFullYear();
+    const hoursStart = startDate.getHours();
+    const minutesStart = startDate.getMinutes();
 
-    let dayEnd, monthEnd, yearEnd;
+    let dayEnd, monthEnd, yearEnd, hoursEnd, minutesEnd;
     if (contract.endDate) {
         const endDate = new Date(contract.endDate);
         dayEnd = endDate.getDate();
         monthEnd = endDate.getMonth() + 1;
         yearEnd = endDate.getFullYear();
+        hoursEnd = endDate.getHours();
+        minutesEnd = endDate.getMinutes();
     } else {
         dayEnd = null;
         monthEnd = null;
         yearEnd = null;
+        hoursEnd = null;
+        minutesEnd = null;
     }
 
     return (
@@ -64,7 +70,7 @@ const ContractDetail = ({ contract, setChangeFlag, changeFlag, setContractSelect
                                 <p style={{ fontSize: '12px', fontFamily: 'Arial' }}>2.1.Đơn giá thuê:............... đồng/ ngày </p>
                                 <p style={{ fontSize: '12px', fontFamily: 'Arial' }}>Các khoảng chi như: Phí cầu đường, tiền đầu bên thuê xe tự chi trả</p>
                                 <p style={{ fontSize: '12px', fontFamily: 'Arial' }}>2.2.Thời gian thuê:........... ngày.</p>
-                                <p style={{ fontSize: '12px', fontFamily: 'Arial' }}>(Từ ngày {dayStart} tháng {monthStart} năm {yearStart}. Đến ngày {dayEnd || '...'} tháng {monthEnd || '...'} năm {yearEnd || '...'}</p>
+                                <p style={{ fontSize: '12px', fontFamily: 'Arial' }}>(Từ {hoursStart} giờ {minutesStart} phút, ngày {dayStart} tháng {monthStart} năm {yearStart}. Đến {hoursEnd || '...'} giờ {minutesEnd || '...'} phút, ngày {dayEnd || '...'} tháng {monthEnd || '...'} năm {yearEnd || '...'}</p>
                                 <p style={{ fontSize: '12px', fontFamily: 'Arial' }}>2.3.Hình thức thanh toán:Bên B thanh toán cho bên A: ............. đồng sau khi hợp đồng được ký. Số còn lại ............. đồng cùng với các chi phí phát sinh bên B có trách nhiệm thanh toán cho bên A ngay sau khi sử dụng dịch vụ.</p>
                                 <p style={{ fontSize: '12px', fontFamily: 'Arial' }}>2.4.Đi theo lộ trình: ...................</p>
                                 <p style={{ fontSize: '12px', fontFamily: 'Arial' }}>Khống chế: 250km/ngày</p>

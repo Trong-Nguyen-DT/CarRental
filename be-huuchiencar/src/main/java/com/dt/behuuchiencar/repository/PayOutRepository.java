@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +12,5 @@ import com.dt.behuuchiencar.entity.PayOutEntity;
 public interface PayOutRepository extends JpaRepository<PayOutEntity, Long>{
     List<PayOutEntity> findByOrderByPayDateDesc();
 
-    List<PayOutEntity> findByPayDateBetweenOrderByPayDateDesc(LocalDate startDate, LocalDate endDate);
+    List<PayOutEntity> findByPayDateBetweenOrderByPayDateDesc(LocalDateTime startDate, LocalDateTime endDate);
 }

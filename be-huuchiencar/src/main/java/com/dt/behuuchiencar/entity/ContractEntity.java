@@ -1,6 +1,7 @@
 package com.dt.behuuchiencar.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,9 +49,9 @@ public class ContractEntity {
 
     private String carImage;
 
-    private LocalDate startDate;    
+    private LocalDateTime startDate;    
 
-    private LocalDate endDate;
+    private LocalDateTime endDate;
     
     private String signatureImageCustomer;
 

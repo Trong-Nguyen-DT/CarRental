@@ -1,6 +1,7 @@
 package com.dt.behuuchiencar.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +11,8 @@ import lombok.Setter;
 public class Contract {
     private Long id;
     private LocalDate signDate;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private Long customerId;
     private String customerName;
     private String customerPhone;

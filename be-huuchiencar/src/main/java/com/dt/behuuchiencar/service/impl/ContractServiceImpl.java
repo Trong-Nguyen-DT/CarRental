@@ -1,6 +1,5 @@
 package com.dt.behuuchiencar.service.impl;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +64,7 @@ public class ContractServiceImpl implements ContractService{
     @Override
     public Contract createContract(ContractInput input) {
         ContractEntity entity = new ContractEntity();
-        entity.setSignDate(input.getStartDate());
+        entity.setSignDate(input.getStartDate().toLocalDate());
         CustomerEntity customer = getCustomerById(input.getCustomerId());
         entity.setCustomerId(customer.getId());
         entity.setCustomerName(customer.getName());

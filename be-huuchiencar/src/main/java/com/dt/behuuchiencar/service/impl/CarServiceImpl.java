@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.service.impl;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -230,7 +230,7 @@ public class CarServiceImpl implements CarService {
             entity.setSurcharge(info.getSurcharge());
         }
         entity.setTotalRevenue(info.getCarCost() + info.getSurcharge());
-        entity.setDateTime(LocalDate.now());
+        entity.setDateTime(LocalDateTime.now());
         historyRepository.save(entity);
     }
 

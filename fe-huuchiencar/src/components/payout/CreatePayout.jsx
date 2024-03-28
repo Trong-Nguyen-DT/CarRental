@@ -150,7 +150,7 @@ const CreatePayout = ({ changeFlag, setChangeFlag }) => {
                         </Form.Group>
                         <Form.Group controlId="date">
                             <Form.Label>Ngày sử dụng </Form.Label>
-                            <Form.Control type="date" name="date" placeholder="Ngày sử dụng"
+                            <Form.Control type="datetime-local" name="date" placeholder="Ngày sử dụng"
                                 value={formData.date}
                                 onChange={handleChange} />
                         </Form.Group>

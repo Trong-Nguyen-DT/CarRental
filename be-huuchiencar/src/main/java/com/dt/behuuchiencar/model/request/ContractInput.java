@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.model.request;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,9 +19,9 @@ public class ContractInput {
     private Long carId;
 
     @NotNull(message = "Không có ngày bắt đầu thuê xe")     
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 
     private MultipartFile signatureImageCustomer;
 }

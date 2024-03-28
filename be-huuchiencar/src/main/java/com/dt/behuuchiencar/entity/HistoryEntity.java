@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,6 +40,6 @@ public class HistoryEntity {
 
     private Long totalRevenue;
 
-    private LocalDate dateTime;
+    private LocalDateTime dateTime;
     
 }

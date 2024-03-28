@@ -78,7 +78,10 @@ const CreateCar = ({onCreateSuccess}) => {
 
     const handleSubmit = async () => {
         const errors = validateForm();
-
+        if (errors.length > 0) {
+            errors.forEach(error => toast.error(error));
+            return;
+        }
         if (Object.keys(errors).length === 0) {
             // Không có lỗi, tiếp tục gửi dữ liệu
             const rentCostLong = formData.rentCost.replace(/\./g, '');

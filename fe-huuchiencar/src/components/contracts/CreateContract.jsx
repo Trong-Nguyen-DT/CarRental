@@ -24,8 +24,6 @@ function CreateContract({onCreateSuccess}) {
         showSignatureImageCustomer: null
     });
 
-    const [formDataImage, setFormDataImage] = useState(new FormData());
-
 
 
     useEffect(() => {
@@ -76,17 +74,35 @@ function CreateContract({onCreateSuccess}) {
             }
         }
     };
+    function validateInfo(formData) {
+        const errors = [];
+
+        if (!formData.carId) {
+            errors.push("Xe không được để trống");
+        }
+
+        if (!formData.customerId) {
+            errors.push("Khách không được để trống");
+        }
+
+        if (!formData.startDate) {
+            errors.push("Ngày bắt đầu không được để trống");
+        }
+
+        if (!formData.signatureImageCustomer) {
+                errors.push("Hãy lưu chữ kí khách hàng");
+        }
+
+        return errors;
+    }
+
+
     const handleCustomerChange = (selectedCustomerOption) => {
         if (selectedCustomerOption) {
-            // Truy cập giá trị của lựa chọn được chọn
             const selectedCustomerId = selectedCustomerOption.value;
-            // Tiếp tục xử lý dựa trên selectedCustomerId
             const selectedCustomerInfo = customers.find(customer => customer.id === selectedCustomerId);
-            // Cập nhật giá trị của state selectedCustomer
             setSelectedCustomer(selectedCustomerInfo);
-            // Kiểm tra xem selectedCustomerInfo có tồn tại không trước khi cập nhật formData
             if (selectedCustomerInfo) {
-                // Cập nhật giá trị số điện thoại trong state formData nếu selectedCustomerInfo tồn tại
                 setFormData({
                     ...formData,
                     customerId: selectedCustomerInfo.id,
@@ -95,7 +111,6 @@ function CreateContract({onCreateSuccess}) {
                     customerCitizenId: selectedCustomerInfo.citizenId || '',
                 });
             } else {
-                // Nếu không có khách hàng nào được chọn, đặt giá trị phone trong formData thành ''
                 setFormData({
                     ...formData,
                     phone: '',
@@ -122,6 +137,12 @@ function CreateContract({onCreateSuccess}) {
     }
 
     const handleSubmit = async () => {
+        const infoErrors = validateInfo(formData);
+        if (infoErrors.length > 0) {
+            infoErrors.forEach(error => toast.error(error));
+            return;
+        }
+
         const formDataToSend = new FormData();
         formDataToSend.append("carId", formData.carId);
         formDataToSend.append("customerId", formData.customerId);
@@ -207,12 +228,12 @@ function CreateContract({onCreateSuccess}) {
 
                         <Form.Group controlId="startDate">
                             <Form.Label>Ngày nhận xe</Form.Label>
-                            <Form.Control type="date" name="startDate" placeholder="Nhập ngày nhận xe" onChange={handleInputChange} />
+                            <Form.Control type="datetime-local" name="startDate" placeholder="Nhập ngày nhận xe" onChange={handleInputChange} />
                         </Form.Group>
 
                         <Form.Group controlId="endDate">
                             <Form.Label>Ngày trả xe</Form.Label>
-                            <Form.Control type="date" name="endDate" placeholder="Nhập ngày trả xe" onChange={handleInputChange} />
+                            <Form.Control type="datetime-local" name="endDate" placeholder="Nhập ngày trả xe" onChange={handleInputChange} />
                         </Form.Group>
 
                         <Form.Group controlId="signatureImageCustomer">

@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.service.impl;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class PayOutServiceImpl implements PayOutService{
         if (input.getDate() != null) {
             entity.setPayDate(input.getDate());
         } else {
-            entity.setPayDate(LocalDate.now());
+            entity.setPayDate(LocalDateTime.now());
         }
         return PayOutConvertor.toModel(payOutRepository.save(entity));
     }

@@ -31,7 +31,31 @@ const CarUpdate = ({car , changeFlag, setChangeFlag, setSelectedCar}) => {
         setRentCost(e.target.value);
     };
 
+    const validateForm = () => {
+        const errors = {};
+
+        if (name === '' || name === undefined) {
+            errors.name = 'Tên xe không được để trống';
+        }
+
+        // Validate numberPlate
+        if (numberPlate === '' || numberPlate === undefined) {
+            errors.numberPlate = 'Biển số xe không được để trống';
+        }
+
+        if (rentCost === '' || numberPlate === undefined) {
+            errors.rentCost = 'Giá xe không được để trống';
+        }
+
+        return errors;
+    };
+
     const handleSubmit = async () => {
+        const infoErrors = validateForm();
+        if (Object.keys(infoErrors).length > 0) {
+            Object.values(infoErrors).forEach(error => toast.error(error));
+            return;
+        }
         const body = {
             id : car.id,
             name : name,
@@ -40,8 +64,8 @@ const CarUpdate = ({car , changeFlag, setChangeFlag, setSelectedCar}) => {
         }
         try {
             const response = await updateCar(localStorage.getItem("jwtToken"), body);
-            console.log('Response from createCustomer API:', response);
             setSelectedCar(response.data);
+            toast.success("Cập nhật thành công");
         } catch (error) {
             for (let i = 0; i < error.response.data.message.length; i++) {
                 toast.error(error.response.data.message[i].defaultMessage + '. Vui lòng nhập lại.');
@@ -78,7 +102,7 @@ const CarUpdate = ({car , changeFlag, setChangeFlag, setSelectedCar}) => {
 
                         <Form.Group controlId="rentCost">
                             <Form.Label>Gía xe</Form.Label>
-                            <Form.Control type="text" name="phone" placeholder="Nhập giá xe" value={rentCost} onChange={handleRentCostChange} />
+                            <Form.Control type="number" name="phone" placeholder="Nhập giá xe" value={rentCost} onChange={handleRentCostChange} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>

@@ -1,11 +1,11 @@
 package com.dt.behuuchiencar.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.dt.behuuchiencar.model.response.DashboardResponse;
 
 public interface DashboardService {
 
-    DashboardResponse getInfoDashboard(LocalDate startDate, LocalDate endDate);
+    DashboardResponse getInfoDashboard(LocalDateTime startDate, LocalDateTime endDate);
     
 }

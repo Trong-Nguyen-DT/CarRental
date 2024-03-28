@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,8 +10,7 @@ import com.dt.behuuchiencar.entity.HistoryEntity;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<HistoryEntity, Long>{
-
-    List<HistoryEntity> findByDateTimeBetweenOrderByDateTimeDesc(LocalDate startDate, LocalDate endDate);
+    List<HistoryEntity> findByDateTimeBetweenOrderByDateTimeDesc(LocalDateTime startDate, LocalDateTime endDate);
 
     List<HistoryEntity> findByOrderByDateTimeDesc();
 

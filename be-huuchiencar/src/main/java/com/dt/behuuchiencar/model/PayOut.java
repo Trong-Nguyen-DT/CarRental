@@ -1,6 +1,6 @@
 package com.dt.behuuchiencar.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +12,6 @@ public class PayOut {
     private Long carId;
     private String carName;
     private String nameService;
-    private LocalDate payDate;
+    private LocalDateTime payDate;
     private Long totalPay;
 }
