@@ -14,6 +14,11 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
     const [selectedStatus, setSelectedStatus] = useState(car.status);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [customerId, setCustomerId] = useState(null);
+    const user = localStorage.getItem("user");
+    let role = 'ROLE_USER';
+    if (user) {
+        role = user.role;
+    }
 
 
     useEffect(() => {
@@ -255,7 +260,7 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
             }
         }
         if (changeFlag) {
-            setChangeFlag(false);   
+            setChangeFlag(false);
         } else {
             setChangeFlag(true);
         }
@@ -282,14 +287,18 @@ const CarDetail = ({ car, handleClose, setChangeFlag, changeFlag, setSelectedCar
                         </div>
 
                         <div className={styles.buttonUpdate_Delete}>
-                            <CarUpdate car={car}
-                                changeFlag={changeFlag}
-                                setChangeFlag={setChangeFlag}
-                                setSelectedCar={setSelectedCar}
-                            />
-                            <Button className={styles.btnDelete} onClick={handleShowDeleteModal}>
-                                <i className="uil uil-trash" style={{ fontSize: '24pt' }}></i>
-                            </Button>
+                            {role === 'ROLE_ADMIN' && (
+                                <CarUpdate car={car}
+                                    changeFlag={changeFlag}
+                                    setChangeFlag={setChangeFlag}
+                                    setSelectedCar={setSelectedCar}
+                                />
+                            )}
+                            {role === 'ROLE_ADMIN' && (
+                                <Button className={styles.btnDelete} onClick={handleShowDeleteModal}>
+                                    <i className="uil uil-trash" style={{ fontSize: '24pt' }}></i>
+                                </Button>
+                            )}
                             <Modal show={showDeleteModal} onHide={handleCloseDeleteModal} style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }} centered>
                                 <Modal.Header closeButton>
                                     <Modal.Title>Xác nhận xóa</Modal.Title>

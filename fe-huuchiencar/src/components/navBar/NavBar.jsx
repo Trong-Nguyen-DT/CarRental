@@ -8,6 +8,11 @@ const NavBar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [selectedNav, setSelectedNav] = useState('Dashboard');
+    const user = localStorage.getItem("user");
+    let role = 'ROLE_USER';
+    if (user) {
+        role = user.role;
+    }
 
     const handleLogout = async () => {
         try {
@@ -42,12 +47,14 @@ const NavBar = () => {
                 <div className={styles.menu_items}>
                     <ul className={styles.menu_links}>
                         <div>
-                            <li className={styles.menu_li}>
-                                <Link to="/" onClick={() => handleNavClick('Dashboard')}>
-                                    <i class="uil uil-tachometer-fast-alt"></i>
-                                    <span className={styles.link_name}>Doanh thu</span>
-                                </Link>
-                            </li>
+                            {role === 'ROLE_ADMIN' && (
+                                <li className={styles.menu_li}>
+                                    <Link to="/" onClick={() => handleNavClick('Dashboard')}>
+                                        <i class="uil uil-tachometer-fast-alt"></i>
+                                        <span className={styles.link_name}>Doanh thu</span>
+                                    </Link>
+                                </li>
+                            )}
 
                             <li className={styles.menu_li}>
                                 <Link to="/cars" onClick={() => handleNavClick('Cars')}>
@@ -57,44 +64,44 @@ const NavBar = () => {
                             </li>
 
                             <li className={styles.menu_li}>
-                            <Link Link to="/customers" onClick={() => handleNavClick('Customers')}>
-                                <i className="uil uil-user"></i>
-                                <span className="styles.link_name">Khách hàng</span>
-                            </Link>
-                        </li>
+                                <Link Link to="/customers" onClick={() => handleNavClick('Customers')}>
+                                    <i className="uil uil-user"></i>
+                                    <span className="styles.link_name">Khách hàng</span>
+                                </Link>
+                            </li>
 
-                        <li className={styles.menu_li}>
-                            <Link to="/contracts" onClick={() => handleNavClick('Contracts')}>
-                                <i className="uil uil-notes"></i>
-                                <span className="styles.link_name">Hợp đồng</span>
-                            </Link>
-                        </li>
+                            <li className={styles.menu_li}>
+                                <Link to="/contracts" onClick={() => handleNavClick('Contracts')}>
+                                    <i className="uil uil-notes"></i>
+                                    <span className="styles.link_name">Hợp đồng</span>
+                                </Link>
+                            </li>
 
-                        <li className={styles.menu_li}>
-                            <Link to="/histories" onClick={() => handleNavClick('Histories')}>
-                                <i className="uil uil-clock"></i>
-                                <span className="styles.link_name">Lịch sử</span>
-                            </Link>
-                        </li>
+                            <li className={styles.menu_li}>
+                                <Link to="/histories" onClick={() => handleNavClick('Histories')}>
+                                    <i className="uil uil-clock"></i>
+                                    <span className="styles.link_name">Lịch sử</span>
+                                </Link>
+                            </li>
 
-                        <li className={styles.menu_li}>
-                            <Link to="/payouts" onClick={() => handleNavClick('PayOuts')}>
-                                <i className="uil uil-money-bill"></i>
-                                <span className="styles.link_name">Chi phí</span>
-                            </Link>
-                        </li>
+                            <li className={styles.menu_li}>
+                                <Link to="/payouts" onClick={() => handleNavClick('PayOuts')}>
+                                    <i className="uil uil-money-bill"></i>
+                                    <span className="styles.link_name">Chi phí</span>
+                                </Link>
+                            </li>
 
+                        </div>
+                    </ul>
+                    <ul className={styles.logout}>
+                        <li>
+                            <a onClick={handleLogout}>
+                                <i className="uil uil-signout"></i>
+                                <span className={styles.link_name}>Đăng Xuất</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </ul>
-            <ul className={styles.logout}>
-                <li>
-                    <a onClick={handleLogout}>
-                        <i className="uil uil-signout"></i>
-                        <span className={styles.link_name}>Đăng Xuất</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
             </nav >
         </div >
     );

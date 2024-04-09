@@ -15,6 +15,12 @@ const Car = () => {
     const [showCarDetailModal, setShowCarDetailModal] = useState(false);
     const [createSuccess, setCreateSuccess] = useState(false);
 
+    const user = localStorage.getItem("user");
+    let role = 'ROLE_USER';
+    if (user) {
+        role = user.role;
+    }
+
 
 
     const handleCloseCarDetailModal = () => {
@@ -99,7 +105,7 @@ const Car = () => {
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                 </div>
-                <CreateCar onCreateSuccess={handleCreateSuccess}/>
+                {role === 'ROLE_ADMIN' && <CreateCar handleCreateSuccess={handleCreateSuccess} />}
             </div>
             <div className={styles.itemsCar}>
                 {listItems.map((car, index) => (

@@ -13,6 +13,12 @@ const ContractDetail = ({ contract, setChangeFlag, changeFlag, setContractSelect
     const yearStart = startDate.getFullYear();
     const hoursStart = startDate.getHours();
     const minutesStart = startDate.getMinutes();
+    const user = localStorage.getItem("user");
+    let role = 'ROLE_USER';
+    if (user) {
+        role = user.role;
+    }
+
 
     let dayEnd, monthEnd, yearEnd, hoursEnd, minutesEnd;
     if (contract.endDate) {
@@ -106,7 +112,7 @@ const ContractDetail = ({ contract, setChangeFlag, changeFlag, setContractSelect
                                 <div className={styles.image} style={{ width: '50%' }}>
                                     <h4 style={{ fontSize: '12px', fontFamily: 'Arial' }}>ĐẠI DIỆN BÊN B</h4>
                                     <img src={contract.signatureImageCustomer} alt="" style={{ width: '100%' }} />
-                                    <h5 style={{textAlign:'center', marginTop: '10px' }}>{contract.customerName}</h5>
+                                    <h5 style={{ textAlign: 'center', marginTop: '10px' }}>{contract.customerName}</h5>
                                 </div>
                             </div>
                         </div>
@@ -114,14 +120,14 @@ const ContractDetail = ({ contract, setChangeFlag, changeFlag, setContractSelect
 
                 </div>
             </div>
-            {contract && (
-                <ContractUpdate contract={contract}
+            {contract && role === 'ROLE_ADMIN' && (
+                <ContractUpdate
+                    contract={contract}
                     changeFlag={changeFlag}
                     setChangeFlag={setChangeFlag}
                     setContractSelected={setContractSelected}
                 />
-            )
-            }
+            )}
 
             <ReactToPrint
                 trigger={() => <button>Xuất PDF</button>}
